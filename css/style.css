@@ -1,0 +1,1002 @@
+/*configuración general*/
+
+*{
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+
+/*google font*/
+
+@import url('https://fonts.googleapis.com/css2?family=Bowlby+One+SC&family=Rammetto+One&display=swap');
+ 
+/*estilos al body para backgroud*/
+
+body {
+   
+   background-image: 
+   url(../img/background_ppal_grisss.jpg);
+   background-attachment: fixed;
+   background-size: cover;
+    
+     }
+/*header*/
+
+ .cont_logo_hardy_list {
+   
+   width: 100%;
+   margin-top: 30px;
+   display: grid;
+   grid-template-columns: 1fr 1.7fr 1fr;
+   grid-template-rows: 1fr;
+   grid-template-areas: 
+    "logo nombre lista";}
+    
+ .principal_logo {
+ 
+   display: flex;
+   justify-content: start;
+   margin-left: 35px;
+   
+   }
+
+ .principal_titulo {
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+      
+   }
+
+ .menu {
+
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   margin-left: 120px;
+   
+   }
+
+ .logo1 {
+   
+   grid-area: logo;
+   height: 180px;
+   
+   } 
+
+ .titulo {
+    
+   grid-area: nombre;
+   font-family: "Bowlby One SC", sans-serif;
+   font-size: 100px;
+   color: #000000;
+   -webkit-text-stroke: 2px #7ed957;
+   
+   }
+
+ .listas {
+   
+  color:#7ed957; 
+  grid-area: lista;
+  font-family: "Bowlby One SC", sans-serif;
+  font-size: 20px;
+  list-style: none;
+  gap: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  }
+
+  .style_a {
+
+  text-decoration: none;
+  color:#7ed957;
+ 
+  
+  }
+
+/*form de acceso*/
+
+ .acceso {
+    
+   font-family: "Bowlby One SC", sans-serif;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   padding-top: 100px;
+   background: none;
+   margin-top: 20px;
+   
+      
+
+  
+ }
+
+ .usuario {
+
+   color: #7ed957;
+   border-radius: 10px;
+   border-color: #7ed957;
+   background: none;
+   height: 40px;
+   margin-top: 10px;
+   margin-bottom: 10px;
+   
+   
+   
+   
+
+   }
+
+ .passwordd {
+    
+   color: #7ed957;
+   border-radius: 10px;
+   border-color: #7ed957;
+   background: none;
+   height: 40px;
+   
+   
+   
+   
+   
+   }
+
+ .cont_input {
+
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   border: 5px solid #7ed957;
+   border-radius: 10px;
+   padding: 0px;
+   
+  }
+
+ label {
+    
+   text-align: center;
+   color: #7ed957;
+   height: 50px;
+   width: 500px;
+   font-style: italic;
+   font-size: 30px;
+   margin-top: 30px;
+   padding: 0px;
+   
+   
+   
+   }
+
+  
+ .Go {
+    
+   font-family: "Bowlby One SC", sans-serif;
+   font-size: 30px;
+   width: 300px;
+   padding: 20px;
+   margin: 50px;
+   border-radius: 10px;
+   text-align: center;
+   color: #000000;
+   background-color: #7ed957;
+   
+   
+   }
+
+  
+ 
+/*spotify*/
+
+ .spotify {
+  
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   margin-top: 80px;
+   
+   }
+
+ iframe {
+
+   width: 800px;
+   height: 100px;
+   background: none;
+ 
+   }
+
+/*footer*/
+
+ .copi_red {
+   
+   width: 100%;
+   display: grid;
+   grid-template-columns: 1fr 3fr 1fr;
+   grid-template-rows: 1fr;
+   grid-template-areas: 
+    "vacio copi redes";
+   padding-top: 100px;
+   
+   }
+
+ 
+ .copi {
+
+   grid-area: copi;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-family: "Bowlby One SC", sans-serif;
+   color: #7ed957;
+    
+   }
+ 
+ .red {
+
+   grid-area: redes;
+   align-items: center;
+   justify-content: end;
+   gap: 15px;
+   display: flex;
+   flex-direction: row;
+   margin-right: 25px;
+      
+   }
+
+ .red_social1 {
+
+   height: 73px;
+
+   }
+
+ .red_social2 {
+
+   height: 42px;
+
+   }
+ 
+ .red_social3 {
+
+   height: 65px;
+
+   }
+
+ .red_social4 {
+
+   height: 50px;
+   
+   }
+
+/*CSS SERVICIOS*/
+
+.pservicios{
+
+
+font-family: "Bowlby One SC", sans-serif;
+font-size: 30px;
+color: #000000;
+-webkit-text-stroke: 2px #7ed957;
+
+
+}
+
+  .titulo_servicios {
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Bowlby One SC", sans-serif;
+  font-size: 80px;
+  color: #000000;
+  -webkit-text-stroke: 2px #7ed957;
+  
+  }
+
+  .cont_servicios {
+
+   height: 100%;
+   gap: 50px;
+   margin-top: 80px;
+   display: grid;
+   grid-template-columns: 1fr 2fr 2fr 2fr 2fr 1fr;
+   grid-template-rows: 1fr;
+   grid-template-areas: 
+    "vacio gimnasio salud cocina tienda vacio2";
+   
+
+  }
+
+  .gimn {
+
+  background-color: #000000;
+  grid-area: gimnasio;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; 
+  border: 5px solid #7ed957; 
+  border-radius: 10%;}
+  
+   
+  .foto_gimn{
+
+    width: 100%;
+    height: 100%;
+    border-radius: 10%;
+    
+  }
+
+  .sal {
+
+    background-color: #000000;
+    grid-area: salud;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    border: 5px solid #7ed957; 
+    border-radius: 10%;
+  
+  }
+    
+    
+    
+    .foto_sal{
+  
+      width: 100%;
+      height: 100%;
+      border-radius: 10%;
+      
+  
+    }
+
+    .coc {
+
+      background-color: #000000;
+      grid-area: cocina;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center; 
+      border: 5px solid #7ed957; 
+      border-radius: 10%;}
+      
+       
+      .foto_coc{
+    
+        width: 100%;
+        height: 100%;
+        border-radius: 10%;
+        
+        }
+
+   
+      .tie {
+
+        background-color: #000000;
+        grid-area: tienda;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center; 
+        border: 5px solid #7ed957; 
+        border-radius: 10%;}
+        
+         
+        .foto_tie{
+      
+        width: 100%;
+        height: 100%;
+        border-radius: 10%;
+          
+        }
+
+  .servicios {
+
+  /*background-image: 
+  url(../img/background_servicios.png);*/
+  background: none;
+  background-color: #000000;
+  background-attachment: fixed;
+  background-size: cover;
+
+  }
+
+.copi_red_servicios{
+
+  
+   
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: 
+     "vacio copi redes";
+    
+    margin-top: 130px;
+    
+    }
+
+/*CSS GIMNASIO*/
+ 
+  .gimnasio {
+
+  background-image: 
+  url(../img/background_gimnasio.jpg);
+  background-attachment: fixed;
+  background-size: cover;
+
+   }
+ 
+ .lista_gimnasio {
+
+   font-family: "Bowlby One SC", sans-serif;
+   color: #7ed957;
+   font-size: 50px;
+   padding: 150px;
+   
+   }
+
+ .titulo_gimnasio{
+      
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-family: "Bowlby One SC", sans-serif;
+   font-size: 100px;
+   color: #000000;
+   -webkit-text-stroke: 2px #7ed957;
+
+   }
+
+ .cont_vid{
+
+   display: flex;
+   justify-content: center; 
+   gap:85px;
+  
+  }
+  
+ video{
+  
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+ }
+
+  .iframe_video {
+
+height: 300px;
+width: 400px;
+gap: 30px;
+
+  }
+  
+  
+  
+
+/*CSS SOBRE_NOSOTROS*/
+
+ .sobrenosotros{
+      
+   font-family: "Bowlby One SC", sans-serif;
+   color: #7ed957;
+   margin-top: 220px;
+   margin-bottom: 220px;
+   margin-left: 90px;
+   margin-right: 90px;
+   text-align: justify;
+
+   }
+
+  .cont_sobrenosotros {
+
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+
+  }
+
+  .sobrenosotros_titulo {
+
+   display: flex;
+   justify-content: center;
+  
+  }
+
+  .sobre_nosotros {
+     
+   background-image: 
+   url(../img/background_sobre_nosotros.jpg);
+   background-attachment: fixed;
+   background-size: cover;
+   
+   }
+
+/*CSS CONTACTENOS*/
+
+  .contactenos{
+
+  font-family: "Bowlby One SC", sans-serif;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+  
+  }
+
+  .titulo_contactenos {
+  display: flex;
+  justify-content: center;
+  font-family: "Bowlby One SC", sans-serif;
+  font-size: 100px;
+  color: #000000;
+  -webkit-text-stroke: 2px #7ed957;
+  
+  }
+   
+ .background_contactenos{
+
+  background-image: 
+  url(../img/background_contactenos.jpg);
+  background-attachment: fixed;
+  background-size: cover;
+  }
+
+/*RESPONSIVE*/
+/*RESPONSIVE PAGINA INICIO*/
+
+  @media (width < 1846px) {
+  body{
+  background-image: url(../img/background_ppal_1845.jpg);
+  
+  }
+  }
+
+  @media (width < 1459px) {
+  body{
+  background-image: url(../img/background_ppal_1458.jpg);
+    
+  }
+  }
+
+  @media (width < 1846px) {
+  .titulo {
+
+  font-family: "Bowlby One SC", sans-serif;
+  font-size: 70px;
+    
+  }
+  }
+  
+  @media (width < 413px) {
+  .acceso {
+   
+  display: flex;
+   align-items: center;
+   justify-content: center;
+   
+
+  }
+}
+
+@media (width < 413px) {
+  .acceso_form {
+   
+  display: flex;
+   align-items: center;
+   justify-content: center;
+   
+
+  }
+}
+
+@media (width < 345px) {
+  .acceso {
+    
+   align-items: center;
+   
+
+  }
+}
+
+
+  @media (width < 1496px) {
+  .copi_red {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: 
+   "copi redes";
+  display: flex;
+  flex-direction: column;
+  
+  }
+  }
+
+  @media (width < 1496px) {
+  .copi {
+
+  grid-area: copi;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+   
+  }
+  }
+ 
+  @media (width < 1496px) {
+  .red {
+
+  grid-area: redes;
+  justify-content: center;
+  gap: 10px;
+  
+  }   
+  }
+
+  @media (width < 1250px) {
+  body{
+  background-image: url(../img/background_ppal_1250.jpg);
+          
+  }
+  }
+
+  @media (width < 1064px) {
+  .lista {
+
+  font-size: 15px;
+  gap: 10px;
+  
+  }
+  }
+
+  @media (width < 1064px) {
+  .titulo {
+  
+  font-size: 50px;
+      
+  }
+  }
+
+  @media (width < 1064px) {
+  .cont_logo_hardy_list {
+   
+  margin-top: 10px;
+
+  }
+  }
+
+  @media (width < 1183px) {
+  .menu {
+     
+  margin: 0px;
+  
+  
+  }
+  }
+
+  @media (width < 739px) {
+    .menu {
+       
+    font-size: 15px;
+    
+    }
+    }
+
+    @media (width < 584px) {
+      .menu {
+         
+      font-size: 10px;
+      
+      }
+      }
+
+      @media (width < 429px) {
+        .menu {
+           
+        font-size: 7px;
+        
+        }
+        }
+
+  @media (width < 841px) {
+  .copi {
+  
+  font-size: 8px;
+
+  }
+  }
+
+  @media (width < 841px) {
+  .titulo {
+    
+  font-size: 30px;
+        
+  }
+  }
+
+  @media (width < 841px) {
+  .lista {
+  
+  font-size: 10px;
+  gap: 7px;
+
+  }
+  }
+
+  @media (width < 841px) {
+  .logo1 {
+   
+  height: 80px;
+        
+  }
+  }
+
+  @media (width < 651px) {
+  body{
+  background-image: url(../img/background_ppal_650.jpg);
+            
+  }
+  }
+
+  
+  @media (width < 449px) {
+  .principal_logo {
+  justify-content: center;
+  margin: 0px;
+                
+  }
+  }
+  
+  @media (width < 449px) {
+  .copi {
+      
+  font-size: 7px;
+    
+  }
+  }
+  
+  @media (width < 449px) {
+  .titulo {
+        
+  font-size: 25px;
+            
+  }
+  }
+
+  
+  
+  @media (width < 394px) {
+  .copi {
+        
+  font-size: 5px;
+      
+  }
+  }
+    
+  @media (width < 394px) {
+  .titulo {
+          
+  font-size: 20px;
+              
+  }
+  }
+
+  @media (width < 651px) {
+    .cont_input {
+            
+    width: 350px;
+                
+    }
+    }
+
+   
+
+    
+  
+/*RESPONSIVE PAGINA CONTACTENOS*/ 
+  
+  @media (width < 841px) {
+  .titulo_contactenos {
+  
+  font-size: 45px;
+
+  }
+  }
+
+  @media (width < 651px) {
+  input {
+  
+  width: 300px
+  
+  }
+  }
+  
+  @media (width < 651px) {
+  textarea {
+    
+  width: 300px
+    
+  }
+  }
+
+/*RESPONSIVE PAGINA SOBRE NOSOTROS*/ 
+
+  @media (width < 1659px) {
+  .sobre_nosotros {
+        
+  background-image: url(../img/background_sobre_nosotross.jpg);
+        
+  }
+  }
+
+  @media (width < 1131px) {
+  .sobre_nosotros {
+          
+  background-image: url(../img/background_sobre_nosotrosss.jpg);
+          
+  }
+  }
+
+  @media (width < 860px) {
+  .sobre_nosotros {
+              
+  background-image: url(../img/background_sobre_nosotrossss.jpg);
+              
+  }
+  }
+
+  @media (width < 1846px) {
+  .titulo_sobrenosotros {
+                
+  margin-top: 30px;
+                
+  }
+  }
+
+/*RESPONSIVE PAGINA SERVICIOS*/ 
+
+ 
+@media (width < 1440px) {
+ .cont_servicios {
+ 
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  justify-content: center;
+  margin: auto;
+   
+ }
+ }
+
+ @media (width < 1416px) {
+  .copi_red_servicios {
+  
+  display: flex;
+  flex-direction: column;
+      
+  }
+  }
+  
+  @media (width < 964px) {
+    .titulo_servicios {
+    
+     font-size: 50px;
+      
+    }
+    }
+  
+  
+
+ @media (width < 964px) {
+  .titulo_servicios {
+  
+   font-size: 50px;
+    
+  }
+  }
+
+  @media (width < 572px) {
+    .titulo_servicios {
+    
+     font-size: 30px;
+      
+    }
+    } 
+    
+    @media (width < 572px) {
+    .copi_servicios{
+
+      font-size: 5px;
+  
+    }
+    }
+
+/*RESPONSIVE PAGINA GIMNASIO*/ 
+
+ @media (width < 1100px) { 
+
+.gimnasio {
+
+  background-image: 
+  url(../img/background_gimnasioo.jpg);
+  
+  }
+  }
+
+
+ @media (width < 1100px) { 
+ 
+  .lista_gimnasio {
+
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   font-size: 30px;
+   padding-left: 0px;
+   padding-right: 0px;
+   
+   }
+   }
+
+ @media (width < 550px) { 
+  .titulo_gimnasio{
+      
+   font-size: 50px;
+   
+
+   }
+   }
+
+  @media (width < 550px) { 
+ 
+   .lista_gimnasio {
+  
+    font-size: 20px;
+         
+   }
+   }
+
+  @media (width < 550px) { 
+  
+   .gimnasio {
+    
+   background-image: 
+   url(../img/background_gimnasiooo.jpg);
+     
+   }
+   }
+  
+  @media (width < 1233px) {
+   .cont_vid{
+
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center; 
+   gap:85px;
+   
+   }
+   }
+  @media (width < 1233px) {
+   video{
+    
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   
+   }
+   }
+  
+
+ 
+
+
+
+ 
+
