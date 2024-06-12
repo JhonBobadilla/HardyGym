@@ -27,7 +27,7 @@ body {
    width: 100%;
    margin-top: 30px;
    display: grid;
-   grid-template-columns: 1fr 1.7fr 1fr;
+   grid-template-columns: 1fr 4fr 1fr;
    grid-template-rows: 1fr;
    grid-template-areas: 
     "logo nombre lista";}
@@ -35,9 +35,8 @@ body {
  .principal_logo {
  
    display: flex;
-   justify-content: start;
-   margin-left: 35px;
-   
+   justify-content: center;
+     
    }
 
  .principal_titulo {
@@ -54,7 +53,8 @@ body {
    flex-direction: column;
    align-items: center;
    justify-content: center;
-   margin-left: 120px;
+   margin-bottom: 0px;
+   
    
    }
 
@@ -120,9 +120,9 @@ body {
    border-radius: 10px;
    border-color: #7ed957;
    background: none;
-   height: 40px;
    margin-top: 10px;
    margin-bottom: 10px;
+   justify-content: center;
    
    
    
@@ -136,7 +136,8 @@ body {
    border-radius: 10px;
    border-color: #7ed957;
    background: none;
-   height: 40px;
+   
+   
    
    
    
@@ -159,8 +160,6 @@ body {
     
    text-align: center;
    color: #7ed957;
-   height: 50px;
-   width: 500px;
    font-style: italic;
    font-size: 30px;
    margin-top: 30px;
