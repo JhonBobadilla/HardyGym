@@ -129,12 +129,6 @@ body {
    border-color: #7ed957;
    background: none;
    
-   
-   
-   
-   
-   
-   
    }
 
  .cont_input {
@@ -547,6 +541,16 @@ gap: 30px;
 
 /*RESPONSIVE*/
 /*RESPONSIVE PAGINA INICIO*/
+
+  @media (height > 1179px) {
+  
+  .copi_red{
+  
+margin-top: 200px;
+  
+  }
+  }
+
 
   @media (width < 1846px) {
   body{
