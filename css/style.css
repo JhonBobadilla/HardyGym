@@ -172,7 +172,7 @@ body {
    }
 
   
-   .cont_afiliate {
+  .cont_afiliate {
 
   display: flex;
   justify-content: center;
@@ -180,7 +180,7 @@ body {
 
    }
    
-   .suscribete {
+   .suscribetee {
     
     font-family: "Bowlby One SC", sans-serif;
     font-size: 25px;
@@ -193,8 +193,7 @@ body {
     border: 7px solid #7ed957;  
     background-color: #000000;
     margin: 120px;
-    
-    
+        
     }
 
 
