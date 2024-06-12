@@ -98,7 +98,7 @@ body {
 
 /*form de acceso*/
 
- .acceso {
+ .access {
     
    font-family: "Bowlby One SC", sans-serif;
    display: flex;
@@ -110,7 +110,7 @@ body {
    
  }
 
- .usuario {
+ .usury {
 
    color: #7ed957;
    border-radius: 10px;
@@ -122,7 +122,7 @@ body {
    
  }
 
- .passwordd {
+ .passwd {
     
    color: #7ed957;
    border-radius: 10px;
@@ -151,12 +151,9 @@ body {
    margin-top: 30px;
    padding: 0px;
    
-   
-   
-   }
-
+  }
   
- .go {
+ .goer {
     
    font-family: "Bowlby One SC", sans-serif;
    font-size: 30px;
@@ -172,7 +169,7 @@ body {
    }
 
   
-  .cont_afiliate {
+  .cont_affiliate {
 
   display: flex;
   justify-content: center;
@@ -180,7 +177,7 @@ body {
 
    }
    
-   .suscribetee {
+   .sucre {
     
     font-family: "Bowlby One SC", sans-serif;
     font-size: 25px;
@@ -432,7 +429,7 @@ color: #000000;
    
    }
 
- .titulo_gimnasio{
+ .titulo_gimnasio {
       
    display: flex;
    align-items: center;
@@ -452,7 +449,7 @@ color: #000000;
   
   }
   
- video{
+ /*video{
   
    display: flex;
    flex-direction: row;
@@ -465,7 +462,7 @@ height: 300px;
 width: 400px;
 gap: 30px;
 
-  }
+  }*/
   
     
 
