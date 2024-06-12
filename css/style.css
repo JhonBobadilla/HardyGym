@@ -108,9 +108,6 @@ body {
    background: none;
    margin-top: 20px;
    
-      
-
-  
  }
 
  .usuario {
@@ -123,11 +120,7 @@ body {
    margin-bottom: 10px;
    justify-content: center;
    
-   
-   
-   
-
-   }
+ }
 
  .passwordd {
     
@@ -169,7 +162,7 @@ body {
    }
 
   
- .Go {
+ .go {
     
    font-family: "Bowlby One SC", sans-serif;
    font-size: 30px;
@@ -185,25 +178,30 @@ body {
    }
 
   
- 
-/*spotify*/
+   .cont_afiliate {
 
- .spotify {
-  
-   display: flex;
-   flex-direction: row;
-   justify-content: center;
-   margin-top: 80px;
+  display: flex;
+  justify-content: center;
+
+
+   }
    
-   }
+   .suscribete {
+    
+    font-family: "Bowlby One SC", sans-serif;
+    font-size: 25px;
+    width: 500px;
+    padding: 10px;
+    margin-top: 180px;
+    border-radius: 10px;
+    text-align: center;
+    color: #7ed957;
+    border: 7px solid #7ed957;  
+    background-color: #000000;
+    
+    
+    }
 
- iframe {
-
-   width: 800px;
-   height: 100px;
-   background: none;
- 
-   }
 
 /*footer*/
 
@@ -215,7 +213,7 @@ body {
    grid-template-rows: 1fr;
    grid-template-areas: 
     "vacio copi redes";
-   padding-top: 100px;
+   padding: 100px 0px 0px 0px;
    
    }
 
