@@ -98,7 +98,7 @@ body {
 
 /*form de acceso*/
 
- .access {
+ .acceso {
     
    font-family: "Bowlby One SC", sans-serif;
    display: flex;
@@ -110,7 +110,7 @@ body {
    
  }
 
- .usury {
+ .usuario {
 
    color: #7ed957;
    border-radius: 10px;
@@ -122,7 +122,7 @@ body {
    
  }
 
- .passwd {
+ .password {
     
    color: #7ed957;
    border-radius: 10px;
