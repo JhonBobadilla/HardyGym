@@ -144,6 +144,7 @@ justify-content: center !important;
 
  .usuario {
 
+   font-family: sans-serif;
    color: #7ed957;
    border-radius: 10px;
    border-color: #7ed957;
@@ -155,7 +156,8 @@ justify-content: center !important;
  }
 
  .password {
-    
+   
+   font-family: sans-serif; 
    color: #7ed957;
    border-radius: 10px;
    border-color: #7ed957;
@@ -653,23 +655,11 @@ margin-top: 200px;
   }
   }
 
-  @media (width < 1342px) {
-    .menu {
-       
-    font-size: 19px;
-    
-    }
-    }
+  
 
-  @media (width < 1291px) {
-    .menu {
-       
-    font-size: 16px;
-    
-    }
-    }
+  
 
-    @media (width < 1140px) {
+    @media (width < 992px) {
       .menu {
          
       font-size: 14px;
@@ -677,13 +667,7 @@ margin-top: 200px;
       }
       }
 
-      @media (width < 1040px) {
-        .menu {
-           
-        font-size: 13px;
-        
-        }
-        }
+      
 
     
       
@@ -743,7 +727,7 @@ margin-top: 200px;
     }
     }
   
-  @media (width < 495px) {
+  @media (width < 500px) {
   .titulo {
           
   font-size: 35px;
@@ -758,7 +742,7 @@ margin-top: 200px;
                 
     }
     }
-    @media (width < 427px) {
+    @media (width < 432px) {
       .titulo {
               
       font-size: 30px;
@@ -775,7 +759,7 @@ margin-top: 200px;
         }
         }
 
-        @media (width < 376px) {
+        @media (width < 398px) {
           .titulo {
                   
           font-size: 25px;
@@ -791,7 +775,63 @@ margin-top: 200px;
                   
             }
             }
+
+      @media (width < 446px) {
+        .cont_input {
+                      
+        width: 250px;
+                          
+        }
+        }
+      @media (width < 446px) {
+      .password {
+                    
+      width: 210px;
+                        
+      }
+      }    
   
+      @media (width < 446px) {
+      .usuario {
+                      
+      width: 210px;
+                          
+      }
+      } 
+
+      @media (width < 446px) {
+      .goer {
+                        
+      width: 210px;
+      height: 40px;
+      font-size: 20px;
+      padding: 0px;
+      
+      
+      
+      
+      
+      }
+      } 
+
+      @media (width < 446px) {
+      label {
+                          
+      font-size: 21px;
+      
+                              
+      }
+      } 
+
+    @media (width < 335px) {
+      .menu {
+           
+      font-size: 10px;
+        
+      }
+      }
+
+
 /*RESPONSIVE PAGINA CONTACTENOS*/ 
   
   @media (width < 841px) {
