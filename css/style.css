@@ -32,6 +32,7 @@ body {
    grid-template-areas: 
     "logo nombre lista";}
     
+    
  .principal_logo {
  
    display: flex;
@@ -47,30 +48,68 @@ body {
       
    }
 
+
  .menu {
 
   
    justify-content: center;
-   margin-bottom: 0px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
    padding: 0px;
+   margin: 0px;
+
+   
       
    }
 
    .listas {
    
-    color:#7ed957; 
+    list-style: none; 
     grid-area: lista;
     font-family: "Bowlby One SC", sans-serif;
     font-size: 20px;
-    list-style: none;
-    gap: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     
-    
+  }
+
+      
+   
+    .style_a {
+
+      text-decoration: none;
+      color:#7ed957;
+      
+      
+      }
+
+     
+.container-fluid {
+
+justify-content: center !important;
+
+}
+
+
+
+    .navbar-toggler-icon {
+
+      background:#7ed957
+      
     }
 
+    .navbar-toggler {
+
+    border: 3px solid #7ed957 !important; 
+    
+
+    }
+
+   
+  
  .logo1 {
    
    grid-area: logo;
@@ -88,14 +127,7 @@ body {
    
    }
  
-  .style_a {
-
-  text-decoration: none;
-  color:#7ed957;
- 
   
-  }
-
 /*form de acceso*/
 
  .acceso {
@@ -155,6 +187,7 @@ body {
   
  .goer {
     
+
    font-family: "Bowlby One SC", sans-serif;
    font-size: 30px;
    width: 300px;
@@ -164,7 +197,6 @@ body {
    text-align: center;
    color: #000000;
    background-color: #7ed957;
-   
    
    }
 
@@ -621,38 +653,39 @@ margin-top: 200px;
   }
   }
 
-  @media (width < 1200px) {
+  @media (width < 1342px) {
     .menu {
        
-    font-size: 13px;
+    font-size: 19px;
     
     }
     }
 
-    @media (width < 857px) {
+  @media (width < 1291px) {
+    .menu {
+       
+    font-size: 16px;
+    
+    }
+    }
+
+    @media (width < 1140px) {
       .menu {
          
-      font-size: 7px;
+      font-size: 14px;
       
       }
       }
 
-    @media (width < 594px) {
-      .menu {
-         
-      font-size: 4px;
-      
-      }
-      }
-
-      @media (width < 396px) {
+      @media (width < 1040px) {
         .menu {
            
-        font-size: 3px;
+        font-size: 13px;
         
         }
         }
 
+    
       
   @media (width < 841px) {
   .copi {
@@ -662,18 +695,27 @@ margin-top: 200px;
   }
   }
 
-  @media (width < 841px) {
+  @media (width < 645px) {
   .titulo {
     
-  font-size: 30px;
+  font-size: 45px;
         
   }
   }
 
-  @media (width < 841px) {
+  @media (width < 645px) {
+    .principal_logo {
+     
+    align-items: center;
+    
+          
+    }
+    }
+  @media (width < 645px) {
   .logo1 {
    
-  height: 80px;
+  height: 110px;
+  
         
   }
   }
@@ -701,10 +743,10 @@ margin-top: 200px;
     }
     }
   
-  @media (width < 394px) {
+  @media (width < 495px) {
   .titulo {
           
-  font-size: 20px;
+  font-size: 35px;
               
   }
   }
@@ -716,8 +758,39 @@ margin-top: 200px;
                 
     }
     }
+    @media (width < 427px) {
+      .titulo {
+              
+      font-size: 30px;
+                  
+      }
+      }
 
+      @media (width < 393px) {
+        .logo1 {
+         
+        height: 90px;
+        
+              
+        }
+        }
 
+        @media (width < 376px) {
+          .titulo {
+                  
+          font-size: 25px;
+                      
+          }
+          }
+    
+          @media (width < 376px) {
+            .logo1 {
+             
+            height: 70px;
+            
+                  
+            }
+            }
   
 /*RESPONSIVE PAGINA CONTACTENOS*/ 
   
