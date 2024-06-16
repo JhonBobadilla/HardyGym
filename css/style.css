@@ -51,16 +51,11 @@ body {
 
  .menu {
 
-  
-   justify-content: center;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   padding: 0px;
-   margin: 0px;
-
    
-      
+   display: flex;
+   padding: 0px;
+   
+         
    }
 
    .listas {
@@ -72,28 +67,30 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    margin: 0px;
     
-  }
+    }
 
-      
-   
+#navbarNav{
+
+  justify-content: center;
+
+}
+     
     .style_a {
 
       text-decoration: none;
       color:#7ed957;
       
       
+      
       }
 
-     
-.container-fluid {
+    .container-fluid{
 
-justify-content: center !important;
-
-}
-
-
+    display: flex;
+    justify-content: center !important;
+    }
 
     .navbar-toggler-icon {
 
@@ -105,10 +102,15 @@ justify-content: center !important;
 
     border: 3px solid #7ed957 !important; 
     
-
+    
     }
 
-   
+   .nav-item {
+
+   align-items: center !important;
+   justify-content: center !important;
+
+   }
   
  .logo1 {
    
@@ -505,11 +507,12 @@ gap: 30px;
  .sobrenosotros{
       
    font-family: "Bowlby One SC", sans-serif;
+   font-size: 23px;
    color: #7ed957;
-   margin-top: 220px;
+   margin-top: 150px;
    margin-bottom: 220px;
-   margin-left: 90px;
-   margin-right: 90px;
+   margin-left: 150px;
+   margin-right: 150px;
    text-align: justify;
 
    }
