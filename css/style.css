@@ -919,31 +919,65 @@ margin-top: 200px;
   }
   }
   
-  @media (width < 964px) {
+  @media (width < 1200px) {
     .titulo_servicios {
     
-     font-size: 50px;
+     font-size: 60px;
       
     }
     }
   
   
 
- @media (width < 964px) {
+ @media (width < 1027px) {
   .titulo_servicios {
   
-   font-size: 50px;
+   font-size: 40px;
     
   }
   }
 
-  @media (width < 572px) {
+  @media (width < 723px) {
+    .titulo_servicios {
+    
+     font-size: 35px;
+      
+    }
+    } 
+
+  @media (width < 653px) {
     .titulo_servicios {
     
      font-size: 30px;
       
     }
     } 
+
+    @media (width < 522px) {
+      .titulo_servicios {
+      
+       font-size: 20px;
+        
+      }
+      } 
+
+    @media (width < 410px) {
+        .titulo_servicios {
+        
+         font-size: 18px;
+         
+          
+        }
+        } 
+
+      @media (width < 353px) {
+          .titulo_servicios {
+          
+           font-size: 14px;
+           
+            
+          }
+          } 
     
     @media (width < 572px) {
     .copi_servicios{
