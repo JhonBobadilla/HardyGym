@@ -595,7 +595,13 @@ height: 50px;
 
 }
 
-  
+ .cont{
+
+background: none;
+color: #7ed957;
+border: 2px solid #7ed957;
+
+ } 
 
 /*RESPONSIVE*/
 /*RESPONSIVE PAGINA INICIO*/
