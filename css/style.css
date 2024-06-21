@@ -306,8 +306,12 @@ color: #000000;
 -webkit-text-stroke: 2px #7ed957;
 margin: 0px;
 
-
 }
+
+
+
+
+
 
   .titulo_servicios {
 
@@ -367,9 +371,6 @@ margin: 0px;
     border-radius: 10%;
   
   }
-    
-    
-    
     .foto_sal{
   
       width: 100%;
@@ -784,7 +785,115 @@ border: 2px solid #7ed957;
    }
 
 
+/*CSS SALUD Y BIENESTAR*/
 
+.parra_salud_y_bienestar{
+
+
+  font-family: "Bowlby One SC", sans-serif;
+  font-size: 30px;
+  color: #000000;
+  -webkit-text-stroke: 2px #7ed957;
+  margin: 0px;
+  
+  }
+  
+    .titulo_salud_y_bienestar {
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Bowlby One SC", sans-serif;
+    font-size: 80px;
+    color: #000000;
+    -webkit-text-stroke: 2px #7ed957;
+    
+    }
+  
+
+    .cont_servicios {
+  
+     height: 100%;
+     gap: 100px;
+     margin-top: 80px;
+     display: grid;
+     grid-template-columns: 1fr 1fr 1fr 1fr;
+     grid-template-rows: 1fr;
+     grid-template-areas: 
+      "vacio salud cocina vacio2";
+     
+  
+    }
+  
+    
+        .sal {
+  
+      background-color: #000000;
+      grid-area: salud;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center; 
+      border: 5px solid #7ed957; 
+      border-radius: 10%;
+    
+    }
+      .foto_sal{
+    
+        width: 100%;
+        height: 100%;
+        border-radius: 10%;
+        
+    
+      }
+  
+      .bienestar {
+  
+        background-color: #000000;
+        grid-area: cocina;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center; 
+        border: 5px solid #7ed957; 
+        border-radius: 10%;}
+        
+         
+        .foto_coc{
+      
+          width: 100%;
+          height: 100%;
+          border-radius: 10%;
+          
+          }
+  
+     .bod_salud_y_bienestar {
+  
+    /*background-image: 
+    url(../img/background_servicios.png);*/
+    background: none;
+    background-color: #000000;
+    background-attachment: fixed;
+    background-size: cover;
+  
+    }
+  
+    
+  .copi_red_servicios{
+  
+    
+     
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 3fr 1fr;
+      grid-template-rows: 1fr;
+      grid-template-areas: 
+       "vacio copi redes";
+      
+      margin-top: 130px;
+      
+      }
+  
 
 
 
@@ -1308,11 +1417,82 @@ margin-top: 200px;
      align-items: center;
      
     
-     
-     
+    }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*RESPONSIVE SALUD Y BIENESTAR*/ 
+
+    @media (width < 1200px) {
+      .titulo_salud_y_bienestar {
+      
+       font-size: 60px;
+        
+      }
+      }
+    
+    
+  
+   @media (width < 1027px) {
+    .titulo_salud_y_bienestar {
+    
+     font-size: 40px;
       
     }
     }
+  
+    @media (width < 723px) {
+      .titulo_salud_y_bienestar {
+      
+       font-size: 35px;
+        
+      }
+      } 
+  
+    @media (width < 653px) {
+      .titulo_salud_y_bienestar {
+      
+       font-size: 30px;
+        
+      }
+      } 
+  
+      @media (width < 522px) {
+        .titulo_salud_y_bienestar {
+        
+         font-size: 20px;
+          
+        }
+        } 
+  
+      @media (width < 410px) {
+          .titulo_salud_y_bienestar {
+          
+           font-size: 18px;
+           
+            
+          }
+          } 
+  
+        @media (width < 353px) {
+            .titulo_salud_y_bienestar {
+            
+             font-size: 14px;
+             
+              
+            }
+            } 
   
 
  
