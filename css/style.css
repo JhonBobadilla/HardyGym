@@ -82,15 +82,24 @@ body {
       text-decoration: none;
       color:#7ed957;
       
-      
-      
+            
       }
+
+
+      
+
 
     .container-fluid{
 
     display: flex;
     justify-content: center !important;
     }
+
+    .crecee:hover {
+
+      transform: scale(1.2);
+      
+         }
 
     .navbar-toggler-icon {
 
@@ -204,6 +213,13 @@ body {
    
    }
 
+
+   .entrar:hover {
+
+    transform: scale(1.2);
+    
+       }
+
   
   .cont_affiliate {
 
@@ -212,6 +228,12 @@ body {
 
 
    }
+
+   .suscribete:hover {
+
+    transform: scale(1.5);
+    
+       }
    
    .sucre {
     
@@ -786,6 +808,8 @@ border: 2px solid #7ed957;
 
 
 /*CSS SALUD Y BIENESTAR
+
+ojo al habiliotar daña todo, ARREGLAR
 
 .parra_salud_y_bienestar{
 
