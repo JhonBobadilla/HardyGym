@@ -21,7 +21,6 @@ function sus(s)
     alert ("Debes ingresar un valor")
             
     } 
-
 }
 
 
