@@ -1,3 +1,4 @@
+
 function sus(s)
 {
 
@@ -17,11 +18,27 @@ function sus(s)
    }
 
     else if (edad != edad) {
-
+    
     alert ("Debes ingresar un valor")
-            
-    } 
-}
+
+    }
+
+    }
+   
+
+    
+
+       
+
+
+
+
+
+
+
+
+
+
 
 
 
