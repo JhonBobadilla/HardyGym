@@ -16,16 +16,18 @@ do { edad = parseInt(prompt("ingresa tu edad"));
 
         alert ("Debes tener más de 18 años");
         window.location.href = "./pages/contactenos.html";
+        
     }
 
     if (edad >= 18) {
 
    alert ("Puedes inscribirte")
    window.location.href = 'https://www.google.com/';
+   break;
     }
      
     if(intentos >= max_intentos){
-        alert("Hiciste tres intentos, restablece tu contraseña")
+        alert("Hiciste tres intentos, contactate con nosotros")
         window.location.href = "./pages/contactenos.html";
     break;   
     }
