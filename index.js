@@ -1,51 +1,42 @@
-
 function sus(s)
 {
 
-    let edad = parseInt(prompt("ingresa tu edad")); 
+let intentos = 0;
+let max_intentos = 3;
     
+do { edad = parseInt(prompt("ingresa tu edad"));
+    intentos++;
+    
+    if(edad != edad){
+    alert ("Debes ingresar un valor")
+    console.log("intentos = " + intentos);
+    
+    }
     if (edad < 18) {
 
         alert ("Debes tener más de 18 años");
         window.location.href = "./pages/contactenos.html";
     }
 
-    else if (edad >= 18) {
+    if (edad >= 18) {
 
    alert ("Puedes inscribirte")
    window.location.href = 'https://www.google.com/';
-   
-   }
-
-    else if (edad != edad) {
-    
-    alert ("Debes ingresar un valor")
-
     }
-
+     
+    if(intentos >= max_intentos){
+        alert("Hiciste tres intentos, restablece tu contraseña")
+        window.location.href = "./pages/contactenos.html";
+    break;   
     }
+ }
+ 
+   
+while(edad != edad)
+}     
+  
+    
+
    
 
     
-
-       
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
