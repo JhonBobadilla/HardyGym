@@ -22,7 +22,7 @@ do { edad = parseInt(prompt("ingresa tu edad"));
     if (edad >= 18) {
 
    alert ("Puedes inscribirte")
-   window.location.href = 'https://www.google.com/';
+   window.location.href = "./php/index.php";
    break;
     }
      
