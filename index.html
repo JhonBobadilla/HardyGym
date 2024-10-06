@@ -53,12 +53,12 @@
   </header>
      <main>
       <div class="acceso">
-       <form class="acceso_form" method="post"></form>
+       <form class="acceso_form" method="post" action="login.php">
        <fieldset class="cont_input">
         <label for="uname">Usuario: </label>
-        <input class="usuario" type="text" value="" size="28"/>
-        <label for="uname">Contraseña: </label>
-        <input class="password" type="password" value="" size="28"/>
+        <input class="usuario" name="txtemail" type="text" value="" size="28"/>
+        <label for="uname">Password: </label>
+        <input class="password" name="txtpassword" type="password" value="" size="28"/>
         <input class="goer entrar" type="submit" value="entrar">
        </fieldset>
        </form>
