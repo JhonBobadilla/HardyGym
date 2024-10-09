@@ -86,9 +86,6 @@ body {
       }
 
 
-      
-
-
     .container-fluid{
 
     display: flex;
@@ -921,17 +918,97 @@ ojo al habiliotar daña todo, ARREGLAR
 
 
 
+      /*CSS TERMINOS Y CONDICIONES -- */
+
+      .terminos_y_condi{
+      
+        font-family: "Bowlby One SC", sans-serif;
+        font-size: 23px;
+        color: #7ed957;
+        margin-top: 150px;
+        margin-bottom: 80px;
+        margin-left: 150px;
+        margin-right: 150px;
+        text-align: justify;
+     
+        }
+
+
+
+      .terterminos{
+
+        background-image: 
+        url(../img/background_terminos.jpg);
+        background-attachment: fixed;
+        background-size: cover;
+
+      }
+      .terminos {
+    
+        font-size: 40px;
+        grid-area: nombre;
+        font-family: "Bowlby One SC", sans-serif;
+        color: #000000;
+        -webkit-text-stroke: 2px #7ed957;
+        
+          
+          }
+
+        .cont_sobrenosotros h2{
+          font-family: "Bowlby One SC", sans-serif;
+        color: #000000;
+        -webkit-text-stroke: 2px #7ed957;
+        margin-top: 100px;
+
+        }
+
+        .term{
+          margin-top: 50px;
+        }
 
 
 
 
+        .buttonn-container {
+          display: flex;
+          justify-content: center;
+          margin-bottom: 80px;
+          
+      }
+      .botn {
+          padding: 10px 20px;
+          font-size: 16px;
+          cursor: pointer;
+          margin-right: 60px;
+      }
+      .accept-btn {
+          background-color: #4CAF50;
+          color: white;
+          border: none;
+          border-radius: 100%;
+          width: 150px;
+      }
+      .reject-btn {
+          background-color: #f44336;
+          color: white;
+          border: none;
+          border-radius: 100%;
+          width: 150px;
+      }
+      .accept-btn:hover {
+        background-color: #7ed957; 
+    }
+
+    .reject-btn:hover {
+      background-color: #000000; 
+  }
+
+  
 
 
 
-
-
-
-
+        
+        
 /*RESPONSIVE*/
 /*RESPONSIVE PAGINA INICIO*/
 
@@ -1444,14 +1521,7 @@ margin-top: 200px;
     }
     }
 
-
-
-
-
-
-
-
-
+   
 
 
 
@@ -1518,8 +1588,71 @@ margin-top: 200px;
             }
             } 
   
+         /*RESPONSIVE TERMINOS Y CONDICIONES*/
 
+         @media (width < 1846px) {
+          .terminos {
+        
+          font-family: "Bowlby One SC", sans-serif;
+          font-size: 35px;
+            
+          }
+          }
+    
+        @media (width < 1493px) {
+          .terminos {
+          
+            font-family: "Bowlby One SC", sans-serif;
+            font-size: 25px;
+              
+            }
+            }
+    
+        @media (width < 1067px) {
+          .terminos {
+            
+              font-family: "Bowlby One SC", sans-serif;
+              font-size: 15px;
+                
+              }
+              }
+    
+        @media (width < 686px) {
+          .terminos {
+              
+                font-family: "Bowlby One SC", sans-serif;
+                font-size: 8px;
+                  
+                }
+                }
+    
+        @media (width < 405px) {
+                  .terminos {
+                
+                  font-family: "Bowlby One SC", sans-serif;
+                  font-size: 5px;
+                    
+                  }
+                  }
+    
  
+          @media (width < 919px) {
+              .cont_sobrenosotros h2 {
+              
+               font-size: 14px;
+               
+                
+              }
+              } 
+
+          @media (width < 424px) {
+                .cont_sobrenosotros h2 {
+                
+                 font-size: 10px;
+                 
+                  
+                }
+                } 
 
 
 

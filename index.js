@@ -39,6 +39,19 @@ while(edad != edad)
   
     
 
+
+
+
+
+function acceptTerms() {
+    alert("Has aceptado los términos y condiciones.");
+    // Aquí puedes redirigir o hacer lo que sea necesario
+}
+
+function declineTerms() {
+    alert("Has rechazado los términos y condiciones.");
+    // Aquí puedes redirigir o mostrar un mensaje adicional
+}
    
 
     
