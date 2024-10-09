@@ -39,12 +39,14 @@ while(edad != edad)
     
 
 function acceptTerms() {
+
+    alert("Aceptaste los terminos y condiciones");
     
     window.location.href = '../C:/xampp/htdocs/formulario_registro/php/index.php';
   }//ojo corregir esta ruta cuando todos los archivos esten juntos.
 
   function rejectTerms() {
-    
+    alert("No aceptaste los terminos y condiciones te redirigiremos al home");
     window.location.href = '../index.html';
   }
    
