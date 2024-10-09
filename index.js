@@ -22,7 +22,7 @@ do { edad = parseInt(prompt("ingresa tu edad"));
     if (edad >= 18) {
 
    alert ("Puedes inscribirte")
-   window.location.href = "./php/index.php";
+   window.location.href = "./pages/terminos_y_condiciones.html";
    break;
     }
      
@@ -36,22 +36,18 @@ do { edad = parseInt(prompt("ingresa tu edad"));
    
 while(edad != edad)
 }     
-  
     
 
-
-
-
-
 function acceptTerms() {
-    alert("Has aceptado los términos y condiciones.");
-    // Aquí puedes redirigir o hacer lo que sea necesario
-}
+    
+    window.location.href = '../C:/xampp/htdocs/formulario_registro/php/index.php';
+  }//ojo corregir esta ruta cuando todos los archivos esten juntos.
 
-function declineTerms() {
-    alert("Has rechazado los términos y condiciones.");
-    // Aquí puedes redirigir o mostrar un mensaje adicional
-}
+  
+  function rejectTerms() {
+    
+    window.location.href = '../index.html';
+  }
    
 
     
