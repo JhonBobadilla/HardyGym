@@ -43,7 +43,6 @@ function acceptTerms() {
     window.location.href = '../C:/xampp/htdocs/formulario_registro/php/index.php';
   }//ojo corregir esta ruta cuando todos los archivos esten juntos.
 
-  
   function rejectTerms() {
     
     window.location.href = '../index.html';
