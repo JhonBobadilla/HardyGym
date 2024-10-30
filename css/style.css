@@ -135,6 +135,19 @@ body {
    -webkit-text-stroke: 2px #7ed957;
    
    }
+
+  h2 {
+    
+    
+    font-family: "Bowlby One SC", sans-serif;
+    font-size: 60px;
+    color: #000000;
+    -webkit-text-stroke: 2px #7ed957;
+    display: flex;
+    justify-content: center;
+    padding: 100px 0px 100px 0px;
+    
+    }
  
   
 /*form de acceso*/
@@ -646,8 +659,7 @@ border: 2px solid #7ed957;
 .cont_disciplinas {
 
   height: 100%;
-  gap: 50px;
-  margin-top: 100px;
+  gap: 30px;
   display: grid;
   grid-template-columns: 1fr 2fr 2fr 2fr 2fr 1fr;
   grid-template-rows: 1fr;
@@ -677,63 +689,67 @@ border: 2px solid #7ed957;
   }
 
 
- .cont_vid0 {
+ .cont_vid1 {
 
   background-color: #000000;
-  height: 331px;
-  width: 259px;
+  height: 300px;
+  width:400px;
   grid-area: cont_vid0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center; 
   border: 5px solid #7ed957; 
-  border-radius: 10%;
+  margin-bottom: 30px;
+  
 
 }
 
   .cont_vid2 {
 
     background-color: #000000;
-    height: 331px;
-    width: 259px;
+    height: 300px;
+  width: 400px;
     grid-area: cont_vid2;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center; 
     border: 5px solid #7ed957; 
-    border-radius: 10%;
+    margin-bottom: 30px;
+    
   
   }
 
   .cont_vid3 {
 
     background-color: #000000;
-    height: 331px;
-    width: 259px;
+    height: 300px;
+  width: 400px;
     grid-area: cont_vid3;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center; 
     border: 5px solid #7ed957; 
-    border-radius: 10%;
+    margin-bottom: 30px;
+    
   
   }
 
   .cont_vid4 {
 
     background-color: #000000;
-    height: 331px;
-    width: 259px;
+    height: 300px;
+    width: 400px;
     grid-area: cont_vid4;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center; 
     border: 5px solid #7ed957; 
-    border-radius: 10%;
+    margin-bottom: 30px;
+    
   
   }
 
@@ -790,7 +806,7 @@ border: 2px solid #7ed957;
     font-family: "Stick No Bills", sans-serif;
     font-size: 30px;
     color: #7ed957;
-    margin-top: 120px;
+    margin-top: 80px;
     margin-bottom: 0px;
     margin-left: 150px;
     margin-right: 150px;

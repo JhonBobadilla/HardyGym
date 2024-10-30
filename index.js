@@ -49,6 +49,18 @@ function acceptTerms() {
     alert("No aceptaste los terminos y condiciones te redirigiremos al home");
     window.location.href = '../index.html';
   }
+
+  /* OPCION 3 ES LA MAS UTILIZADA (ver HTML y js ↓↓↓↓↓↓↓)
+Se hace desde JS A TRAVES DE UNA SINTAXIS LLAMADA addEventListener que es una forma más flexible y la más recomendada para gestionar eventos y su sintaxis es:
+
+const xxxxxxxxx = document.getElementById("yyyyyyyyyy")
+
+xxxxxxxxx.addEventListener('click', function (){
+    alert("mensaje") }) 
+
+*/
+
+
    
 
     
