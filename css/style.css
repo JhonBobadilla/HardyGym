@@ -1023,12 +1023,137 @@ ojo al habiliotar daña todo, ARREGLAR
       background-color: #000000; 
   }
 
+
+/*CSS REGISTER -- */
+
+  .cont_logo_hardy_list_register {
+    
+    width: 100%;
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-rows: 1fr 4fr 1fr;
+    grid-template-areas: 
+     "logo nombre lista"
+     "nada formularioo nadaa";
+    }
+
+  .formularioo {
+  
+    grid-area: formularioo;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+       
+   }
+
+   .formm {
+  
+    grid-area: formulario;
+    background-color: none;
+    border: #7ed957 5px solid; 
+    border-radius: 10%;
+    padding: 50px;
+    width: 500px;
+    text-align: center;
+    
+  } 
+  
+  form a{
+
+    color: #7ed957; 
+    display: block;
+    font-size: 20px;
+    text-decoration: none;
+    margin-bottom: 25px;
+    padding-top: 50px;
+  
+  }
+
+  .input-container > i{
+
+    border-radius: 50%;
+    background-color: #7ed957;
+    padding: 14px;
+    color: #000000;
+    position: absolute;
+    font-size: 20px;
+    top: 4px;
+    left: 10px;
+  }
+
+
+  .input-container > input {
+
+    padding: 17px 15px 17px 65px;
+    width: 100%;
+    margin-bottom: 25px;
+    border-radius: 35px;
+    background-color: transparent;
+    color: #7ed957;
+    border: 2px solid #7ed957;
+    font-size: 16px;
+    outline: none;
+  }
+
+  ::placeholder {
+
+    color: #7ed957;
+    font-size: 18px;
+  }
+  
+  .btn {
+  
+    background: #7ed957;
+    border-radius: 45%;
+    border: 0;
+    color: #000000;
+    font-family: "Bowlby One SC", sans-serif;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 15px 80px;
+  }
+  
+  .success {
+  
+    position: absolute; 
+    top: 50px;
+    color: #7ed957;
+    font-size: 18px;
+  
+  }
+  
+  .error {
+  
+   position: absolute;
+   top: 50px;
+   color: rgba(255, 0, 38, 0.867);
+   font-size: 18px 
+  
+  }
+
+  .input-container {
+                
+    position: relative;
+    
+  }
   
 
+  .navbar {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    
+    }
+
+   
 
 
-        
-        
+
+
+
 /*RESPONSIVE*/
 /*RESPONSIVE PAGINA INICIO*/
 
@@ -1541,11 +1666,6 @@ margin-top: 200px;
     }
     }
 
-   
-
-
-
-
 /*RESPONSIVE SALUD Y BIENESTAR*/ 
 
     @media (width < 1200px) {
@@ -1556,8 +1676,6 @@ margin-top: 200px;
       }
       }
     
-    
-  
    @media (width < 1027px) {
     .titulo_salud_y_bienestar {
     
@@ -1674,6 +1792,19 @@ margin-top: 200px;
                 }
                 } 
 
+
+/*RESPONSIVE REGISTER*/
+
+            
+@media(max-width:991px){
+                
+
+                
+  .formm{
+  width: 340px
+  }
+                
+}
 
 
  
