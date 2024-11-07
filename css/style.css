@@ -1148,36 +1148,43 @@ ojo al habiliotar daña todo, ARREGLAR
     
     }
 
-  /* BARRA DE PROGRESO*/
-
-#body_progress { 
-  display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; background: none !important; background-color: #000000 !important; } 
+ /* BARRA DE PROGRESO*/
+ #body_progress { 
+ display: flex; 
+ flex-direction: column; 
+ align-items: center; 
+ justify-content: center; 
+ height: 100vh; 
+ margin: 0; 
+ background: none !important; 
+ background-color: #000000 !important; } 
+ 
+ .progress-container { 
+ width: 140px; 
+ height: 10px; 
+ background-color: white; 
+ border-radius: 15px; 
+ overflow: hidden; 
+ margin-bottom: 10px; } 
+ 
+ .progress-bar { 
+ height: 100%; 
+ width: 0%;
+ background-color: red;
+ border-radius: 15px;
+ transition: width 0.4sease-in-out,background-color 0.4sease-in-out; } 
+ 
+ .navigation-buttons { 
+ display: flex; 
+ gap: 1px; } 
+ 
+ div#back_button, 
+ div#forward_button { 
+ padding: 5px; 
+ font-size: 30px; 
+ cursor: pointer; } 
+ 
   
-  .progress-container { 
-  width: 140px; 
-  height: 10px; background-color: white; 
-  border-radius: 15px; overflow: hidden; margin-bottom: 10px; } 
-  
-  .progress-bar { 
-  height: 100%; 
-  width: 0%;background-color: red;border-radius: 15px;transition: width 0.4sease-in-out,background-color 0.4sease-in-out; } 
-  
-  .navigation-buttons { display: flex; 
-  gap: 1px; } 
-  
-  div#back_button, 
-  div#forward_button { 
-  padding: 5px; 
-  font-size: 30px; 
-  cursor: pointer; } 
-  
-  div#back_button { 
-  color: #ff0000; } div#back_button:hover { color: #cc0000; } div#forward_button { 
-  color: #00ff00; } div#forward_button:hover { color: #00cc00; } 
-
-
-
-
 
 /*RESPONSIVE*/
 /*RESPONSIVE PAGINA INICIO*/
