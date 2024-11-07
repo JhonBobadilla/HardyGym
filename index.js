@@ -52,6 +52,7 @@ function acceptTerms() {
 
 /* JS BARRA DE PROGRESO */
 
+
 let progress = 0; 
 const progressBar = document.getElementById('progress-bar'); 
 function advanceProgress() { if (progress < 100) { progress += 33.34; // Avanza en tres pasos
