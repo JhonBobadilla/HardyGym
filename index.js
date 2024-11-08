@@ -171,4 +171,4 @@ function acceptTerms() {
             console.error('Error al obtener el userId:', error);
         });
 });
-0107
+
