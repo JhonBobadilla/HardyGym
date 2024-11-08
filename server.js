@@ -34,6 +34,22 @@ db.connect((err) => {
     console.log('Conectado a la base de datos MySQL');
 });
 
+// Ruta para registrar nuevos usuarios
+app.post('/register', (req, res) => {
+    const { nombre, email, password } = req.body;
+    console.log('Datos recibidos para registro:', req.body); // Depuración
+
+    const sql = 'INSERT INTO datos (nombre, email, password) VALUES (?, ?, ?)';
+    db.query(sql, [nombre, email, password], (err, result) => {
+        if (err) {
+            console.error('Error al registrar usuario:', err);
+            res.status(500).send('Error al registrar usuario');
+        } else {
+            res.send('Usuario registrado exitosamente');
+        }
+    });
+});
+
 // Rutas de autenticación
 app.post('/login', (req, res) => {
     const { txtemail, txtpassword } = req.body;
@@ -81,4 +97,3 @@ app.get('/getProgress/:userId/:videoId', (req, res) => {
 app.listen(port, () => {
     console.log(`Servidor ejecutándose en el puerto ${port}`);
 });
-
