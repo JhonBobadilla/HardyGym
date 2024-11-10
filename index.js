@@ -136,7 +136,6 @@ function acceptTerms() {
                 'progress-bar-149', 'progress-bar-150', 'progress-bar-151', 'progress-bar-152',
                 'progress-bar-153', 'progress-bar-154', 'progress-bar-155', 'progress-bar-156',
                 'progress-bar-157', 'progress-bar-158', 'progress-bar-159', 'progress-bar-160'
-                
             ];
 
             videos.forEach(videoId => {
