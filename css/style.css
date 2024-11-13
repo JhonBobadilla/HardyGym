@@ -1175,6 +1175,46 @@ ojo al habiliotar daña todo, ARREGLAR
         }
  
    
+/*CSS HARDY SHOP*/
+
+.sobrenosotros{
+      
+  /*font-family: "Bowlby One SC", sans-serif;*/
+  font-family: "Stick No Bills", sans-serif;
+  font-size: 40px;
+  color: #7ed957;
+  margin-top: 150px;
+  margin-bottom: 220px;
+  margin-left: 150px;
+  margin-right: 150px;
+  text-align: justify;
+
+  }
+
+ .cont_sobrenosotros {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+ }
+
+ .sobrenosotros_titulo {
+
+  display: flex;
+  justify-content: center;
+ 
+ }
+
+ .hardy_shop {
+    
+  background-image: 
+  url(../img/background_gym.jpg);
+  background-attachment: fixed;
+  background-size: cover;
+  
+  }
+
 
 /*RESPONSIVE*/
 /*RESPONSIVE PAGINA INICIO*/
