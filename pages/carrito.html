@@ -29,22 +29,7 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="menu listas">
-                <li class="nav-item">
-                  <a class="style_a" href="../index.html"><li>Home</li></a>
-                </li>
-                <li class="nav-item">
-                  <a class="style_a" href="../pages/servicios.html"><li>Servicios</li></a>
-                </li>
-                <li class="nav-item">
-                  <a class="style_a" href="../pages/contactenos.html"><li>Contacto</li></a>
-                </li>
-                <li class="nav-item">
-                  <a class="style_a" href="../pages/gimnasio.html"><li>Gimnasio</li></a>
-                </li>
-              </ul>
-            </div>
+            <div class="collapse navbar-collapse" id="navbarNav"></div>
           </div>
         </nav>
       </ul>
@@ -61,13 +46,94 @@
 
 <!-- Desde aquí código de carrito.html -->
 
+<div class="wrapper">
 
+    <aside>
+     <div class="hea">
+        <h1 class="h1shoplogo">Productos</h1>
+    
+     </div>
+      <nav>
+        <ul class="ulshopcarrito">
+            <li class="ilshopcarrito">
+                <a class="boton-menu boton-volver" href="./hardy_shop.html">
+                    <i class="bi bi-arrow-left-circle-fill"></i>                    
+                    Seguir comprando</a>
+            </li>
+            <li class="ilshopcarrito">
+                <a class="boton-menu boton-carrito active" href="./carrito.html">
+                    <i class="bi bi-cart-fill"></i>                    
+                    Carrito</a>
+            </li>
+        </ul>
+      </nav>
+    </aside>
+   <main class="main-carrito">
+    <h2 class="h2shop">Carrito</h2>
+    <div class="contenedor-carrito">
+     <p class="pshop">Tu carrito está vacío 😔</p>
+     <div class="carrito-productos">
+        
+        <div class="carrito-producto">
+          <img src="../img/bola_de_pilates_75_com.jpg" alt=""> 
+          <div class="carrito-producto-titulo">
+           <small>Título</small>
+           <h3 class="h3shop">Deportivo 1</h3>
+          </div>
+          <div class="carrito-producto-cantidad">
+           <small>Cantidad</small>
+           <p class="pshop">1</p>
+          </div>
+          <div class="carrito-producto-precio">
+           <small>Precio</small>
+           <p class="pshop">$75.000</p>
+          </div>
+          <div class="carrito-producto-subtotal">
+            <small>Subtotal</small>
+            <p class="pshop">$75.000</p>
+          </div>
+          <button class="carrito-producto-eliminar"><i class="bi bi-trash-fill"></i></button>   
+        </div>
 
+        <div class="carrito-producto">
+            <img src="../img/bola_de_pilates_75_com1.jpg" alt=""> 
+            <div class="carrito-producto-titulo">
+             <small>Título</small>
+             <h3 class="h3shop">Deportivo 2</h3>
+            </div>
+            <div class="carrito-producto-cantidad">
+             <small>Cantidad</small>
+             <p class="pshop">2</p>
+            </div>
+            <div class="carrito-producto-precio">
+             <small>Precio</small>
+             <p class="pshop">$55.000</p>
+            </div>
+            <div class="carrito-producto-subtotal">
+              <small>Subtotal</small>
+              <p class="pshop">$110.000</p>
+            </div>
+            <button class="carrito-producto-eliminar"><i class="bi bi-trash-fill"></i></button>   
+          </div>
+      </div>
 
+      <div class="carrito-acciones">
+        <div class="carrito-acciones-izquierda">
+         <button class="carrito-acciones-vaciar">Vaciar carrito</button>
+        </div>
+        <div class="carrito-acciones-derecha">
+         <div class="carrito-acciones-total">
+            <p>Total</p>
+            <p id="total">$00.000</p>
+         </div>
+         <button class="carrito-acciones-comprar">Comprar ahora</button>
+        </div>
 
+      </div>
 
+    </div>
 
-
+   </main>
 
 <!-- Hasta aquí código de carrito.html -->
 <footer>
