@@ -1177,6 +1177,10 @@ ojo al habiliotar daña todo, ARREGLAR
    
 /*CSS HARDY SHOP*/
 
+.h3shop, .pshop, .ulshop, .ilshop, .h1shoplogo{
+  color: #7ed957;;
+}
+
 .sobrenosotros{
       
   /*font-family: "Bowlby One SC", sans-serif;*/
