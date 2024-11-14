@@ -1193,12 +1193,17 @@ ojo al habiliotar daña todo, ARREGLAR
   padding: 0;
   box-sizing: border-box;
   font-family: "Stick No Bills", sans-serif;
+  
 
 }
 
 .ulshop {
   list-style: none;
-  margin-bottom: 25rem;
+  margin-bottom: 20rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  
 }
 
 .h1shoplogo {
@@ -1216,6 +1221,7 @@ a {
 
 }
 
+
 .wrapper {
 
 display: grid;
@@ -1228,6 +1234,7 @@ font-family: "Stick No Bills", sans-serif;
 aside {
 
   padding: 2rem;
+  padding-right: 0;
   color: black;
   position: sticky;
   top: 0;
@@ -1250,10 +1257,34 @@ aside {
 
 }
 
+.boton-menu {
+
+background-color: transparent;
+border: none;
+font-size: 1.5rem;
+cursor: pointer;
+display: flex;
+gap: 1rem;
+padding: 1rem;
+
+}
+
+.boton-menu.active {
+
+  background-color: rgb(0, 0, 0);
+  color: #7ed957;
+  width: 100%;
+} 
+
+.boton-menu > i.bi-hand-index-thumb-fill, .boton-menu > i.bi-hand-index-thumb {
+
+transform: rotateZ(90deg);
+
+}
+
 .main-carrito {
 
 background-color: black;
-border: solid #7ed957;
 margin: 1rem;
 margin-left: 0;
 border-radius: 2rem;
@@ -1295,9 +1326,20 @@ gap: 1rem;
 border-radius: 1rem;
 background-color: #000000;
 color:#7ed957;
+padding: .2rem;
+text-transform: uppercase;
+cursor: pointer;
 
 
 }
+
+.producto-agregar:hover {
+
+  background-color: #ffffff;
+  color:#000000;
+    
+  }
+
 
 
 
