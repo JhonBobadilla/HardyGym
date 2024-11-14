@@ -1179,7 +1179,40 @@ ojo al habiliotar daña todo, ARREGLAR
 
 .h3shop, .pshop, .ulshop, .ilshop, .h1shoplogo{
   color: #7ed957;;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Stick No Bills", sans-serif;
+
 }
+
+.ulshop {
+  list-style: none;
+}
+
+a {
+
+  text-decoration: none;
+
+}
+
+.wrapper {
+
+display: grid;
+grid-template-columns: 1fr 4fr;
+background-color: #7ed957;
+
+}
+
+aside {
+
+  padding: 2rem;
+  color: black;
+  
+
+
+}
+
 
 .sobrenosotros{
       
