@@ -1177,8 +1177,18 @@ ojo al habiliotar daña todo, ARREGLAR
    
 /*CSS HARDY SHOP*/
 
-.h3shop, .pshop, .ulshop, .ilshop, .h1shoplogo{
-  color: #7ed957;;
+.hardy_shop {
+    
+  background-image: 
+  url(../img/background_gym.jpg);
+  background-attachment: fixed;
+  background-size: cover;
+  
+  }
+
+.h3shop, .pshop, .ulshop, .ilshop {
+
+  color: #000000;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -1188,6 +1198,16 @@ ojo al habiliotar daña todo, ARREGLAR
 
 .ulshop {
   list-style: none;
+  margin-bottom: 25rem;
+}
+
+.h1shoplogo {
+
+  color: #000000;
+  font-family: "Stick No Bills", sans-serif;
+  margin-bottom: 2rem;
+  font-size: 40px;
+
 }
 
 a {
@@ -1201,6 +1221,7 @@ a {
 display: grid;
 grid-template-columns: 1fr 4fr;
 background-color: #7ed957;
+font-family: "Stick No Bills", sans-serif;
 
 }
 
@@ -1208,10 +1229,88 @@ aside {
 
   padding: 2rem;
   color: black;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   
+}
+
+.h2shop {
+
+  color: #000000;
+  border: #7ed957;
+  font-size: 40px;
+  margin: 20px;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Stick No Bills", sans-serif;
+
+}
+
+.main-carrito {
+
+background-color: black;
+border: solid #7ed957;
+margin: 1rem;
+margin-left: 0;
+border-radius: 2rem;
+padding: 3rem;
+
+}
+
+.contenedor-productos{
+
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 1rem;
+}
+
+.producto-imagen {
+
+  max-width: 100%;
+  border-radius: 1rem;
+
+}
+
+.producto-detalles {
+
+  padding: 1rem;
+  margin: 0;
+  margin-top: -2rem;
+  border-radius: 1rem;
+  background-color: #7ed957;
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+
+}
+
+.producto-agregar {
+
+border-radius: 1rem;
+background-color: #000000;
+color:#7ed957;
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 .sobrenosotros{
@@ -1243,14 +1342,7 @@ aside {
  
  }
 
- .hardy_shop {
-    
-  background-image: 
-  url(../img/background_gym.jpg);
-  background-attachment: fixed;
-  background-size: cover;
-  
-  }
+ 
 
 
 /*RESPONSIVE*/
