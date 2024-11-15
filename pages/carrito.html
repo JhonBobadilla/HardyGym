@@ -71,69 +71,87 @@
    <main class="main-carrito">
     <h2 class="h2shop">Carrito</h2>
     <div class="contenedor-carrito">
-     <p class="pshop">Tu carrito está vacío 😔</p>
-     <div class="carrito-productos">
+     <p class="pshop carrito-vacio">Tu carrito está vacío 😔</p>
+
+     <div class="carrito-productos disabled">
         
+
         <div class="carrito-producto">
-          <img src="../img/bola_de_pilates_75_com.jpg" alt=""> 
+          <img class="carrito-producto-imagen"src="../img/bola_de_pilates_75_com.jpg" alt=""> 
           <div class="carrito-producto-titulo">
-           <small>Título</small>
+           <small class="small-carrito">Título</small>
            <h3 class="h3shop">Deportivo 1</h3>
           </div>
-          <div class="carrito-producto-cantidad">
-           <small>Cantidad</small>
-           <p class="pshop">1</p>
+        
+         <div class="carrito-producto-cantidad">
+           <small class="small-carrito">Cantidad</small>
+           <p class="h3shop">1</p>
+           
           </div>
+
+
           <div class="carrito-producto-precio">
-           <small>Precio</small>
-           <p class="pshop">$75.000</p>
+           <small class="small-carrito">Precio</small>
+           <p class="pshopp">$75.000</p>
+           
           </div>
+          
+
+
           <div class="carrito-producto-subtotal">
-            <small>Subtotal</small>
-            <p class="pshop">$75.000</p>
+            <small class="small-carrito">Subtotal</small>
+            <p class="pshopp">$75.000</p>
           </div>
           <button class="carrito-producto-eliminar"><i class="bi bi-trash-fill"></i></button>   
         </div>
 
         <div class="carrito-producto">
-            <img src="../img/bola_de_pilates_75_com1.jpg" alt=""> 
+            <img class="carrito-producto-imagen"src="../img/bola_de_pilates_75_com1.jpg" alt=""> 
             <div class="carrito-producto-titulo">
-             <small>Título</small>
+             <small class="small-carrito">Título</small>
              <h3 class="h3shop">Deportivo 2</h3>
             </div>
             <div class="carrito-producto-cantidad">
-             <small>Cantidad</small>
-             <p class="pshop">2</p>
+             <small class="small-carrito">Cantidad</small>
+             <p class="pshopp">2</p>
             </div>
             <div class="carrito-producto-precio">
-             <small>Precio</small>
-             <p class="pshop">$55.000</p>
+             <small class="small-carrito">Precio</small>
+             <p class="pshopp">$55.000</p>
             </div>
             <div class="carrito-producto-subtotal">
-              <small>Subtotal</small>
-              <p class="pshop">$110.000</p>
+              <small class="small-carrito">Subtotal</small>
+              <p class="pshopp">$110.000</p>
             </div>
             <button class="carrito-producto-eliminar"><i class="bi bi-trash-fill"></i></button>   
           </div>
       </div>
 
-      <div class="carrito-acciones">
+      <div class="carrito-acciones disabled">
         <div class="carrito-acciones-izquierda">
-         <button class="carrito-acciones-vaciar">Vaciar carrito</button>
+         <button class="carrito-acciones-vaciar">Vaciar</button>
         </div>
         <div class="carrito-acciones-derecha">
          <div class="carrito-acciones-total">
             <p>Total</p>
-            <p id="total">$00.000</p>
+            
+            <p id="total"> $100.000</p>
          </div>
          <button class="carrito-acciones-comprar">Comprar ahora</button>
         </div>
 
       </div>
 
+      <p class="pshop carrito-comprado disabled">Gracias por tu compra. 😊</p>
+
+
     </div>
 
+  
+
    </main>
+
+   </div>
 
 <!-- Hasta aquí código de carrito.html -->
  
