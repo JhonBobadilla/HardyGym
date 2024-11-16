@@ -8,7 +8,7 @@ const productos = [
         "titulo": "Deportivo 01",
         "imagen": "../img/bola_de_pilates_75_com2.jpg",
         "categoria": {
-            "nombre": "Elementos deportivos",
+            "nombre": "Elementos Deportivos",
             "id": "deportivos"
         },
         "precio": 1000
@@ -18,7 +18,7 @@ const productos = [
         "titulo": "Deportivo 02",
         "imagen": "../img/bola_de_pilates_75_com2.jpg",
         "categoria": {
-            "nombre": "Elementos deportivos",
+            "nombre": "Elementos Deportivos",
             "id": "deportivos"
         },
         "precio": 1000
@@ -28,7 +28,7 @@ const productos = [
         "titulo": "Deportivo 03",
         "imagen": "../img/bola_de_pilates_75_com2.jpg",
         "categoria": {
-            "nombre": "Elementos deportivos",
+            "nombre": "Elementos Deportivos",
             "id": "deportivos"
         },
         "precio": 1000
@@ -38,7 +38,7 @@ const productos = [
         "titulo": "Deportivo 04",
         "imagen": "../img/bola_de_pilates_75_com2.jpg",
         "categoria": {
-            "nombre": "Elementos deportivos",
+            "nombre": "Elementos Deportivos",
             "id": "deportivos"
         },
         "precio": 1000
@@ -48,7 +48,7 @@ const productos = [
         "titulo": "Deportivo 05",
         "imagen": "../img/bola_de_pilates_75_com.jpg",
         "categoria": {
-            "nombre": "Elementos deportivos",
+            "nombre": "Elementos Deportivos",
             "id": "deportivos"
         },
         "precio": 1000
@@ -58,7 +58,7 @@ const productos = [
         "titulo": "Ropa 01",
         "imagen": "../img/bola_de_pilates_75_com.jpg",
         "categoria": {
-            "nombre": "Ropa deportiva",
+            "nombre": "Ropa Deportiva",
             "id": "prendas"
         },
         "precio": 1000
@@ -68,7 +68,7 @@ const productos = [
         "titulo": "Ropa 02",
         "imagen": "../img/bola_de_pilates_75_com.jpg",
         "categoria": {
-            "nombre": "Ropa deportiva",
+            "nombre": "Ropa Deportiva",
             "id": "prendas"
         },
         "precio": 1000
@@ -78,7 +78,7 @@ const productos = [
         "titulo": "Ropa 03",
         "imagen": "../img/bola_de_pilates_75_com.jpg",
         "categoria": {
-            "nombre": "Ropa deportiva",
+            "nombre": "Ropa Deportiva",
             "id": "prendas"
         },
         "precio": 1000
@@ -88,7 +88,7 @@ const productos = [
         "titulo": "Ropa 04",
         "imagen": "../img/bola_de_pilates_75_com.jpg",
         "categoria": {
-            "nombre": "Ropa deportiva",
+            "nombre": "Ropa Deportiva",
             "id": "prendas"
         },
         "precio": 1000
@@ -98,7 +98,7 @@ const productos = [
         "titulo": "Ropa 05",
         "imagen": "../img/bola_de_pilates_75_com3.jpg",
         "categoria": {
-            "nombre": "Ropa deportiva",
+            "nombre": "Ropa Deportiva",
             "id": "prendas"
         },
         "precio": 1000
@@ -108,7 +108,7 @@ const productos = [
         "titulo": "Ropa 06",
         "imagen": "../img/bola_de_pilates_75_com3.jpg",
         "categoria": {
-            "nombre": "Ropa deportiva",
+            "nombre": "Ropa Deportiva",
             "id": "prendas"
         },
         "precio": 1000
@@ -118,7 +118,7 @@ const productos = [
         "titulo": "Ropa 07",
         "imagen": "../img/bola_de_pilates_75_com3.jpg",
         "categoria": {
-            "nombre": "Ropa deportiva",
+            "nombre": "Ropa Deportiva",
             "id": "prendas"
         },
         "precio": 1000
@@ -128,7 +128,7 @@ const productos = [
         "titulo": "Ropa 08",
         "imagen": "../img/bola_de_pilates_75_com3.jpg",
         "categoria": {
-            "nombre": "Ropa deportiva",
+            "nombre": "Ropa Deportiva",
             "id": "prendas"
         },
         "precio": 1000
