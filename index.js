@@ -217,7 +217,10 @@ function acceptTerms() {
 });
 
 
-/*HARDY SHOP*/
+
+
+
+
 
 
 
