@@ -207,7 +207,6 @@ productos.forEach(producto => {
 
 })
 
-
 }
 
 cargarProductos();

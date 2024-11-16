@@ -214,6 +214,7 @@ function acceptTerms() {
         .catch(error => {
             console.error('Error al obtener el userId:', error);
         });
+        
 });
 
 
