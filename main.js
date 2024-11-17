@@ -256,7 +256,7 @@ boton.addEventListener("click", agregarAlCarrito);
 
 let productosEnCarrito;
 
-let productosEnCarritoLs = localStorage.getItem("productosEnCarrito");
+let productosEnCarritoLs = localStorage.getItem("productos-en-carrito");
 
 if (productosEnCarritoLs) {
    productosEnCarrito = JSON.parse(productosEnCarritoLs);
@@ -279,16 +279,16 @@ if(productosEnCarrito.some(producto => producto.id === idBoton)) {
     
     productoAgregado.cantidad = 1;
     productosEnCarrito.push(productoAgregado);
-    console.log(productosEnCarrito);
+    
 
  }
 
-actualizarNumerito();
-localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
+ actualizarNumerito();
 
+    localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
 }
 
-function actualizarNumerito() { 
-    let nuevoNumerito = productosEnCarrito.reduce((acc, producto) => acc + producto.cantidad, 0)
+function actualizarNumerito() {
+    let nuevoNumerito = productosEnCarrito.reduce((acc, producto) => acc + producto.cantidad, 0);
     numerito.innerText = nuevoNumerito;
 }
