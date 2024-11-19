@@ -752,6 +752,33 @@ border: 2px solid #7ed957;
   
   }
 
+  .div-img-prof{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .img-prof{
+
+   width: 30vh;
+   
+
+  }
+
+  .texto_disciplinas_prof {
+
+    font-family: "Stick No Bills", sans-serif;
+    font-size: 25px;
+    color: #7ed957;
+    margin-top: -35px;
+    margin-bottom: 30px;
+    margin-left: 85px;
+    /*justify-content: center;*/
+    
+
+  }
  
 /* BARRA DE PROGRESO */ 
 
@@ -778,9 +805,7 @@ div.back_button, div
 
 padding: 5px; font-size: 30px; cursor: pointer; 
 
-
 }
-
 
 .gimnasio {
 
@@ -815,8 +840,6 @@ padding: 5px; font-size: 30px; cursor: pointer;
 
    .copi_red_gimnasio{
 
-  
-   
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 3fr 1fr;
@@ -834,12 +857,38 @@ padding: 5px; font-size: 30px; cursor: pointer;
     font-family: "Stick No Bills", sans-serif;
     font-size: 35px;
     color: #7ed957;
-    margin-top: 80px;
-    margin-bottom: 80px;
+    margin-top: 50px;
+    margin-bottom: 30px;
     margin-left: 150px;
     margin-right: 150px;
     text-align: justify;
  
+    }
+
+    .texto_disciplinas2{
+      
+    
+      font-family: "Stick No Bills", sans-serif;
+      font-size: 35px;
+      color: #7ed957;
+      margin-top: 50px;
+      margin-bottom: 100px;
+      margin-left: 150px;
+      margin-right: 150px;
+      text-align: justify;
+   
+      }
+
+    .temporada{
+      
+      display: flex;
+      font-family: "Stick No Bills", sans-serif;
+      font-size: 40px;
+      color: #7ed957;
+      margin-top: 80px;
+      margin-bottom: 40px;
+      justify-content: center;
+
     }
  
    .cont_texto_disciplinas {
