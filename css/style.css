@@ -525,6 +525,89 @@ border: 0px;;*/
     
     }
 
+    /* css clases en vivo*/
+
+    .cont_clases_en_vivo {
+
+      height: 100%;
+      gap: 50px;
+      margin-top: 80px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 2fr;
+      grid-template-rows: 1fr;
+      grid-template-areas: 
+       "vacio vivo vacio2";
+       
+     }
+
+     .cont_clases_en_vivo_2 {
+
+      height: 100%;
+      gap: 50px;
+      margin: 3px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 2fr;
+      grid-template-rows: 1fr;
+      grid-template-areas: 
+       "vacio vivo vacio2";
+       
+     }
+
+     .vivo {
+
+      background-color: #000000;
+      grid-area: vivo;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center; 
+      border: 5px solid #7ed957; 
+      border-radius: 9%;
+    
+    }
+
+    .vivo_cont2 {
+
+      margin-bottom: 0;
+      grid-area: vivo;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center; 
+      border-radius: 5px;
+    
+    }
+
+     
+
+     .pservicios_vivo{
+
+      font-family: "Bowlby One SC", sans-serif;
+      font-size: 50px;
+      color: #000000;
+      -webkit-text-stroke: 2px #7ed957;
+      margin: 0;
+      padding: 0;
+      border: 0;
+
+     }
+
+    .texto_clase_en_vivo {
+      
+    
+    font-family: "Stick No Bills", sans-serif;
+    font-size: 30px;
+    color: #7ed957;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+    
+    
+      
+   
+      }
+
+
  /*.cont_vide{
 
    display: flex;
