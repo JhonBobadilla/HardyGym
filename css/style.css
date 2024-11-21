@@ -550,8 +550,7 @@ border: 0px;;*/
       grid-template-rows: 1fr;
       grid-template-areas: 
        "vacio vivo vacio2";
-       
-     }
+            }
 
      .vivo {
 
