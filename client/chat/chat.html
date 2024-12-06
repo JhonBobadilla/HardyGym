@@ -73,6 +73,31 @@
             <button type="submit">Enviar</button>
         </form>
     </section>
+   
+    <script>
+        const token = localStorage.getItem('token');
     
+        if (!token) {
+            window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión si no hay token
+        } else {
+            fetch('/getUserId', {
+                headers: { 'Authorization': `Bearer ${token}` }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('No autorizado');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Usuario autenticado:', data.userId);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión en caso de error
+            });
+        }
+    </script>
+
 </body>
 </html>
