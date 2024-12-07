@@ -31,8 +31,12 @@
               <ul class="menu listas">
                 <li class="nav-item">
                   <a class="style_a" href="./gimnasio.html"><li>Gimnasio</li></a>
-
                   </li>
+                   <!-- meter esto en todas las páginas para cerrar sesión desde el último cierre </li> hasta el cierre </ul>... desde aquí -->
+                <li class="nav-item">
+                  <a class="style_a" id="logoutButton" href="#">Cerrar Sesión</a>
+              </li>
+             <!-- hasta aquí .... y reemplazar el ultimo script -->
               </ul>
             </div>
           </div>
@@ -424,7 +428,7 @@
     <script src="../index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-    <script>
+    <script> // ultimo script hasta el cierre del script
       const token = localStorage.getItem('token');
   
       if (!token) {
@@ -447,6 +451,13 @@
               window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión en caso de error
           });
       }
+      
+      // Lógica para cerrar sesión
+      document.getElementById('logoutButton').addEventListener('click', function(event) {
+          event.preventDefault(); // Prevenir el comportamiento por defecto del enlace
+          localStorage.removeItem('token'); // Elimina el token del almacenamiento local
+          window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión
+      });
   </script>
 
 </body>
