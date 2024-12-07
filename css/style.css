@@ -1704,7 +1704,19 @@ display: none;
   
 /*HASTA AQUÍ CSS HARDY SHOP*/
 
+/*css nombre de usuario*/
 
+.nombre_de_usuario{
+
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  font-family: "Stick No Bills", sans-serif;
+  font-size: 25px;
+  color: #7ed957;
+  padding: 2rem 5rem 2rem 5rem;
+   
+  }
 
 /*RESPONSIVE*/
 /*RESPONSIVE PAGINA INICIO*/

@@ -42,7 +42,12 @@
             </div>
 
     </header>
+<!-- poner esto en todas las paginas para que aparezca el nombre-->
 
+<div class="nombre_de_usuario">
+  <p id="nombreUsuario"></p>
+</div>
+<!-- hasta aquí-->
 <!-- Desde aquí código de carrito.html -->
 
 <div class="wrapper">
@@ -147,12 +152,20 @@
         })
         .then(data => {
             console.log('Usuario autenticado:', data.userId);
+            document.getElementById('nombreUsuario').innerText = data.nombre; // Mostrar el nombre del usuario
         })
         .catch(error => {
             console.error('Error:', error);
             window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión en caso de error
         });
     }
+
+    // Lógica para cerrar sesión
+    document.getElementById('logoutButton').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevenir el comportamiento por defecto del enlace
+        localStorage.removeItem('token'); // Elimina el token del almacenamiento local
+        window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión
+    });
 </script>
 
 </body>
