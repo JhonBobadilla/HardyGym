@@ -59,6 +59,12 @@
     <div class="cont_affiliate crecee" onclick="sus('s')">
         <input id="sus" class="sucre" type="submit" value="suscribete">
     </div>
+
+
+    <div class="cont_restablecer cont_affiliate"> <input id="nuevoBotonrestablecer" class="nuevoEstilo" type="submit" value="restablecer contraseña"> </div>
+
+   
+
     <footer>
         <div class="copi_red">
             <div class="copi">
@@ -103,6 +109,14 @@
             });
         });
     </script>
+    
+    <!--script de boton restablecer-->
+
+    <script> 
+   document.getElementById('nuevoBotonrestablecer').addEventListener('click', function(event) { event.preventDefault(); window.location.href = 'http://localhost:3002/pages/reset_password.html';  }); 
+   </script> 
+    
+
 </body>
 </html>
 
