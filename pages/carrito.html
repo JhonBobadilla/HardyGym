@@ -154,7 +154,7 @@
             console.log('Usuario autenticado:', data.userId);
             document.getElementById('nombreUsuario').innerText = data.nombre; // Mostrar el nombre del usuario
         })
-        .catch(error => {
+        //quitar esto para que funcione la proteccion nuevamente       .catch(error => {
             console.error('Error:', error);
             window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión en caso de error
         });
