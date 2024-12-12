@@ -238,7 +238,7 @@ function agregarAlCarrito(e) {
           borderRadius: "2rem",
           textTransform: "uppercase",
           color: "black",
-          fontSize: ".75rem"
+          fontSize: "1rem"
         },
         offset: {
             x: '1.5rem', // horizontal axis - can be a number or a string indicating unity. eg: '2em'
