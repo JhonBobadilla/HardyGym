@@ -114,4 +114,3 @@ contenedorCarritoAcciones.classList.add("disabled");
 contenedorCarritoComprado.classList.remove("disabled");
 
 }
-
