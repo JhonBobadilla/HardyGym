@@ -60,10 +60,9 @@
         <input id="sus" class="sucre" type="submit" value="suscribete">
     </div>
 
-
-    <div class="cont_restablecer cont_affiliate"> <input id="nuevoBotonrestablecer" class="nuevoEstilo" type="submit" value="restablecer contraseña"> </div>
-
-   
+    <div class="cont_restablecer cont_affiliate">
+        <input id="nuevoBotonrestablecer" class="nuevoEstilo" type="submit" value="restablecer contraseña">
+    </div>
 
     <footer>
         <div class="copi_red">
@@ -99,6 +98,8 @@
                 if (data.token) {
                     localStorage.setItem('token', data.token);
                     window.location.href = '../pages/servicios.html'; // Redirige a la página de servicios después de iniciar sesión
+                } else if (data.redirectUrl) {
+                    window.location.href = data.redirectUrl; // Redirige a la página de pago si la suscripción ha expirado
                 } else {
                     alert('Credenciales inválidas');
                 }
@@ -109,14 +110,18 @@
             });
         });
     </script>
-    
-    <!--script de boton restablecer-->
 
+    <!-- Script de botón restablecer -->
     <script> 
-   document.getElementById('nuevoBotonrestablecer').addEventListener('click', function(event) { event.preventDefault(); window.location.href = 'http://localhost:3002/pages/reset_password.html';  }); 
-   </script> 
-    
-
+        document.getElementById('nuevoBotonrestablecer').addEventListener('click', function(event) { 
+            event.preventDefault(); 
+            window.location.href = 'http://localhost:3002/pages/reset_password.html';  
+        });
+    </script>
 </body>
 </html>
+
+
+
+
 
