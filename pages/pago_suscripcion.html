@@ -27,13 +27,7 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="menu listas">
-                <li class="nav-item">
-                  <a class="style_a" href="../public/index.html"><li>Home</li></a>
-                </li>
-               
-              </ul>
+            
             </div>
           </div>
          </nav>
@@ -90,38 +84,6 @@
     <script src="../index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-    <script>
-      const token = localStorage.getItem('token');
-
-      if (!token) {
-          window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión si no hay token
-      } else {
-          fetch('/getUserId', {
-              headers: { 'Authorization': `Bearer ${token}` }
-          })
-          .then(response => {
-              if (!response.ok) {
-                  throw new Error('No autorizado');
-              }
-              return response.json();
-          })
-          .then(data => {
-              console.log('Usuario autenticado:', data.userId);
-              document.getElementById('nombreUsuario').innerText = data.nombre; // Mostrar el nombre del usuario
-          })
-          .catch(error => {
-              console.error('Error:', error);
-              window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión en caso de error
-          });
-      }
-
-      // Lógica para cerrar sesión
-      document.getElementById('logoutButton').addEventListener('click', function(event) {
-          event.preventDefault(); // Prevenir el comportamiento por defecto del enlace
-          localStorage.removeItem('token'); // Elimina el token del almacenamiento local
-          window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión
-      });
-  </script>
-
+    
 </body>
 </html>

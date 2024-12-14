@@ -33,36 +33,68 @@
             </div>
         </nav>
         <div class="formularioo">
-            <form class="formm" action="/register" method="post" autocomplete="off">
+            <form class="formm" id="registerForm" action="/register" method="post" autocomplete="off">
                 <div class="input-group">
                     <div class="input-container">
-                        <input type="text" name="nombre" placeholder="Nombre completo">
+                        <input type="text" name="nombre" placeholder="Nombre completo" required>
                         <i class="fa-solid fa-user"></i>
                     </div>
                     <div class="input-container">
-                        <input type="password" name="password" placeholder="Contraseña">
+                        <input type="password" name="password" placeholder="Contraseña" required>
                         <i class="fa-solid fa-lock"></i>
                     </div>
                     <div class="input-container">
-                        <input type="email" name="email" placeholder="e-mail">
+                        <input type="email" name="email" placeholder="e-mail" required>
                         <i class="fa-solid fa-envelope"></i>
                     </div>
                     <div class="input-container">
-                        <input type="tel" name="telefono" placeholder="Teléfono">
+                        <input type="tel" name="telefono" placeholder="Teléfono" required>
                         <i class="fa-solid fa-phone"></i>
                     </div>
-                    <div class="input-container"> <!-- Nuevo campo para la ciudad -->
-                        <input type="text" name="ciudad" placeholder="Ciudad">
+                    <div class="input-container"> 
+                        <input type="text" name="ciudad" placeholder="Ciudad" required>
                         <i class="fa-solid fa-city"></i>
                     </div>
-                    <a href="#">Terminos y Condiciones</a>
                     <input type="submit" name="send" class="btn" value="Enviar">
                 </div>
             </form>
         </div>
     </div>
-    
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('#registerForm');
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Evitar que el formulario se envíe de la manera predeterminada
+
+                // Recoger los datos del formulario
+                const formData = new FormData(form);
+                const formDataObject = Object.fromEntries(formData.entries());
+
+                fetch(form.action, {
+                    method: form.method,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formDataObject)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) { // Verificar el campo 'success' en la respuesta
+                        window.location.href = data.redirectUrl; // Redirigir a la URL proporcionada en la respuesta
+                    } else {
+                        alert('Error en el registro. Por favor, inténtalo de nuevo.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error en el registro. Por favor, inténtalo de nuevo.');
+                });
+            });
+        });
+    </script>
 </body>
 </html>
+
 
 

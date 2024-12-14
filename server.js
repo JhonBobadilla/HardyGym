@@ -38,18 +38,19 @@ db.connect((err) => {
 
 // Ruta para registrar nuevos usuarios
 app.post('/register', (req, res) => {
-    const { nombre, email, password, telefono, ciudad } = req.body; // Añadir 'ciudad'
+    const { nombre, email, password, telefono, ciudad } = req.body;
     console.log('Datos recibidos para registro:', req.body); // Depuración
     console.log('Teléfono recibido:', telefono); // Depuración adicional
     console.log('Ciudad recibida:', ciudad); // Depuración adicional
 
-    const sql = 'INSERT INTO datos (nombre, email, password, telefono, ciudad) VALUES (?, ?, ?, ?, ?)'; // Incluir 'ciudad'
+    const sql = 'INSERT INTO datos (nombre, email, password, telefono, ciudad) VALUES (?, ?, ?, ?, ?)';
     db.query(sql, [nombre, email, password, telefono, ciudad], (err, result) => {
         if (err) {
             console.error('Error al registrar usuario:', err);
             res.status(500).send('Error al registrar usuario');
         } else {
-            res.send('Usuario registrado exitosamente');
+            // Enviar una respuesta JSON con un campo 'success' en lugar de redirigir directamente
+            res.json({ success: true, redirectUrl: 'http://localhost:3000/pages/pago_suscripcion.html' });
         }
     });
 });
@@ -132,4 +133,6 @@ app.get('/getProgress/:userId/:videoId', authenticateToken, (req, res) => {
 app.listen(port, () => {
     console.log(`Servidor ejecutándose en el puerto ${port}`);
 });
+
+
 
