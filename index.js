@@ -194,12 +194,3 @@ function acceptTerms() {
         });
         
 });
-
-
-
-
-
-
-
-
-
