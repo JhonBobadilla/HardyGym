@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "start-chat": "node server/chatServer.cjs",
-    "build": "cp -r public build"
+    
   },
   "keywords": [],
   "author": "",
