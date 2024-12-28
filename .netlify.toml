@@ -1,4 +1,4 @@
 [build]
-base = "/" # Deja esto como raíz si tu proyecto está en la raíz del repositorio
-publish = "public" # Asegúrate de que apunte a la carpeta donde está tu index.html
-command = "npm run build" # Comando para construir tu proyecto, si usas npm
+base = "/" 
+publish = "build" 
+command = "npm run build" 
