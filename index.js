@@ -31,7 +31,6 @@ function acceptTerms() {
     alert("Aceptaste los terminos y condiciones");
     window.location.href = "register.html";
 }
-
 function rejectTerms() {
     alert("No aceptaste los terminos y condiciones te redirigiremos al home");
     window.location.href = '../public/index.html';

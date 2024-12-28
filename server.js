@@ -51,6 +51,7 @@ app.post('/register', (req, res) => {
     });
 });
 
+
 // Ruta para recibir notificaciones de PayU
 app.post('/webhook-payu', (req, res) => {
     const { transaction } = req.body;
