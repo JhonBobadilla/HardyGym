@@ -34,6 +34,17 @@ db.connect((err) => {
 
 //hasta aqui se puede borrar en caso que no se requiera lo usa heroku
 
+// ruta para la pagina de inicio
+
+// Ruta para la página de inicio
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+//hasta aqui eso lo usa heroku
+
+
+
 // Ruta para registrar nuevos usuarios
 app.post('/register', (req, res) => {
     const { nombre, email, password, telefono, ciudad } = req.body;
