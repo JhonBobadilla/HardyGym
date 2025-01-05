@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 dotenv.config();
 
 const app = express();
-const port = process.env.RESET_PASSWORD_PORT || 3002;
+const port = process.env.RESET_PASSWORD_PORT || /*3002*/8080;
 const secretKey = process.env.SECRET_KEY || 'tu_secreto';
 
 console.log('Puerto para restablecimiento de contraseña:', port);

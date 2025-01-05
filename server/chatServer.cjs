@@ -5,7 +5,7 @@ const { Server } = require('socket.io');
 const { createServer } = require('http');
 
 dotenv.config();
-const port = process.env.CHAT_PORT || 3001; // Cambiado a 3001 para evitar conflicto
+const port = process.env.CHAT_PORT || /*3001*/8080; // Cambiado a 3001 para evitar conflicto
 const app = express();
 const server = createServer(app);
 const io = new Server(server, { connectionStateRecovery: {} });
