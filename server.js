@@ -35,6 +35,8 @@ db.connect((err) => {
     console.log('Conectado a la base de datos MySQL');
 });
 
+//hasta aqui se puede borrar en caso que no se requiera lo usa heroku
+
 // Ruta para registrar nuevos usuarios
 app.post('/register', (req, res) => {
     const { nombre, email, password, telefono, ciudad } = req.body;
