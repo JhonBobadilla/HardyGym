@@ -23,17 +23,14 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname)));
 
 // Conexión a la base de datos
-const db = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
-});
 
-db.connect((err) => {
-    if (err) throw err;
-    console.log('Conectado a la base de datos MySQL');
-});
+const db = mysql.createConnection(process.env.JAWSDB_URL); 
+db.connect((err) => { 
+    if (err) { 
+        console.error('Error connecting to MySQL database:', err); 
+        return; } 
+        console.log('Conectado a la base de datos MySQL'); 
+    });
 
 //hasta aqui se puede borrar en caso que no se requiera lo usa heroku
 
