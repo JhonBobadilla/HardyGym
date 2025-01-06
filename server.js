@@ -177,7 +177,7 @@ app.post('/login', (req, res) => {
                 return res.json({ token });
             } else {
                 console.log('Suscripción expirada, redirigiendo a la página de pago');
-                return res.json({ redirectUrl: 'http://localhost:3000/pages/pago_suscripcion.html' });
+                return res.json({ redirectUrl: 'https://hardy-2839d6e03ba8.herokuapp.com/pages/pago_suscripcion.html' });
             }
         } else {
             console.log('Credenciales inválidas: No se encontró ningún usuario con esas credenciales');
