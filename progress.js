@@ -8,8 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
+    const BASE_URL = 'https://hardy-2839d6e03ba8.herokuapp.com'; // Cambia esto por tu URL de Heroku
+
     function obtenerUserIdAutenticado() {
-        return fetch('http://localhost:3000/getUserId', {
+        return fetch(`${BASE_URL}/getUserId`, {
             headers: {
                 'Authorization': 'Bearer ' + token // Incluir el token de autenticación
             }
@@ -109,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Función para guardar el progreso en la base de datos
     function saveProgress(userId, videoId, progress) {
-        fetch('http://localhost:3000/saveProgress', {
+        fetch(`${BASE_URL}/saveProgress`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -128,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Función para cargar el progreso desde la base de datos
     function loadProgress(userId, videoId, elementId) {
-        fetch(`http://localhost:3000/getProgress/${userId}/${videoId}`, {
+        fetch(`${BASE_URL}/getProgress/${userId}/${videoId}`, {
             headers: {
                 'Authorization': 'Bearer ' + token // Incluir el token de autenticación
             }
