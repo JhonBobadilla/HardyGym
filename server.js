@@ -23,10 +23,11 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname)));
 
 // Conexión a la base de datos
+const connectionString = 'mysql://ykhonn2sgzjbi5u5:lj1tdgnb1l2mkoxe@b4e9xxkxnpu2v96i.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/tp11lyl528vwcgfq';
 let db;
 
 function handleDisconnect() {
-    db = mysql.createConnection(process.env.JAWSDB_URL);
+    db = mysql.createConnection(connectionString);
 
     db.connect(function(err) {
         if (err) {
@@ -199,7 +200,6 @@ function authenticateToken(req, res, next) {
 }
 
 // Ruta para obtener el userId
-
 app.get('/getUserId', authenticateToken, (req, res) => {
     const userId = req.user.id;
 
@@ -217,7 +217,6 @@ app.get('/getUserId', authenticateToken, (req, res) => {
         res.json({ userId: userId, nombre: results[0].nombre });
     });
 });
-
 
 // Rutas para guardar y obtener el progreso
 app.post('/saveProgress', authenticateToken, (req, res) => {
