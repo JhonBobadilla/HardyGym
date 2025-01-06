@@ -24,19 +24,42 @@ app.use(express.static(path.join(__dirname)));
 
 // Conexión a la base de datos
 
-const db = mysql.createConnection(process.env.JAWSDB_URL || {
+const mysql = require('mysql');
+
+const dbConfig = {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
-});
-db.connect((err) => { 
-    if (err) { 
-        console.error('Error connecting to MySQL database:', err); 
-        return; 
-    } 
-    console.log('Conectado a la base de datos MySQL'); 
-});
+    database: process.env.DB_NAME,
+    connectTimeout: 10000 // 10 segundos
+};
+
+let db;
+
+function handleDisconnect() {
+    db = mysql.createConnection(process.env.JAWSDB_URL || dbConfig);
+
+    db.connect(function(err) {
+        if (err) {
+            console.error('Error connecting to MySQL database:', err);
+            setTimeout(handleDisconnect, 2000); // Intentar reconectar después de 2 segundos
+        } else {
+            console.log('Conectado a la base de datos MySQL');
+        }
+    });
+
+    db.on('error', function(err) {
+        console.error('MySQL error', err);
+        if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+            handleDisconnect();
+        } else {
+            throw err;
+        }
+    });
+}
+
+handleDisconnect();
+
 
 //hasta aqui se puede borrar en caso que no se requiera lo usa heroku
 
