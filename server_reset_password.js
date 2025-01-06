@@ -64,12 +64,12 @@ app.post('/reset-password', (req, res) => {
     db.query(sql, [email], (err, results) => {
         if (err) {
             console.error('Error al verificar el correo en la base de datos:', err);
-            return res.status(500).send({ message: 'Error al verificar el correo' });
+            return res.status(500).json({ message: 'Error al verificar el correo' });
         }
 
         if (results.length === 0) {
             console.log('Correo no registrado:', email);
-            return res.status(400).send({ message: 'El correo no está registrado' });
+            return res.status(400).json({ message: 'El correo no está registrado' });
         }
 
         const token = jwt.sign({ email }, secretKey, { expiresIn: '1h' });
@@ -82,16 +82,14 @@ app.post('/reset-password', (req, res) => {
             text: `Haz clic en el siguiente enlace para restablecer tu contraseña: https://hardy-2839d6e03ba8.herokuapp.com/pages/new_password.html?token=${token}`
         };
 
-        console.log('Opciones de correo:', mailOptions);
-
         transporter.sendMail(mailOptions, (err, info) => {
             if (err) {
                 console.error('Error al enviar el correo:', err);
-                return res.status(500).send({ message: 'Error al enviar el enlace de restablecimiento', error: err.message });
+                return res.status(500).json({ message: 'Error al enviar el enlace de restablecimiento', error: err.message });
             }
 
             console.log('Correo enviado:', info.response);
-            res.send({ message: 'Enlace de restablecimiento enviado a tu correo' });
+            res.json({ message: 'Enlace de restablecimiento enviado a tu correo' });
         });
     });
 });
@@ -138,7 +136,6 @@ process.on('unhandledRejection', (err) => {
 app.listen(port, () => {
     console.log(`Servidor de restablecimiento de contraseña ejecutándose en el puerto ${port}`);
 });
-
 
 
 
