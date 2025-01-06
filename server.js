@@ -227,21 +227,32 @@ app.get('/getUserId', authenticateToken, (req, res) => {
 
 
 // Rutas para guardar y obtener el progreso
+
 app.post('/saveProgress', authenticateToken, (req, res) => {
     const { userId, videoId, progress } = req.body;
-    let sql = 'INSERT INTO video_progress (user_id, video_id, progress) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE progress = ?';
+
+    if (!userId || !videoId || progress === undefined) {
+        return res.status(400).json({ message: 'Faltan datos necesarios' });
+    }
+
+    const sql = 'INSERT INTO video_progress (user_id, video_id, progress) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE progress = ?';
     db.query(sql, [userId, videoId, progress, progress], (err, result) => {
         if (err) {
             console.error('Error guardando el progreso:', err);
             return res.status(500).json({ message: 'Error guardando el progreso' });
         }
-        res.json({ message: 'Progreso guardado' });
+        res.json({ message: 'Progreso guardado correctamente' });
     });
 });
 
 app.get('/getProgress/:userId/:videoId', authenticateToken, (req, res) => {
     const { userId, videoId } = req.params;
-    let sql = 'SELECT progress FROM video_progress WHERE user_id = ? AND video_id = ?';
+
+    if (!userId || !videoId) {
+        return res.status(400).json({ message: 'Faltan parámetros necesarios' });
+    }
+
+    const sql = 'SELECT progress FROM video_progress WHERE user_id = ? AND video_id = ?';
     db.query(sql, [userId, videoId], (err, results) => {
         if (err) {
             console.error('Error obteniendo el progreso:', err);
@@ -251,6 +262,7 @@ app.get('/getProgress/:userId/:videoId', authenticateToken, (req, res) => {
         res.json({ progress });
     });
 });
+
 
 // Ejemplo de ruta protegida
 app.get('/protected', authenticateToken, (req, res) => {
