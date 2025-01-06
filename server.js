@@ -6,13 +6,14 @@ const dotenv = require('dotenv');
 const session = require('express-session');
 const jwt = require('jsonwebtoken');
 dotenv.config();
+
 const app = express();
 const port = process.env.PORT || 8080;
 const secretKey = process.env.SECRET_KEY || 'tu_secreto';
 
 // Middleware de sesión
 app.use(session({
-    secret: 'tu_secreto',
+    secret: secretKey,
     resave: false,
     saveUninitialized: true
 }));
@@ -23,11 +24,16 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname)));
 
 // Conexión a la base de datos
-const connectionString = 'mysql://ykhonn2sgzjbi5u5:lj1tdgnb1l2mkoxe@b4e9xxkxnpu2v96i.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/tp11lyl528vwcgfq';
 let db;
 
 function handleDisconnect() {
-    db = mysql.createConnection(connectionString);
+    db = mysql.createConnection({
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME,
+        port: process.env.DB_PORT
+    });
 
     db.connect(function(err) {
         if (err) {
@@ -181,7 +187,6 @@ app.post('/login', (req, res) => {
 });
 
 // Middleware de autenticación para rutas protegidas
-
 function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
@@ -217,6 +222,7 @@ app.get('/getUserId', authenticateToken, (req, res) => {
         res.json({ userId: userId, nombre: results[0].nombre });
     });
 });
+
 
 // Rutas para guardar y obtener el progreso
 app.post('/saveProgress', authenticateToken, (req, res) => {
