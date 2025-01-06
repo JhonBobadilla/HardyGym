@@ -66,6 +66,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Función para aumentar el progreso
     window.advanceProgress = function(barId) {
         const progressBar = document.getElementById(barId);
+        if (!progressBar) {
+            console.error(`Elemento progressBar con ID ${barId} no encontrado`);
+            return;
+        }
         let progress = parseFloat(progressBar.style.width) || 0;
         if (progress < 100) {
             progress = Math.min(100, progress + INCREMENT);
@@ -79,6 +83,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Función para disminuir el progreso
     window.decreaseProgress = function(barId) {
         const progressBar = document.getElementById(barId);
+        if (!progressBar) {
+            console.error(`Elemento progressBar con ID ${barId} no encontrado`);
+            return;
+        }
         let progress = parseFloat(progressBar.style.width) || 0;
         if (progress > 0) {
             progress = Math.max(0, progress - INCREMENT);
@@ -91,6 +99,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Función para actualizar la barra de progreso
     function updateProgressBar(progressBar, value) {
+        if (!progressBar) {
+            console.error('Elemento progressBar no encontrado');
+            return;
+        }
+
         value = Math.round(value);
         if (value > 100) {
             value = 100;
@@ -108,29 +121,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Función para guardar el progreso en la base de datos
-    
-function saveProgress(userId, videoId, progress) {
-    console.log('Intentando guardar progreso:', { userId, videoId, progress });
+    function saveProgress(userId, videoId, progress) {
+        console.log('Intentando guardar progreso:', { userId, videoId, progress }); // Log para verificar valores
 
-    fetch(`${BASE_URL}/saveProgress`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token // Incluir el token de autenticación
-        },
-        body: JSON.stringify({ userId, videoId, progress })
-    })
-    .then(response => {
-        if (response.ok) {
-            console.log('Progreso guardado exitosamente.');
-        } else {
-            console.error('Error al guardar el progreso. Respuesta del servidor:', response.statusText);
-        }
-    })
-    .catch(error => {
-        console.error('Error en la solicitud fetch:', error);
-    });
-}
+        fetch(`${BASE_URL}/saveProgress`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token // Incluir el token de autenticación
+            },
+            body: JSON.stringify({ userId, videoId, progress })
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('Progreso guardado exitosamente.');
+            } else {
+                console.error('Error al guardar el progreso. Respuesta del servidor:', response.statusText);
+            }
+        })
+        .catch(error => {
+            console.error('Error en la solicitud fetch:', error);
+        });
+    }
+
     // Función para cargar el progreso desde la base de datos
     function loadProgress(userId, videoId, elementId) {
         fetch(`${BASE_URL}/getProgress/${userId}/${videoId}`, {
@@ -142,12 +155,20 @@ function saveProgress(userId, videoId, progress) {
         .then(data => {
             const progress = data.progress;
             const progressBar = document.getElementById(elementId);
-            updateProgressBar(progressBar, progress);
+            if (progressBar) {
+                updateProgressBar(progressBar, progress);
+            } else {
+                console.error(`Elemento progressBar con ID ${elementId} no encontrado`);
+            }
         })
         .catch(error => {
             console.error('Error al obtener el progreso:', error);
         });
     }
 });
+
+
+        
+
 
 
