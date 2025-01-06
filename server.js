@@ -24,13 +24,19 @@ app.use(express.static(path.join(__dirname)));
 
 // Conexión a la base de datos
 
-const db = mysql.createConnection(process.env.JAWSDB_URL); 
+const db = mysql.createConnection(process.env.JAWSDB_URL || {
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
+});
 db.connect((err) => { 
     if (err) { 
         console.error('Error connecting to MySQL database:', err); 
-        return; } 
-        console.log('Conectado a la base de datos MySQL'); 
-    });
+        return; 
+    } 
+    console.log('Conectado a la base de datos MySQL'); 
+});
 
 //hasta aqui se puede borrar en caso que no se requiera lo usa heroku
 
@@ -42,8 +48,6 @@ app.get('/', (req, res) => {
 });
 
 //hasta aqui eso lo usa heroku
-
-
 
 // Ruta para registrar nuevos usuarios
 app.post('/register', (req, res) => {
@@ -60,7 +64,6 @@ app.post('/register', (req, res) => {
         }
     });
 });
-
 
 // Ruta para recibir notificaciones de PayU
 app.post('/webhook-payu', (req, res) => {
@@ -186,7 +189,6 @@ function authenticateToken(req, res, next) {
     });
 }
 
-
 // Ruta para obtener el userId
 
 app.get('/getUserId', authenticateToken, (req, res) => {
@@ -206,7 +208,6 @@ app.get('/getUserId', authenticateToken, (req, res) => {
         res.json({ userId: userId, nombre: results[0].nombre });
     });
 });
-
 
 // Rutas para guardar y obtener el progreso
 app.post('/saveProgress', authenticateToken, (req, res) => {
@@ -243,6 +244,3 @@ app.get('/protected', authenticateToken, (req, res) => {
 app.listen(port, () => {
     console.log(`Servidor ejecutándose en el puerto ${port}`);
 });
-
-
-
