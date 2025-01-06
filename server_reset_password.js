@@ -11,9 +11,6 @@ const app = express();
 const port = process.env.RESET_PASSWORD_PORT || 8080;
 const secretKey = process.env.SECRET_KEY || 'tu_secreto';
 
-console.log('Puerto para restablecimiento de contraseña:', port);
-console.log('Clave secreta:', secretKey);
-
 // Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -94,34 +91,6 @@ app.post('/reset-password', (req, res) => {
     });
 });
 
-// Ruta para actualizar la contraseña en la base de datos
-app.post('/new-password', (req, res) => {
-    const { token, newPassword } = req.body;
-    console.log('Token recibido:', token);
-    console.log('Nueva contraseña recibida:', newPassword);
-
-    jwt.verify(token, secretKey, (err, decoded) => {
-        if (err) {
-            console.error('Error al verificar el token:', err);
-            return res.status(400).send('Token no válido o expirado');
-        }
-        const email = decoded.email;
-
-        console.log('Email decodificado del token:', email);
-
-        const sql = 'UPDATE datos SET password = ? WHERE email = ?';
-        db.query(sql, [newPassword, email], (err, result) => {
-            if (err) {
-                console.error('Error al actualizar la contraseña:', err);
-                return res.status(500).send('Error al actualizar la contraseña');
-            }
-
-            console.log('Contraseña actualizada para el usuario:', email);
-            res.status(200).send({ message: 'Contraseña actualizada exitosamente' });
-        });
-    });
-});
-
 // Capturar todos los errores no manejados
 process.on('uncaughtException', (err) => {
     console.error('Excepción no controlada:', err);
@@ -136,19 +105,5 @@ process.on('unhandledRejection', (err) => {
 app.listen(port, () => {
     console.log(`Servidor de restablecimiento de contraseña ejecutándose en el puerto ${port}`);
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
