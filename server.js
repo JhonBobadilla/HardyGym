@@ -176,7 +176,8 @@ app.post('/login', (req, res) => {
                 console.log('Usuario autenticado, generando token');
                 return res.json({ token });
             } else {
-                
+                console.log('Suscripción expirada, redirigiendo a la página de pago');
+                return res.json({ redirectUrl: 'http://localhost:3000/pages/pago_suscripcion.html' });
             }
         } else {
             console.log('Credenciales inválidas: No se encontró ningún usuario con esas credenciales');
