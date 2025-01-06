@@ -1,13 +1,13 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const mysql = require('mysql'); // Mantén esta declaración
+const mysql = require('mysql');
 const dotenv = require('dotenv');
 const session = require('express-session');
 const jwt = require('jsonwebtoken');
 dotenv.config();
 const app = express();
-const port = process.env.PORT || /*3000*/ 8080;
+const port = process.env.PORT || 8080;
 const secretKey = process.env.SECRET_KEY || 'tu_secreto';
 
 // Middleware de sesión
@@ -23,20 +23,10 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname)));
 
 // Conexión a la base de datos
-// Ya no es necesario declarar nuevamente mysql aquí
-
-const dbConfig = {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    connectTimeout: 10000 // 10 segundos
-};
-
 let db;
 
 function handleDisconnect() {
-    db = mysql.createConnection(process.env.JAWSDB_URL || dbConfig);
+    db = mysql.createConnection(process.env.JAWSDB_URL);
 
     db.connect(function(err) {
         if (err) {
@@ -60,8 +50,6 @@ function handleDisconnect() {
 handleDisconnect();
 
 //hasta aqui se puede borrar en caso que no se requiera lo usa heroku
-
-// ruta para la pagina de inicio
 
 // Ruta para la página de inicio
 app.get('/', (req, res) => {
