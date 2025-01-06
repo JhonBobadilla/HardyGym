@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 dotenv.config();
 
 const app = express();
-const port = process.env.RESET_PASSWORD_PORT || /*3002*/8080;
+const port = process.env.RESET_PASSWORD_PORT || 8080;
 const secretKey = process.env.SECRET_KEY || 'tu_secreto';
 
 console.log('Puerto para restablecimiento de contraseña:', port);
@@ -48,15 +48,10 @@ const transporter = nodemailer.createTransport({
 transporter.verify((error, success) => {
     if (error) {
         console.error('Error al verificar el transportador:', error);
-        console.log('Detalles del error:', error.message, error.response);
-        console.log('Código de error:', error.code, 'Sistema:', error.syscall, 'Dirección:', error.address, 'Puerto:', error.port);
     } else {
         console.log('Transportador de correo está listo para enviar mensajes');
     }
 });
-
-console.log('Correo de usuario:', process.env.EMAIL_USER);
-console.log('Configuración del transportador de correo:', transporter.options);
 
 // Ruta para enviar el enlace de restablecimiento de contraseña
 app.post('/reset-password', (req, res) => {
@@ -83,7 +78,7 @@ app.post('/reset-password', (req, res) => {
             from: process.env.EMAIL_USER,
             to: email,
             subject: 'Enlace para restablecer tu contraseña',
-            text: `Haz clic en el siguiente enlace para restablecer tu contraseña: http://localhost:${port}/pages/new_password.html?token=${token}`
+            text: `Haz clic en el siguiente enlace para restablecer tu contraseña: https://hardy-2839d6e03ba8.herokuapp.com/pages/new_password.html?token=${token}`
         };
 
         console.log('Opciones de correo:', mailOptions);
@@ -91,7 +86,6 @@ app.post('/reset-password', (req, res) => {
         transporter.sendMail(mailOptions, (err, info) => {
             if (err) {
                 console.error('Error al enviar el correo:', err);
-                console.log('Error detalles:', err.message, err.response);
                 return res.status(500).send({ message: 'Error al enviar el enlace de restablecimiento', error: err.message });
             }
 
@@ -143,6 +137,7 @@ process.on('unhandledRejection', (err) => {
 app.listen(port, () => {
     console.log(`Servidor de restablecimiento de contraseña ejecutándose en el puerto ${port}`);
 });
+
 
 
 
