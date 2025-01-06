@@ -78,7 +78,7 @@ app.post('/register', (req, res) => {
             console.error('Error al registrar usuario:', err);
             res.status(500).json({ error: 'Error al registrar usuario' });
         } else {
-            res.json({ success: true, redirectUrl: 'http://localhost:3000/pages/pago_suscripcion.html' });
+            res.json({ success: true, redirectUrl: 'https://hardy-2839d6e03ba8.herokuapp.com/pages/pago_suscripcion.html' });
         }
     });
 });
