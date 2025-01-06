@@ -108,24 +108,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Función para guardar el progreso en la base de datos
-    function saveProgress(userId, videoId, progress) {
-        fetch(`${BASE_URL}/saveProgress`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token // Incluir el token de autenticación
-            },
-            body: JSON.stringify({ userId, videoId, progress })
-        })
-        .then(response => {
-            if (response.ok) {
-                console.log('Progreso guardado exitosamente.');
-            } else {
-                console.error('Error al guardar el progreso.');
-            }
-        });
-    }
+    
+function saveProgress(userId, videoId, progress) {
+    console.log('Intentando guardar progreso:', { userId, videoId, progress });
 
+    fetch(`${BASE_URL}/saveProgress`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token // Incluir el token de autenticación
+        },
+        body: JSON.stringify({ userId, videoId, progress })
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log('Progreso guardado exitosamente.');
+        } else {
+            console.error('Error al guardar el progreso. Respuesta del servidor:', response.statusText);
+        }
+    })
+    .catch(error => {
+        console.error('Error en la solicitud fetch:', error);
+    });
+}
     // Función para cargar el progreso desde la base de datos
     function loadProgress(userId, videoId, elementId) {
         fetch(`${BASE_URL}/getProgress/${userId}/${videoId}`, {

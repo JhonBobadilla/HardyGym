@@ -231,6 +231,8 @@ app.get('/getUserId', authenticateToken, (req, res) => {
 app.post('/saveProgress', authenticateToken, (req, res) => {
     const { userId, videoId, progress } = req.body;
 
+    console.log('Request a /saveProgress:', { userId, videoId, progress }); // Log para verificar valores
+
     if (!userId || !videoId || progress === undefined) {
         return res.status(400).json({ message: 'Faltan datos necesarios' });
     }
@@ -241,6 +243,7 @@ app.post('/saveProgress', authenticateToken, (req, res) => {
             console.error('Error guardando el progreso:', err);
             return res.status(500).json({ message: 'Error guardando el progreso' });
         }
+        console.log('Progreso guardado en la base de datos:', result);
         res.json({ message: 'Progreso guardado correctamente' });
     });
 });
