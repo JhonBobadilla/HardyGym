@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const mysql = require('mysql');
+const mysql = require('mysql'); // Mantén esta declaración
 const dotenv = require('dotenv');
 const session = require('express-session');
 const jwt = require('jsonwebtoken');
@@ -23,8 +23,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname)));
 
 // Conexión a la base de datos
-
-const mysql = require('mysql');
+// Ya no es necesario declarar nuevamente mysql aquí
 
 const dbConfig = {
     host: process.env.DB_HOST,
@@ -59,7 +58,6 @@ function handleDisconnect() {
 }
 
 handleDisconnect();
-
 
 //hasta aqui se puede borrar en caso que no se requiera lo usa heroku
 
@@ -231,6 +229,7 @@ app.get('/getUserId', authenticateToken, (req, res) => {
         res.json({ userId: userId, nombre: results[0].nombre });
     });
 });
+
 
 // Rutas para guardar y obtener el progreso
 app.post('/saveProgress', authenticateToken, (req, res) => {
