@@ -54,7 +54,7 @@ app.post('/register', (req, res) => {
     db.query(sql, [nombre, email, password, telefono, ciudad], (err, result) => {
         if (err) {
             console.error('Error al registrar usuario:', err);
-            res.status(500).send('Error al registrar usuario');
+            res.status(500).json({ error: 'Error al registrar usuario' });
         } else {
             res.json({ success: true, redirectUrl: 'http://localhost:3000/pages/pago_suscripcion.html' });
         }
@@ -139,7 +139,7 @@ app.post('/login', (req, res) => {
     db.query(sql, [txtemail, txtpassword], (err, results) => {
         if (err) {
             console.error('Error en la consulta SQL:', err);
-            return res.status(500).send('Error en el servidor');
+            return res.status(500).json({ error: 'Error en el servidor' });
         }
         console.log('Resultados de la consulta SQL:', results);
 
@@ -155,14 +155,14 @@ app.post('/login', (req, res) => {
             if (currentDate <= subscriptionEndDate) {
                 const token = jwt.sign({ id: user.id, email: user.email }, secretKey, { expiresIn: '1h' });
                 console.log('Usuario autenticado, generando token');
-                res.json({ token });
+                return res.json({ token });
             } else {
                 console.log('Suscripción expirada, redirigiendo a la página de pago');
-                res.json({ redirectUrl: 'http://localhost:3000/pages/pago_suscripcion.html' });
+                return res.json({ redirectUrl: 'http://localhost:3000/pages/pago_suscripcion.html' });
             }
         } else {
             console.log('Credenciales inválidas: No se encontró ningún usuario con esas credenciales');
-            res.send('Credenciales inválidas');
+            return res.status(401).json({ error: 'Credenciales inválidas' });
         }
     });
 });
@@ -243,4 +243,6 @@ app.get('/protected', authenticateToken, (req, res) => {
 app.listen(port, () => {
     console.log(`Servidor ejecutándose en el puerto ${port}`);
 });
+
+
 
