@@ -146,6 +146,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Función para cargar el progreso desde la base de datos
     function loadProgress(userId, videoId, elementId) {
+        console.log(`Cargando progreso para ${videoId} en elemento ${elementId}`);
+
         fetch(`${BASE_URL}/getProgress/${userId}/${videoId}`, {
             headers: {
                 'Authorization': 'Bearer ' + token // Incluir el token de autenticación
@@ -156,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const progress = data.progress;
             const progressBar = document.getElementById(elementId);
             if (progressBar) {
+                console.log(`Progreso encontrado: ${progress}`);
                 updateProgressBar(progressBar, progress);
             } else {
                 console.error(`Elemento progressBar con ID ${elementId} no encontrado`);
@@ -168,7 +171,4 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-        
-
-
-
+       
