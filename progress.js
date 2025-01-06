@@ -111,9 +111,11 @@ document.addEventListener('DOMContentLoaded', () => {
             value = 0;
         }
         progressBar.style.width = `${value}%`;
-        if (value <= 34) {
+        if (value === 0) {
+            progressBar.style.backgroundColor = 'white';
+        } else if (value <= 33) {
             progressBar.style.backgroundColor = '#ff0000';
-        } else if (value <= 68) {
+        } else if (value <= 66) {
             progressBar.style.backgroundColor = '#f39c12';
         } else {
             progressBar.style.backgroundColor = '#7ed957';
@@ -169,6 +171,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-
-
-       
