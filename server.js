@@ -76,7 +76,7 @@ app.post('/register', (req, res) => {
             console.error('Error al registrar usuario:', err);
             res.status(500).json({ error: 'Error al registrar usuario' });
         } else {
-            res.json({ success: true, redirectUrl: 'http://localhost:3000/pages/pago_suscripcion.html' });
+            res.json({ success: true, redirectUrl: 'https://hardy-2839d6e03ba8.herokuapp.com/pages/pago_suscripcion.html' });
         }
     });
 });
@@ -176,8 +176,7 @@ app.post('/login', (req, res) => {
                 console.log('Usuario autenticado, generando token');
                 return res.json({ token });
             } else {
-                console.log('Suscripción expirada, redirigiendo a la página de pago');
-                return res.json({ redirectUrl: 'http://localhost:3000/pages/pago_suscripcion.html' });
+                
             }
         } else {
             console.log('Credenciales inválidas: No se encontró ningún usuario con esas credenciales');
