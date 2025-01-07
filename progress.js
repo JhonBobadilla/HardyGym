@@ -43,8 +43,8 @@ function getVideoIdFromBarId(barId) {
 
 // Función para obtener el ID del usuario actual
 function getCurrentUserId() {
-    // Implementa esta función para devolver el ID del usuario actual
-    // Ejemplo: return user.id;
+    // Suponiendo que el ID del usuario está almacenado en el localStorage
+    return localStorage.getItem('userId');
 }
 
 // Función para actualizar la barra de progreso en la base de datos
@@ -75,4 +75,5 @@ async function updateProgress(userId, videoId, progress) {
 function getToken() {
     return localStorage.getItem('token'); // O la manera en que estés almacenando el token
 }
+
 
