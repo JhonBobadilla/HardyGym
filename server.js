@@ -273,6 +273,8 @@ app.get('/getProgress/:user_id/:video_id', authenticateToken, (req, res) => {
 
 
 
+
+
 // Ejemplo de ruta protegida
 app.get('/protected', authenticateToken, (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'protected.html'));

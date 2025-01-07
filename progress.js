@@ -44,7 +44,7 @@ function getVideoIdFromBarId(barId) {
 // Función para obtener el ID del usuario actual
 function getCurrentUserId() {
     const userId = localStorage.getItem('userId');
-    console.log('Obtenido userId del localStorage:', userId);
+    console.log('Obtenido userId del localStorage:', userId); // Registro de depuración
     return userId;
 }
 
@@ -76,4 +76,5 @@ async function updateProgress(userId, videoId, progress) {
 function getToken() {
     return localStorage.getItem('token'); // O la manera en que estés almacenando el token
 }
+
 
