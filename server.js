@@ -238,7 +238,7 @@ app.post('/saveProgress', authenticateToken, (req, res) => {
     const { user_id, video_id, progress } = req.body;
     console.log(`Guardar progreso: user_id=${user_id}, video_id=${video_id}, progress=${progress}`);
 
-    if (!user_id || !video_id || !progress) {
+    if (!user_id || !video_id || progress === undefined) {
         console.error('Faltan datos en la solicitud:', req.body);
         return res.status(400).json({ message: 'Faltan datos en la solicitud' });
     }
@@ -270,6 +270,7 @@ app.get('/getProgress/:user_id/:video_id', authenticateToken, (req, res) => {
 });
 
 /* ----------------------------barra de progreso hasta aquí --------------------*/
+
 
 
 // Ejemplo de ruta protegida
