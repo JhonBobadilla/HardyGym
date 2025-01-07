@@ -6,8 +6,6 @@ const dotenv = require('dotenv');
 const session = require('express-session');
 const jwt = require('jsonwebtoken');
 
-
-
 dotenv.config();
 
 const app = express();
@@ -207,6 +205,10 @@ function authenticateToken(req, res, next) {
     });
 }
 
+
+
+
+
 // Ruta para obtener el userId
 app.get('/getUserId', authenticateToken, (req, res) => {
     const userId = req.user.id;
@@ -227,11 +229,14 @@ app.get('/getUserId', authenticateToken, (req, res) => {
 });
 
 
-// Rutas para guardar y obtener el progreso
+/* ----------------------------barra de progreso --------------------*/
+
+
+// Ruta para guardar el progreso
 app.post('/saveProgress', authenticateToken, (req, res) => {
-    const { userId, videoId, progress } = req.body;
-    let sql = 'INSERT INTO video_progress (user_id, video_id, progress) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE progress = ?';
-    db.query(sql, [userId, videoId, progress, progress], (err, result) => {
+    const { user_id, video_id, progress } = req.body;
+    const sql = 'INSERT INTO video_progress (user_id, video_id, progress) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE progress = ?';
+    db.query(sql, [user_id, video_id, progress, progress], (err, result) => {
         if (err) {
             console.error('Error guardando el progreso:', err);
             return res.status(500).json({ message: 'Error guardando el progreso' });
@@ -240,10 +245,11 @@ app.post('/saveProgress', authenticateToken, (req, res) => {
     });
 });
 
-app.get('/getProgress/:userId/:videoId', authenticateToken, (req, res) => {
-    const { userId, videoId } = req.params;
-    let sql = 'SELECT progress FROM video_progress WHERE user_id = ? AND video_id = ?';
-    db.query(sql, [userId, videoId], (err, results) => {
+// Ruta para obtener el progreso
+app.get('/getProgress/:user_id/:video_id', authenticateToken, (req, res) => {
+    const { user_id, video_id } = req.params;
+    const sql = 'SELECT progress FROM video_progress WHERE user_id = ? AND video_id = ?';
+    db.query(sql, [user_id, video_id], (err, results) => {
         if (err) {
             console.error('Error obteniendo el progreso:', err);
             return res.status(500).json({ message: 'Error obteniendo el progreso' });
@@ -252,6 +258,16 @@ app.get('/getProgress/:userId/:videoId', authenticateToken, (req, res) => {
         res.json({ progress });
     });
 });
+
+
+
+
+
+/* ----------------------------barra de progreso hasta aquí --------------------*/
+
+
+
+
 
 // Ejemplo de ruta protegida
 app.get('/protected', authenticateToken, (req, res) => {
