@@ -118,3 +118,4 @@ async function getProgressFromDatabase(userId, videoId) {
     }
 }
 
+
