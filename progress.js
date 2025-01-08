@@ -6,12 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
     })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error al obtener el progreso');
-            }
-            return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
             data.forEach(({ video_id, progress }) => {
                 const progressBar = document.getElementById(video_id);
@@ -39,8 +34,12 @@ function advanceProgress(videoId) {
     const progressBar = document.getElementById(videoId);
     let currentWidth = parseInt(progressBar.style.width) || 0;
 
-    if (currentWidth < 100) {
+    if (currentWidth < 99) {  // Limitamos a 99%
         currentWidth += 33;
+        updateProgressBar(progressBar, currentWidth);
+        saveProgress(videoId, currentWidth);
+    } else if (currentWidth === 99) {  // Al llegar a 99%, pasamos a 100% y ponemos verde
+        currentWidth = 100;
         updateProgressBar(progressBar, currentWidth);
         saveProgress(videoId, currentWidth);
     }
@@ -66,11 +65,5 @@ function saveProgress(videoId, progress) {
         },
         body: JSON.stringify({ video_id: videoId, progress })
     })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error al guardar el progreso');
-            }
-            return response.json();
-        })
         .catch(console.error);
 }
