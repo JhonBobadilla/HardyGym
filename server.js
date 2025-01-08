@@ -237,14 +237,11 @@ app.post('/save-progress', authenticateToken, (req, res) => {
     const { video_id, progress } = req.body;
     const userId = req.user.id;
 
-    // Validar que el progreso esté entre 0 y 100
-    const validProgress = Math.min(100, Math.max(0, progress));
-
     const sql = `
         INSERT INTO video_progress (user_id, video_id, progress)
         VALUES (?, ?, ?)
         ON DUPLICATE KEY UPDATE progress = ?`;
-    db.query(sql, [userId, video_id, validProgress, validProgress], (err, result) => {
+    db.query(sql, [userId, video_id, progress, progress], (err, result) => {
         if (err) {
             console.error('Error al guardar el progreso:', err);
             return res.status(500).json({ error: 'Error al guardar el progreso' });
@@ -252,6 +249,21 @@ app.post('/save-progress', authenticateToken, (req, res) => {
         res.json({ success: true });
     });
 });
+
+// Obtener el progreso de todos los videos para un usuario
+app.get('/get-progress', authenticateToken, (req, res) => {
+    const userId = req.user.id;
+
+    const sql = 'SELECT video_id, progress FROM video_progress WHERE user_id = ?';
+    db.query(sql, [userId], (err, results) => {
+        if (err) {
+            console.error('Error al obtener el progreso:', err);
+            return res.status(500).json({ error: 'Error al obtener el progreso' });
+        }
+        res.json(results);
+    });
+});
+
 
 
 
