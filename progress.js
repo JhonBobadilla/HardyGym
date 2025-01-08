@@ -6,7 +6,12 @@ document.addEventListener('DOMContentLoaded', () => {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
     })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al obtener el progreso');
+            }
+            return response.json();
+        })
         .then(data => {
             data.forEach(({ video_id, progress }) => {
                 const progressBar = document.getElementById(video_id);
@@ -20,9 +25,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function updateProgressBar(progressBar, progress) {
     progressBar.style.width = `${progress}%`;
-    if (progress === 33) progressBar.style.backgroundColor = 'red';
-    else if (progress === 66) progressBar.style.backgroundColor = 'yellow';
-    else if (progress === 100) progressBar.style.backgroundColor = 'green';
+
+    if (progress === 33) {
+        progressBar.style.backgroundColor = 'red';
+    } else if (progress === 66) {
+        progressBar.style.backgroundColor = 'yellow';
+    } else if (progress === 100) {
+        progressBar.style.backgroundColor = 'green';
+    }
 }
 
 function advanceProgress(videoId) {
@@ -55,10 +65,12 @@ function saveProgress(videoId, progress) {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
         body: JSON.stringify({ video_id: videoId, progress })
-    }).catch(console.error);
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al guardar el progreso');
+            }
+            return response.json();
+        })
+        .catch(console.error);
 }
-
-
-  
-
-
