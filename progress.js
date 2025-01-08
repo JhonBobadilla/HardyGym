@@ -25,6 +25,8 @@ function updateProgressBar(progressBar, progress) {
         progressBar.style.backgroundColor = 'red';
     } else if (progress === 66) {
         progressBar.style.backgroundColor = 'yellow';
+    } else if (progress === 99) {
+        progressBar.style.backgroundColor = 'green';
     } else if (progress === 100) {
         progressBar.style.backgroundColor = 'green';
     }
@@ -34,12 +36,20 @@ function advanceProgress(videoId) {
     const progressBar = document.getElementById(videoId);
     let currentWidth = parseInt(progressBar.style.width) || 0;
 
-    if (currentWidth < 99) {  // Limitamos a 99%
-        currentWidth += 33;
+    if (currentWidth === 0) {
+        currentWidth = 33;  // Primer clic, color rojo
         updateProgressBar(progressBar, currentWidth);
         saveProgress(videoId, currentWidth);
-    } else if (currentWidth === 99) {  // Al llegar a 99%, pasamos a 100% y ponemos verde
-        currentWidth = 100;
+    } else if (currentWidth === 33) {
+        currentWidth = 66;  // Segundo clic, color amarillo
+        updateProgressBar(progressBar, currentWidth);
+        saveProgress(videoId, currentWidth);
+    } else if (currentWidth === 66) {
+        currentWidth = 99;  // Tercer clic, color verde al 99%
+        updateProgressBar(progressBar, currentWidth);
+        saveProgress(videoId, currentWidth);
+    } else if (currentWidth === 99) {
+        currentWidth = 100;  // Cuarto clic, mantén verde al 100%
         updateProgressBar(progressBar, currentWidth);
         saveProgress(videoId, currentWidth);
     }
@@ -67,3 +77,4 @@ function saveProgress(videoId, progress) {
     })
         .catch(console.error);
 }
+
