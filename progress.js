@@ -26,9 +26,9 @@ function updateProgressBar(progressBar, progress) {
     } else if (progress === 66) {
         progressBar.style.backgroundColor = 'yellow';
     } else if (progress === 99) {
-        progressBar.style.backgroundColor = 'green';
+        progressBar.style.backgroundColor = '#7ed957';
     } else if (progress === 100) {
-        progressBar.style.backgroundColor = 'green';
+        progressBar.style.backgroundColor = '#7ed957';
     }
 }
 
