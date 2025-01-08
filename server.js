@@ -232,39 +232,37 @@ app.get('/getUserId', authenticateToken, (req, res) => {
 
 /* ----------------------------barra de progreso --------------------*/
 
-
-
-// Ruta para guardar el progreso de los videos
+// Guardar el progreso del video
 app.post('/save-progress', authenticateToken, (req, res) => {
-    const { userId, barId, progress } = req.body;
-    
-    const sql = 'INSERT INTO video_progress (user_id, bar_id, progress) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE progress = VALUES(progress)';
-    db.query(sql, [userId, barId, progress], (err, result) => {
+    const { video_id, progress } = req.body;
+    const userId = req.user.id;
+
+    const sql = `
+        INSERT INTO video_progress (user_id, video_id, progress)
+        VALUES (?, ?, ?)
+        ON DUPLICATE KEY UPDATE progress = ?`;
+    db.query(sql, [userId, video_id, progress, progress], (err, result) => {
         if (err) {
             console.error('Error al guardar el progreso:', err);
-            res.status(500).json({ error: 'Error al guardar el progreso' });
-        } else {
-            res.json({ success: true });
+            return res.status(500).json({ error: 'Error al guardar el progreso' });
         }
+        res.json({ success: true });
     });
 });
 
-// Ruta para cargar el progreso de los videos
-app.get('/load-progress', authenticateToken, (req, res) => {
-    const { userId, barId } = req.query;
+// Obtener el progreso de todos los videos para un usuario
+app.get('/get-progress', authenticateToken, (req, res) => {
+    const userId = req.user.id;
 
-    const sql = 'SELECT progress FROM video_progress WHERE user_id = ? AND bar_id = ?';
-    db.query(sql, [userId, barId], (err, results) => {
+    const sql = 'SELECT video_id, progress FROM video_progress WHERE user_id = ?';
+    db.query(sql, [userId], (err, results) => {
         if (err) {
-            console.error('Error al cargar el progreso:', err);
-            res.status(500).json({ error: 'Error al cargar el progreso' });
-        } else {
-            res.json(results.length > 0 ? results[0] : { progress: 0 });
+            console.error('Error al obtener el progreso:', err);
+            return res.status(500).json({ error: 'Error al obtener el progreso' });
         }
+        res.json(results);
     });
 });
-
-
 
 
 /*----------------------------barra de progreso hasta aquí --------------------*/
