@@ -77,4 +77,38 @@ function getToken() {
     return localStorage.getItem('token'); // O la manera en que estés almacenando el token
 }
 
+// Función para cargar el progreso al cargar la página
+document.addEventListener('DOMContentLoaded', async () => {
+    const userId = getCurrentUserId();
+    const progressBars = document.querySelectorAll('.progress-bar');
+    for (const progressBar of progressBars) {
+        const videoId = getVideoIdFromBarId(progressBar.id);
+        const progress = await getProgressFromDatabase(userId, videoId);
+        progressBar.style.width = `${progress}%`;
+        progressBar.style.backgroundColor = progress === 33 ? 'red' : progress === 66 ? 'yellow' : 'green';
+    }
+});
+
+// Función para obtener el progreso de la base de datos
+async function getProgressFromDatabase(userId, videoId) {
+    try {
+        const response = await fetch(`/getProgress/${userId}/${videoId}`, {
+            headers: {
+                'Authorization': `Bearer ${getToken()}`
+            }
+        });
+        if (response.ok) {
+            const data = await response.json();
+            return data.progress;
+        } else {
+            console.error('Error al obtener el progreso del servidor:', response.statusText);
+            return 0;
+        }
+    } catch (error) {
+        console.error('Error al obtener el progreso del servidor:', error);
+        return 0;
+    }
+}
+
+
 
