@@ -230,11 +230,10 @@ app.get('/getUserId', authenticateToken, (req, res) => {
 
 
 
-
 /* ----------------------------barra de progreso --------------------*/
 
-// Ruta para guardar el progreso
-app.post('/saveProgress', authenticateToken, (req, res) => {
+// Ruta para guardar el progreso en la nueva tabla
+app.post('/saveProgressNew', authenticateToken, (req, res) => {
     const { user_id, video_id, progress } = req.body;
     console.log(`Guardar progreso: user_id=${user_id}, video_id=${video_id}, progress=${progress}`);
 
@@ -243,7 +242,7 @@ app.post('/saveProgress', authenticateToken, (req, res) => {
         return res.status(400).json({ message: 'Faltan datos en la solicitud' });
     }
 
-    const sql = 'INSERT INTO video_progress (user_id, video_id, progress) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE progress = ?';
+    const sql = 'INSERT INTO video_progress_new (user_id, video_id, progress) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE progress = ?, timestamp = CURRENT_TIMESTAMP';
     db.query(sql, [user_id, video_id, progress, progress], (err, result) => {
         if (err) {
             console.error('Error guardando el progreso:', err);
@@ -253,12 +252,12 @@ app.post('/saveProgress', authenticateToken, (req, res) => {
     });
 });
 
-// Ruta para obtener el progreso
-app.get('/getProgress/:user_id/:video_id', authenticateToken, (req, res) => {
+// Ruta para obtener el progreso desde la nueva tabla
+app.get('/getProgressNew/:user_id/:video_id', authenticateToken, (req, res) => {
     const { user_id, video_id } = req.params;
     console.log(`Obtener progreso: user_id=${user_id}, video_id=${video_id}`);
 
-    const sql = 'SELECT progress FROM video_progress WHERE user_id = ? AND video_id = ?';
+    const sql = 'SELECT progress FROM video_progress_new WHERE user_id = ? AND video_id = ?';
     db.query(sql, [user_id, video_id], (err, results) => {
         if (err) {
             console.error('Error obteniendo el progreso:', err);

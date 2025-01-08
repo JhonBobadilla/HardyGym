@@ -60,7 +60,7 @@ function getCurrentUserId() {
 async function updateProgress(userId, videoId, progress) {
     try {
         console.log(`Enviando progreso: userId=${userId}, videoId=${videoId}, progress=${progress}`);
-        const response = await fetch('/saveProgress', {
+        const response = await fetch('/saveProgressNew', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 // Función para obtener el progreso de la base de datos
 async function getProgressFromDatabase(userId, videoId) {
     try {
-        const response = await fetch(`/getProgress/${userId}/${videoId}`, {
+        const response = await fetch(`/getProgressNew/${userId}/${videoId}`, {
             headers: {
                 'Authorization': `Bearer ${getToken()}`
             }
@@ -117,3 +117,4 @@ async function getProgressFromDatabase(userId, videoId) {
         return 0;
     }
 }
+
