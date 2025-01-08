@@ -21,11 +21,11 @@ document.addEventListener('DOMContentLoaded', () => {
 function updateProgressBar(progressBar, progress) {
     progressBar.style.width = `${progress}%`;
 
-    if (progress === 33) {
+    if (progress === 33.33) {
         progressBar.style.backgroundColor = 'red';
-    } else if (progress === 66) {
+    } else if (progress === 66.66) {
         progressBar.style.backgroundColor = 'yellow';
-    } else if (progress === 99) {
+    } else if (progress === 99.99) {
         progressBar.style.backgroundColor = 'green';
     } else if (progress === 100) {
         progressBar.style.backgroundColor = 'green';
@@ -34,21 +34,21 @@ function updateProgressBar(progressBar, progress) {
 
 function advanceProgress(videoId) {
     const progressBar = document.getElementById(videoId);
-    let currentWidth = parseInt(progressBar.style.width) || 0;
+    let currentWidth = parseFloat(progressBar.style.width) || 0;
 
     if (currentWidth === 0) {
-        currentWidth = 33;  // Primer clic, color rojo
+        currentWidth = 33.33;  // Primer clic, color rojo
         updateProgressBar(progressBar, currentWidth);
         saveProgress(videoId, currentWidth);
-    } else if (currentWidth === 33) {
-        currentWidth = 66;  // Segundo clic, color amarillo
+    } else if (currentWidth === 33.33) {
+        currentWidth = 66.66;  // Segundo clic, color amarillo
         updateProgressBar(progressBar, currentWidth);
         saveProgress(videoId, currentWidth);
-    } else if (currentWidth === 66) {
-        currentWidth = 99;  // Tercer clic, color verde al 99%
+    } else if (currentWidth === 66.66) {
+        currentWidth = 99.99;  // Tercer clic, color verde al 99.99%
         updateProgressBar(progressBar, currentWidth);
         saveProgress(videoId, currentWidth);
-    } else if (currentWidth === 99) {
+    } else if (currentWidth === 99.99) {
         currentWidth = 100;  // Cuarto clic, mantén verde al 100%
         updateProgressBar(progressBar, currentWidth);
         saveProgress(videoId, currentWidth);
@@ -57,10 +57,10 @@ function advanceProgress(videoId) {
 
 function decreaseProgress(videoId) {
     const progressBar = document.getElementById(videoId);
-    let currentWidth = parseInt(progressBar.style.width) || 0;
+    let currentWidth = parseFloat(progressBar.style.width) || 0;
 
     if (currentWidth > 0) {
-        currentWidth -= 33;
+        currentWidth -= 33.33;
         updateProgressBar(progressBar, currentWidth);
         saveProgress(videoId, currentWidth);
     }
@@ -77,4 +77,5 @@ function saveProgress(videoId, progress) {
     })
         .catch(console.error);
 }
+
 
