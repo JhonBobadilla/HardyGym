@@ -1,121 +1,87 @@
-// Función para avanzar el progreso
-function advanceProgress(barId) {
+// progress.js
+
+function getProgressColor(progress) {
+    if (progress <= 33) {
+      return 'red';
+    } else if (progress <= 66) {
+      return 'yellow';
+    } else {
+      return 'green';
+    }
+  }
+  
+  function updateProgressBar(progressBar, progress) {
+    progressBar.style.width = progress + '%';
+    progressBar.style.backgroundColor = getProgressColor(progress);
+  }
+  
+  function advanceProgress(barId) {
     const progressBar = document.getElementById(barId);
     let currentProgress = parseInt(progressBar.style.width) || 0;
     if (currentProgress < 100) {
-        currentProgress += 33;
-        if (currentProgress > 100) {
-            currentProgress = 100;
-        }
-        progressBar.style.width = `${currentProgress}%`;
-        progressBar.style.backgroundColor = currentProgress === 33 ? 'red' : currentProgress === 66 ? 'yellow' : 'green';
-
-        console.log(`Avanzando progreso: barId=${barId}, currentProgress=${currentProgress}`);
-        const userId = getCurrentUserId();
-        const videoId = getVideoIdFromBarId(barId);
-        if (userId) {
-            updateProgress(userId, videoId, currentProgress);
-        } else {
-            console.error('No se pudo obtener el userId del localStorage.');
-        }
+      currentProgress += 33;
+      updateProgressBar(progressBar, currentProgress);
+      // Guardar el progreso en la base de datos
+      saveProgressToDatabase(barId, currentProgress);
     }
-}
-
-// Función para disminuir el progreso
-function decreaseProgress(barId) {
+  }
+  
+  function decreaseProgress(barId) {
     const progressBar = document.getElementById(barId);
     let currentProgress = parseInt(progressBar.style.width) || 0;
     if (currentProgress > 0) {
-        currentProgress -= 33;
-        if (currentProgress < 0) {
-            currentProgress = 0;
-        }
-        progressBar.style.width = `${currentProgress}%`;
-        progressBar.style.backgroundColor = currentProgress === 33 ? 'red' : currentProgress === 66 ? 'yellow' : 'white';
-
-        console.log(`Retrocediendo progreso: barId=${barId}, currentProgress=${currentProgress}`);
-        const userId = getCurrentUserId();
-        const videoId = getVideoIdFromBarId(barId);
-        if (userId) {
-            updateProgress(userId, videoId, currentProgress);
-        } else {
-            console.error('No se pudo obtener el userId del localStorage.');
-        }
+      currentProgress -= 33;
+      updateProgressBar(progressBar, currentProgress);
+      // Guardar el progreso en la base de datos
+      saveProgressToDatabase(barId, currentProgress);
     }
-}
-
-// Función para obtener el ID del video a partir del ID de la barra
-function getVideoIdFromBarId(barId) {
-    return barId.split('-').pop();
-}
-
-// Función para obtener el ID del usuario actual
-function getCurrentUserId() {
+  }
+  
+  function saveProgressToDatabase(barId, progress) {
     const userId = localStorage.getItem('userId');
-    console.log('Obtenido userId del localStorage:', userId); // Registro de depuración
-    return userId;
-}
-
-// Función para actualizar la barra de progreso en la base de datos
-async function updateProgress(userId, videoId, progress) {
-    try {
-        console.log(`Enviando progreso: userId=${userId}, videoId=${videoId}, progress=${progress}`);
-        const response = await fetch('/saveProgressNew', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${getToken()}`
-            },
-            body: JSON.stringify({ user_id: userId, video_id: videoId, progress: progress })
-        });
-        console.log('Estado de la respuesta:', response.status);
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.error('Error en la respuesta del servidor:', errorText);
-            throw new Error('Network response was not ok');
-        }
-        console.log('Progreso actualizado correctamente');
-    } catch (error) {
-        console.error('Error actualizando el progreso:', error);
-    }
-}
-
-// Función para obtener el token del usuario actual
-function getToken() {
-    return localStorage.getItem('token'); // O la manera en que estés almacenando el token
-}
-
-// Función para cargar el progreso al cargar la página
-document.addEventListener('DOMContentLoaded', async () => {
-    const userId = getCurrentUserId();
-    const progressBars = document.querySelectorAll('.progress-bar');
-    for (const progressBar of progressBars) {
-        const videoId = getVideoIdFromBarId(progressBar.id);
-        const progress = await getProgressFromDatabase(userId, videoId);
-        progressBar.style.width = `${progress}%`;
-        progressBar.style.backgroundColor = progress === 33 ? 'red' : progress === 66 ? 'yellow' : 'green';
-    }
-});
-
-// Función para obtener el progreso de la base de datos
-async function getProgressFromDatabase(userId, videoId) {
-    try {
-        const response = await fetch(`/getProgressNew/${userId}/${videoId}`, {
-            headers: {
-                'Authorization': `Bearer ${getToken()}`
-            }
-        });
-        if (response.ok) {
-            const data = await response.json();
-            return data.progress;
-        } else {
-            console.error('Error al obtener el progreso del servidor:', response.statusText);
-            return 0;
-        }
-    } catch (error) {
-        console.error('Error al obtener el progreso del servidor:', error);
-        return 0;
-    }
-}
+    fetch('/save-progress', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      },
+      body: JSON.stringify({ userId, barId, progress })
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Progreso guardado:', data);
+    })
+    .catch(error => {
+      console.error('Error al guardar el progreso:', error);
+    });
+  }
+  
+  function loadProgressFromDatabase(barId) {
+    const userId = localStorage.getItem('userId');
+    fetch(`/load-progress?userId=${userId}&barId=${barId}`, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      const progressBar = document.getElementById(barId);
+      if (progressBar) {
+        updateProgressBar(progressBar, data.progress);
+      }
+    })
+    .catch(error => {
+      console.error('Error al cargar el progreso:', error);
+    });
+  }
+  
+  // Llama a esta función cuando el usuario se loguee y se cargue la página de videos
+  function initializeProgressBars() {
+    const videoIds = ['progress-bar-39', 'progress-bar-40', 'progress-bar-41']; // Añade todos los IDs de las barras de progreso
+    videoIds.forEach(loadProgressFromDatabase);
+  }
+  
+  initializeProgressBars();
+  
 
 

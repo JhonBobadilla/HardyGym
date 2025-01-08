@@ -232,43 +232,42 @@ app.get('/getUserId', authenticateToken, (req, res) => {
 
 /* ----------------------------barra de progreso --------------------*/
 
-// Ruta para guardar el progreso en la nueva tabla
-app.post('/saveProgressNew', authenticateToken, (req, res) => {
-    const { user_id, video_id, progress } = req.body;
-    console.log(`Guardar progreso: user_id=${user_id}, video_id=${video_id}, progress=${progress}`);
 
-    if (!user_id || !video_id || progress === undefined) {
-        console.error('Faltan datos en la solicitud:', req.body);
-        return res.status(400).json({ message: 'Faltan datos en la solicitud' });
-    }
 
-    const sql = 'INSERT INTO video_progress_new (user_id, video_id, progress) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE progress = ?, timestamp = CURRENT_TIMESTAMP';
-    db.query(sql, [user_id, video_id, progress, progress], (err, result) => {
+// Ruta para guardar el progreso de los videos
+app.post('/save-progress', authenticateToken, (req, res) => {
+    const { userId, barId, progress } = req.body;
+    
+    const sql = 'INSERT INTO video_progress (user_id, bar_id, progress) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE progress = VALUES(progress)';
+    db.query(sql, [userId, barId, progress], (err, result) => {
         if (err) {
-            console.error('Error guardando el progreso:', err);
-            return res.status(500).json({ message: 'Error guardando el progreso' });
+            console.error('Error al guardar el progreso:', err);
+            res.status(500).json({ error: 'Error al guardar el progreso' });
+        } else {
+            res.json({ success: true });
         }
-        res.json({ message: 'Progreso guardado' });
     });
 });
 
-// Ruta para obtener el progreso desde la nueva tabla
-app.get('/getProgressNew/:user_id/:video_id', authenticateToken, (req, res) => {
-    const { user_id, video_id } = req.params;
-    console.log(`Obtener progreso: user_id=${user_id}, video_id=${video_id}`);
+// Ruta para cargar el progreso de los videos
+app.get('/load-progress', authenticateToken, (req, res) => {
+    const { userId, barId } = req.query;
 
-    const sql = 'SELECT progress FROM video_progress_new WHERE user_id = ? AND video_id = ?';
-    db.query(sql, [user_id, video_id], (err, results) => {
+    const sql = 'SELECT progress FROM video_progress WHERE user_id = ? AND bar_id = ?';
+    db.query(sql, [userId, barId], (err, results) => {
         if (err) {
-            console.error('Error obteniendo el progreso:', err);
-            return res.status(500).json({ message: 'Error obteniendo el progreso' });
+            console.error('Error al cargar el progreso:', err);
+            res.status(500).json({ error: 'Error al cargar el progreso' });
+        } else {
+            res.json(results.length > 0 ? results[0] : { progress: 0 });
         }
-        const progress = results.length ? results[0].progress : 0;
-        res.json({ progress });
     });
 });
 
-/* ----------------------------barra de progreso hasta aquí --------------------*/
+
+
+
+/*----------------------------barra de progreso hasta aquí --------------------*/
 
 
 
