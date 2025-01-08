@@ -868,7 +868,7 @@ align-items: center; justify-content: center;
 height: 100vh; 
 margin: 0; 
 background: none !important; background-color: #000000 !important; } 
-.progress-container { width: 195px; 
+.progress-container { width: 210px; 
 height: 20px; background-color: rgb(255, 255, 255); 
 border-radius: 15px; overflow: hidden; margin-top: 80px; } .progress-bar { 
 height: 120%; 
