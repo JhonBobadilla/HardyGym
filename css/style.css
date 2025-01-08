@@ -871,7 +871,7 @@ background: none !important; background-color: #000000 !important; }
 .progress-container { width: 210px; 
 height: 20px; background-color: rgb(255, 255, 255); 
 border-radius: 15px; overflow: hidden; margin-top: 80px; } .progress-bar { 
-height: 120%; 
+height: 100%; 
 width: 0%;  
 border-radius: 15px; transition: width 0.4s ease-in-out, background-color 0.4s ease-in-out; }
 
