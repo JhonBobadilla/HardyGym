@@ -13,7 +13,11 @@ function advanceProgress(barId) {
         console.log(`Avanzando progreso: barId=${barId}, currentProgress=${currentProgress}`);
         const userId = getCurrentUserId();
         const videoId = getVideoIdFromBarId(barId);
-        updateProgress(userId, videoId, currentProgress);
+        if (userId) {
+            updateProgress(userId, videoId, currentProgress);
+        } else {
+            console.error('No se pudo obtener el userId del localStorage.');
+        }
     }
 }
 
@@ -32,7 +36,11 @@ function decreaseProgress(barId) {
         console.log(`Retrocediendo progreso: barId=${barId}, currentProgress=${currentProgress}`);
         const userId = getCurrentUserId();
         const videoId = getVideoIdFromBarId(barId);
-        updateProgress(userId, videoId, currentProgress);
+        if (userId) {
+            updateProgress(userId, videoId, currentProgress);
+        } else {
+            console.error('No se pudo obtener el userId del localStorage.');
+        }
     }
 }
 
@@ -109,3 +117,4 @@ async function getProgressFromDatabase(userId, videoId) {
         return 0;
     }
 }
+
