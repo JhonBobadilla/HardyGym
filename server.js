@@ -306,7 +306,7 @@ function sendPasswordResetEmail(email, token) {
 
 
 
-// ---------------------------- Barra de progreso --------------------
+/* ----------------------------barra de progreso --------------------*/
 
 // Guardar el progreso del video
 app.post('/save-progress', authenticateToken, (req, res) => {
@@ -340,7 +340,11 @@ app.get('/get-progress', authenticateToken, (req, res) => {
     });
 });
 
-// ---------------------------- Barra de progreso hasta aquí --------------------
+
+
+
+/*----------------------------barra de progreso hasta aquí --------------------*/
+
 
 
 
