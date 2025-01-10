@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const dotenv = require('dotenv');
 const session = require('express-session');
+const RedisStore = require('connect-redis')(session); // Importar RedisStore
 const jwt = require('jsonwebtoken');
 
 dotenv.config();
