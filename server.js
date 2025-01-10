@@ -129,21 +129,22 @@ app.post('/verify-payment', (req, res) => {
 
         if (paymentStatus === 'APPROVED') {
             const subscriptionStartDate = new Date();
-
-            const sql = 'UPDATE datos SET subscription_start_date = ? WHERE id = ?';
-            db.query(sql, [subscriptionStartDate, reference], (err, result) => {
-                if (err) {
-                    console.error('Error al actualizar la suscripción:', err);
-                    res.status(500).send({ success: false });
-                } else {
-                    console.log(`Suscripción renovada para el usuario ID: ${reference}`);
-                    res.send({ success: true });
-                }
-            });
-        } else {
-            res.send({ success: false });
-        }
-    });
+      
+// Verificar el pago y actualizar la suscripción
+const sql = 'UPDATE datos SET subscription_start_date = ? WHERE id = ?';
+db.query(sql, [subscriptionStartDate, reference], (err, result) => {
+    if (err) {
+        console.error('Error al actualizar la suscripción:', err);
+        res.status(500).send({ success: false });
+    } else {
+        console.log(`Suscripción renovada para el usuario ID: ${reference}`);
+        res.send({ success: true });
+    }
+});
+} else {
+    res.send({ success: false });
+}
+});
 });
 
 // Rutas de autenticación
@@ -266,6 +267,4 @@ app.listen(port, () => {
 });
 
 
-
-
-
+            
