@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const mysql = require('mysql');
+const mysql = require('mysql2'); // Cambio de mysql a mysql2
 const dotenv = require('dotenv');
 const session = require('express-session');
 const jwt = require('jsonwebtoken');
@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname)));
 
-// Conexión a la base de datos
+// Conexión a la base de datos usando mysql2
 let db;
 
 function handleDisconnect() {
@@ -57,14 +57,14 @@ function handleDisconnect() {
 
 handleDisconnect();
 
-//hasta aqui se puede borrar en caso que no se requiera lo usa heroku
+// hasta aquí se puede borrar en caso que no se requiera lo usa heroku
 
 // Ruta para la página de inicio
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-//hasta aqui eso lo usa heroku
+// hasta aquí eso lo usa heroku
 
 // Ruta para registrar nuevos usuarios
 app.post('/register', (req, res) => {
@@ -205,10 +205,6 @@ function authenticateToken(req, res, next) {
     });
 }
 
-
-
-
-
 // Ruta para obtener el userId
 app.get('/getUserId', authenticateToken, (req, res) => {
     const userId = req.user.id;
@@ -227,8 +223,6 @@ app.get('/getUserId', authenticateToken, (req, res) => {
         res.json({ userId: userId, nombre: results[0].nombre });
     });
 });
-
-
 
 /* ----------------------------barra de progreso --------------------*/
 
@@ -264,26 +258,6 @@ app.get('/get-progress', authenticateToken, (req, res) => {
     });
 });
 
-
-
-
-/*----------------------------barra de progreso hasta aquí --------------------*/
-
-
-
-
-
-
-// Ejemplo de ruta protegida
-app.get('/protected', authenticateToken, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'protected.html'));
-});
-
-// Iniciar el servidor
 app.listen(port, () => {
-    console.log(`Servidor ejecutándose en el puerto ${port}`);
+    console.log(`Servidor corriendo en puerto ${port}`);
 });
-
-
-
-
