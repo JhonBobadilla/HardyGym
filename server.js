@@ -57,26 +57,6 @@ function handleDisconnect() {
 
 handleDisconnect();
 
-
-
-
-
-db.connect((err) => {
-    if (err) {
-        console.error('Error connecting to MySQL database:', err);
-        process.exit(1); // Salir del proceso si hay un error de conexión
-    } else {
-        console.log('Conectado a la base de datos MySQL');
-    }
-});
-
-
-
-
-
-
-
-
 //hasta aqui se puede borrar en caso que no se requiera lo usa heroku
 
 // Ruta para la página de inicio
