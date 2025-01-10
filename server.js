@@ -337,6 +337,7 @@ app.get('/get-progress', authenticateToken, (req, res) => {
     });
 });
 
+
 // ---------------------------- Barra de progreso hasta aquí --------------------
 
 
