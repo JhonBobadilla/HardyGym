@@ -57,14 +57,10 @@ function handleDisconnect() {
 
 handleDisconnect();
 
-//hasta aqui se puede borrar en caso que no se requiera lo usa heroku
-
 // Ruta para la página de inicio
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
-
-//hasta aqui eso lo usa heroku
 
 // Ruta para registrar nuevos usuarios
 app.post('/register', (req, res) => {
@@ -205,10 +201,6 @@ function authenticateToken(req, res, next) {
     });
 }
 
-
-
-
-
 // Ruta para obtener el userId
 app.get('/getUserId', authenticateToken, (req, res) => {
     const userId = req.user.id;
@@ -228,9 +220,7 @@ app.get('/getUserId', authenticateToken, (req, res) => {
     });
 });
 
-
-
-/* ----------------------------barra de progreso --------------------*/
+// ---------------------------- Barra de progreso --------------------
 
 // Guardar el progreso del video
 app.post('/save-progress', authenticateToken, (req, res) => {
@@ -264,25 +254,17 @@ app.get('/get-progress', authenticateToken, (req, res) => {
     });
 });
 
-
-
-
-/*----------------------------barra de progreso hasta aquí --------------------*/
-
-
-
-
-
+// ---------------------------- Barra de progreso hasta aquí --------------------
 
 // Ejemplo de ruta protegida
-app.get('/protected', authenticateToken, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'protected.html'));
+app.get('/profile', authenticateToken, (req, res) => {
+    res.json({ message: 'Perfil del usuario' });
 });
 
-// Iniciar el servidor
 app.listen(port, () => {
     console.log(`Servidor ejecutándose en el puerto ${port}`);
 });
+
 
 
 
