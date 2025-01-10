@@ -342,17 +342,7 @@ app.get('/get-progress', authenticateToken, (req, res) => {
 
 
 
-
 /*----------------------------barra de progreso hasta aquí --------------------*/
-
-
-
-
-
-
-
-
-
 
 
 // Ejemplo de ruta protegida
