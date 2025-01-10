@@ -221,6 +221,88 @@ app.get('/getUserId', authenticateToken, (req, res) => {
     });
 });
 
+
+
+
+
+
+
+// Ruta para solicitar el restablecimiento de la contraseña
+
+const nodemailer = require('nodemailer');
+
+app.post('/request-password-reset', (req, res) => {
+    const { email } = req.body;
+    const sql = 'SELECT * FROM datos WHERE email = ?';
+
+    db.query(sql, [email], (err, results) => {
+        if (err) {
+            console.error('Error en la consulta SQL:', err);
+            return res.status(500).json({ error: 'Error en el servidor' });
+        }
+
+        if (results.length > 0) {
+            const user = results[0];
+            const token = jwt.sign({ id: user.id, email: user.email }, secretKey, { expiresIn: '1h' });
+            // Enviar el token al correo del usuario
+            sendPasswordResetEmail(user.email, token);
+            res.json({ success: true, message: 'Correo de restablecimiento de contraseña enviado' });
+        } else {
+            res.status(404).json({ error: 'Correo no encontrado' });
+        }
+    });
+});
+
+// Ruta para actualizar la contraseña
+app.post('/reset-password', (req, res) => {
+    const { token, newPassword } = req.body;
+
+    jwt.verify(token, secretKey, (err, decoded) => {
+        if (err) {
+            return res.status(400).json({ error: 'Token inválido o expirado' });
+        }
+
+        const sql = 'UPDATE datos SET password = ? WHERE id = ?';
+        db.query(sql, [newPassword, decoded.id], (err, result) => {
+            if (err) {
+                console.error('Error al actualizar la contraseña:', err);
+                return res.status(500).json({ error: 'Error al actualizar la contraseña' });
+            }
+            res.json({ success: true, message: 'Contraseña restablecida correctamente' });
+        });
+    });
+});
+
+// Función para enviar el correo de restablecimiento de contraseña
+function sendPasswordResetEmail(email, token) {
+    const transporter = nodemailer.createTransport({
+        service: 'Gmail', // Usa tu servicio de correo electrónico
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS
+        }
+    });
+
+    const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: email,
+        subject: 'Restablecimiento de contraseña',
+        text: `Haz clic en el siguiente enlace para restablecer tu contraseña: https://hardy-2839d6e03ba8.herokuapp.com/reset-password.html?token=${token}`
+    };
+
+    transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+            console.error('Error al enviar el correo:', err);
+        } else {
+            console.log('Correo enviado:', info.response);
+        }
+    });
+}
+
+
+
+
+
 // ---------------------------- Barra de progreso --------------------
 
 // Guardar el progreso del video
@@ -256,6 +338,17 @@ app.get('/get-progress', authenticateToken, (req, res) => {
 });
 
 // ---------------------------- Barra de progreso hasta aquí --------------------
+
+
+
+
+
+
+
+
+
+
+
 
 // Ejemplo de ruta protegida
 app.get('/profile', authenticateToken, (req, res) => {
