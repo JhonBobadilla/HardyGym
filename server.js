@@ -287,7 +287,7 @@ function sendPasswordResetEmail(email, token) {
         from: process.env.EMAIL_USER,
         to: email,
         subject: 'Restablecimiento de contraseña',
-        text: `Haz clic en el siguiente enlace para restablecer tu contraseña: https://hardy-2839d6e03ba8.herokuapp.com/reset-password.html?token=${token}`
+        text: `Haz clic en el siguiente enlace para restablecer tu contraseña: https://hardy-2839d6e03ba8.herokuapp.com/reset_password.html?token=${token}`
     };
 
     transporter.sendMail(mailOptions, (err, info) => {
