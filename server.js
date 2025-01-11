@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const mysql = require('mysql');
+const { Pool } = require('pg');
 const dotenv = require('dotenv');
 const session = require('express-session');
 const jwt = require('jsonwebtoken');
@@ -11,6 +11,14 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 8080;
 const secretKey = process.env.SECRET_KEY || 'tu_secreto';
+
+// Configuración de la conexión a la base de datos PostgreSQL
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
+});
 
 // Middleware de sesión
 app.use(session({
@@ -24,33 +32,34 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname)));
 
-// Conexión a la base de datos
-let db;
+// Conexión a la base de datos (¡Eliminado para evitar duplicación!)
+// const pool = new Pool({
+//     connectionString: process.env.DATABASE_URL,
+//     ssl: {
+//       rejectUnauthorized: false
+//     }
+// });
+
+pool.on('connect', () => {
+    console.log('Conectado a la base de datos PostgreSQL');
+});
+
+pool.on('error', (err) => {
+    console.error('Error en la conexión a PostgreSQL:', err);
+    if (err.code === 'ECONNRESET') {
+        // Intentar reconectar
+        console.error('Reconectando a la base de datos PostgreSQL...');
+        handleDisconnect();
+    } else {
+        throw err;
+    }
+});
 
 function handleDisconnect() {
-    db = mysql.createConnection({
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_NAME,
-        port: process.env.DB_PORT
-    });
-
-    db.connect(function(err) {
+    pool.connect((err) => {
         if (err) {
-            console.error('Error connecting to MySQL database:', err);
+            console.error('Error connecting to PostgreSQL database:', err);
             setTimeout(handleDisconnect, 2000); // Intentar reconectar después de 2 segundos
-        } else {
-            console.log('Conectado a la base de datos MySQL');
-        }
-    });
-
-    db.on('error', function(err) {
-        console.error('MySQL error', err);
-        if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-            handleDisconnect();
-        } else {
-            throw err;
         }
     });
 }
@@ -63,105 +72,121 @@ app.get('/', (req, res) => {
 });
 
 // Ruta para registrar nuevos usuarios
-app.post('/register', (req, res) => {
+app.post('/register', async (req, res) => {
     const { nombre, email, password, telefono, ciudad } = req.body;
     console.log('Datos recibidos para registro:', req.body);
 
-    const sql = 'INSERT INTO datos (nombre, email, password, telefono, ciudad) VALUES (?, ?, ?, ?, ?)';
-    db.query(sql, [nombre, email, password, telefono, ciudad], (err, result) => {
-        if (err) {
-            console.error('Error al registrar usuario:', err);
-            res.status(500).json({ error: 'Error al registrar usuario' });
-        } else {
-            res.json({ success: true, redirectUrl: 'http://localhost:3000/pages/pago_suscripcion.html' });
-        }
-    });
+    const sql = 'INSERT INTO datos (nombre, email, password, telefono, ciudad) VALUES ($1, $2, $3, $4, $5)';
+    try {
+        const result = await pool.query(sql, [nombre, email, password, telefono, ciudad]);
+        res.json({ success: true, redirectUrl: 'http://localhost:3000/pages/pago_suscripcion.html' });
+    } catch (err) {
+        console.error('Error al registrar usuario:', err);
+        res.status(500).json({ error: 'Error al registrar usuario' });
+    }
 });
 
+
 // Ruta para recibir notificaciones de PayU
-app.post('/webhook-payu', (req, res) => {
+app.post('/webhook-payu', async (req, res) => {
     const { transaction } = req.body;
     if (transaction.state === 'APPROVED') {
         const userId = transaction.reference;
         const subscriptionStartDate = new Date();
 
-        const sql = 'UPDATE datos SET subscription_start_date = ? WHERE id = ?';
-        db.query(sql, [subscriptionStartDate, userId], (err, result) => {
-            if (err) {
-                console.error('Error al actualizar la suscripción:', err);
-                res.status(500).send('Error al actualizar la suscripción');
-            } else {
-                console.log(`Suscripción renovada para el usuario ID: ${userId}`);
-                res.sendStatus(200);
-            }
-        });
+        const sql = 'UPDATE datos SET subscription_start_date = $1 WHERE id = $2';
+        try {
+            const result = await pool.query(sql, [subscriptionStartDate, userId]);
+            console.log(`Suscripción renovada para el usuario ID: ${userId}`);
+            res.sendStatus(200);
+        } catch (err) {
+            console.error('Error al actualizar la suscripción:', err);
+            res.status(500).send('Error al actualizar la suscripción');
+        }
     } else {
         res.sendStatus(400);
     }
 });
 
+
 // Ruta para actualizar la suscripción desde la página de confirmación
-app.post('/update-subscription', (req, res) => {
+app.post('/update-subscription', async (req, res) => {
     const { reference } = req.body;
     const subscriptionStartDate = new Date();
 
-    const sql = 'UPDATE datos SET subscription_start_date = ? WHERE id = ?';
-    db.query(sql, [subscriptionStartDate, reference], (err, result) => {
-        if (err) {
-            console.error('Error al actualizar la suscripción:', err);
-            res.status(500).send({ success: false });
-        } else {
-            console.log(`Suscripción renovada para el usuario ID: ${reference}`);
-            res.send({ success: true });
-        }
-    });
+    const sql = 'UPDATE datos SET subscription_start_date = $1 WHERE id = $2';
+    try {
+        const result = await pool.query(sql, [subscriptionStartDate, reference]);
+        console.log(`Suscripción renovada para el usuario ID: ${reference}`);
+        res.send({ success: true });
+    } catch (err) {
+        console.error('Error al actualizar la suscripción:', err);
+        res.status(500).send({ success: false });
+    }
 });
 
+
 // Ruta para verificar el pago
-app.post('/verify-payment', (req, res) => {
+app.post('/verify-payment', async (req, res) => {
     const { reference } = req.body;
 
-    fakeVerifyPayment(reference, (error, paymentStatus) => {
-        if (error) {
-            console.error('Error al verificar el pago:', error);
-            return res.status(500).send({ success: false });
-        }
+    try {
+        const paymentStatus = await fakeVerifyPayment(reference);
 
         if (paymentStatus === 'APPROVED') {
             const subscriptionStartDate = new Date();
-      
-// Verificar el pago y actualizar la suscripción
-const sql = 'UPDATE datos SET subscription_start_date = ? WHERE id = ?';
-db.query(sql, [subscriptionStartDate, reference], (err, result) => {
-    if (err) {
-        console.error('Error al actualizar la suscripción:', err);
+
+            const sql = 'UPDATE datos SET subscription_start_date = $1 WHERE id = $2';
+            await pool.query(sql, [subscriptionStartDate, reference]);
+
+            console.log(`Suscripción renovada para el usuario ID: ${reference}`);
+            res.send({ success: true });
+        } else {
+            res.send({ success: false });
+        }
+    } catch (error) {
+        console.error('Error al verificar el pago:', error);
         res.status(500).send({ success: false });
-    } else {
-        console.log(`Suscripción renovada para el usuario ID: ${reference}`);
-        res.send({ success: true });
     }
 });
-} else {
-    res.send({ success: false });
-}
-});
+
+ // Verificar el pago y actualizar la suscripción
+app.post('/verify-payment', async (req, res) => {
+    const { reference } = req.body;
+
+    try {
+        const paymentStatus = await fakeVerifyPayment(reference);
+
+        if (paymentStatus === 'APPROVED') {
+            const subscriptionStartDate = new Date();
+
+            const sql = 'UPDATE datos SET subscription_start_date = $1 WHERE id = $2';
+            await pool.query(sql, [subscriptionStartDate, reference]);
+
+            console.log(`Suscripción renovada para el usuario ID: ${reference}`);
+            res.send({ success: true });
+        } else {
+            res.send({ success: false });
+        }
+    } catch (error) {
+        console.error('Error al verificar el pago:', error);
+        res.status(500).send({ success: false });
+    }
 });
 
+ 
 // Rutas de autenticación
-app.post('/login', (req, res) => {
+app.post('/login', async (req, res) => {
     const { txtemail, txtpassword } = req.body;
     console.log('Datos recibidos para login:', txtemail, txtpassword);
 
-    const sql = "SELECT * FROM datos WHERE email = ? AND password = ?";
-    db.query(sql, [txtemail, txtpassword], (err, results) => {
-        if (err) {
-            console.error('Error en la consulta SQL:', err);
-            return res.status(500).json({ error: 'Error en el servidor' });
-        }
-        console.log('Resultados de la consulta SQL:', results);
+    const sql = "SELECT * FROM datos WHERE email = $1 AND password = $2";
+    try {
+        const results = await pool.query(sql, [txtemail, txtpassword]);
+        console.log('Resultados de la consulta SQL:', results.rows);
 
-        if (results.length > 0) {
-            const user = results[0];
+        if (results.rows.length > 0) {
+            const user = results.rows[0];
             const currentDate = new Date();
             const subscriptionEndDate = new Date(user.subscription_start_date);
             subscriptionEndDate.setDate(subscriptionEndDate.getDate() + 30);
@@ -181,7 +206,10 @@ app.post('/login', (req, res) => {
             console.log('Credenciales inválidas: No se encontró ningún usuario con esas credenciales');
             return res.status(401).json({ error: 'Credenciales inválidas' });
         }
-    });
+    } catch (err) {
+        console.error('Error en la consulta SQL:', err);
+        return res.status(500).json({ error: 'Error en el servidor' });
+    }
 });
 
 // Middleware de autenticación para rutas protegidas
@@ -203,46 +231,39 @@ function authenticateToken(req, res, next) {
 }
 
 // Ruta para obtener el userId
-app.get('/getUserId', authenticateToken, (req, res) => {
+app.get('/getUserId', authenticateToken, async (req, res) => {
     const userId = req.user.id;
 
-    const sql = 'SELECT nombre FROM datos WHERE id = ?';
-    db.query(sql, [userId], (err, results) => {
-        if (err) {
-            console.error('Error al obtener el nombre del usuario:', err);
-            return res.status(500).json({ message: 'Error al obtener el nombre del usuario' });
-        }
+    const sql = 'SELECT nombre FROM datos WHERE id = $1';
+    try {
+        const results = await pool.query(sql, [userId]);
+        console.log('Resultados de la consulta SQL:', results.rows);
 
-        if (results.length === 0) {
+        if (results.rows.length === 0) {
             return res.status(404).json({ message: 'Usuario no encontrado' });
         }
 
-        res.json({ userId: userId, nombre: results[0].nombre });
-    });
+        res.json({ userId: userId, nombre: results.rows[0].nombre });
+    } catch (err) {
+        console.error('Error al obtener el nombre del usuario:', err);
+        return res.status(500).json({ message: 'Error al obtener el nombre del usuario' });
+    }
 });
-
-
-
-
-
-
 
 // Ruta para solicitar el restablecimiento de la contraseña
 
 const nodemailer = require('nodemailer');
 
-app.post('/request-password-reset', (req, res) => {
+app.post('/request-password-reset', async (req, res) => {
     const { email } = req.body;
-    const sql = 'SELECT * FROM datos WHERE email = ?';
+    const sql = 'SELECT * FROM datos WHERE email = $1';
 
-    db.query(sql, [email], (err, results) => {
-        if (err) {
-            console.error('Error en la consulta SQL:', err);
-            return res.status(500).json({ error: 'Error en el servidor' });
-        }
+    try {
+        const results = await pool.query(sql, [email]);
+        console.log('Resultados de la consulta SQL:', results.rows);
 
-        if (results.length > 0) {
-            const user = results[0];
+        if (results.rows.length > 0) {
+            const user = results.rows[0];
             const token = jwt.sign({ id: user.id, email: user.email }, secretKey, { expiresIn: '1h' });
             // Enviar el token al correo del usuario
             sendPasswordResetEmail(user.email, token);
@@ -250,28 +271,32 @@ app.post('/request-password-reset', (req, res) => {
         } else {
             res.status(404).json({ error: 'Correo no encontrado' });
         }
-    });
+    } catch (err) {
+        console.error('Error en la consulta SQL:', err);
+        return res.status(500).json({ error: 'Error en el servidor' });
+    }
 });
 
 // Ruta para actualizar la contraseña
-app.post('/reset-password', (req, res) => {
+app.post('/reset-password', async (req, res) => {
     const { token, newPassword } = req.body;
 
-    jwt.verify(token, secretKey, (err, decoded) => {
+    jwt.verify(token, secretKey, async (err, decoded) => {
         if (err) {
             return res.status(400).json({ error: 'Token inválido o expirado' });
         }
 
-        const sql = 'UPDATE datos SET password = ? WHERE id = ?';
-        db.query(sql, [newPassword, decoded.id], (err, result) => {
-            if (err) {
-                console.error('Error al actualizar la contraseña:', err);
-                return res.status(500).json({ error: 'Error al actualizar la contraseña' });
-            }
+        const sql = 'UPDATE datos SET password = $1 WHERE id = $2';
+        try {
+            await pool.query(sql, [newPassword, decoded.id]);
             res.json({ success: true, message: 'Contraseña restablecida correctamente' });
-        });
+        } catch (err) {
+            console.error('Error al actualizar la contraseña:', err);
+            return res.status(500).json({ error: 'Error al actualizar la contraseña' });
+        }
     });
 });
+
 
 // Función para enviar el correo de restablecimiento de contraseña
 function sendPasswordResetEmail(email, token) {
@@ -299,50 +324,43 @@ function sendPasswordResetEmail(email, token) {
     });
 }
 
-
-
-
-
-
-
-
 /* ----------------------------barra de progreso --------------------*/
 
 // Guardar el progreso del video
-app.post('/save-progress', authenticateToken, (req, res) => {
+app.post('/save-progress', authenticateToken, async (req, res) => {
     const { video_id, progress } = req.body;
     const userId = req.user.id;
 
     const sql = `
         INSERT INTO video_progress (user_id, video_id, progress)
-        VALUES (?, ?, ?)
-        ON DUPLICATE KEY UPDATE progress = ?`;
-    db.query(sql, [userId, video_id, progress, progress], (err, result) => {
-        if (err) {
-            console.error('Error al guardar el progreso:', err);
-            return res.status(500).json({ error: 'Error al guardar el progreso' });
-        }
+        VALUES ($1, $2, $3)
+        ON CONFLICT (user_id, video_id)
+        DO UPDATE SET progress = $3`;
+    try {
+        await pool.query(sql, [userId, video_id, progress]);
         res.json({ success: true });
-    });
+    } catch (err) {
+        console.error('Error al guardar el progreso:', err);
+        return res.status(500).json({ error: 'Error al guardar el progreso' });
+    }
 });
 
 // Obtener el progreso de todos los videos para un usuario
-app.get('/get-progress', authenticateToken, (req, res) => {
+app.get('/get-progress', authenticateToken, async (req, res) => {
     const userId = req.user.id;
 
-    const sql = 'SELECT video_id, progress FROM video_progress WHERE user_id = ?';
-    db.query(sql, [userId], (err, results) => {
-        if (err) {
-            console.error('Error al obtener el progreso:', err);
-            return res.status(500).json({ error: 'Error al obtener el progreso' });
-        }
-        res.json(results);
-    });
+    const sql = 'SELECT video_id, progress FROM video_progress WHERE user_id = $1';
+    try {
+        const results = await pool.query(sql, [userId]);
+        res.json(results.rows);
+    } catch (err) {
+        console.error('Error al obtener el progreso:', err);
+        return res.status(500).json({ error: 'Error al obtener el progreso' });
+    }
 });
 
-
-
 /*----------------------------barra de progreso hasta aquí --------------------*/
+
 
 
 // Ejemplo de ruta protegida
@@ -354,5 +372,4 @@ app.listen(port, () => {
     console.log(`Servidor ejecutándose en el puerto ${port}`);
 });
 
-
-            
+        
