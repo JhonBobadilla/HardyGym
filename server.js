@@ -86,7 +86,6 @@ app.post('/register', async (req, res) => {
     }
 });
 
-
 // Ruta para recibir notificaciones de PayU
 app.post('/webhook-payu', async (req, res) => {
     const { transaction } = req.body;
