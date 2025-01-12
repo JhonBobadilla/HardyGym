@@ -6,7 +6,7 @@ const { createServer } = require('http');
 const { Pool } = require('pg');
 
 dotenv.config();
-const port = process.env.PORT || 3001; // Heroku asigna el puerto automáticamente
+const port = process.env.PORT || 3001; 
 const app = express();
 const server = createServer(app);
 const io = new Server(server, { path: '/socket.io/' });
@@ -16,7 +16,7 @@ const pool = new Pool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  port: process.env.DB_PORT // Usar el puerto especificado en el .env (5432)
+  port: process.env.DB_PORT 
 });
 
 pool.connect((err) => {
@@ -57,7 +57,7 @@ io.on('connection', (socket) => {
 
   pool.query('SELECT id, content, username FROM chat_messages ORDER BY id DESC LIMIT 50', (err, results) => {
     if (err) throw err;
-    results.rows.reverse().forEach(row => { // Reverse to maintain correct order
+    results.rows.reverse().forEach(row => { 
       socket.emit('chat message', row.content, row.id.toString(), row.username);
     });
   });
@@ -71,7 +71,7 @@ app.get('/chat', (req, res) => {
 // Rutas para el registro y login
 app.post('/register', (req, res) => {
   const { name, password, email, phone } = req.body;
-  if (!name || !password || !email || !phone) {
+  if (!name || !password || !email || !phone) { 
     return res.send(`<h3 class="error">Llena todos los campos</h3><a href="/pages/register.html">Volver</a>`);
   }
   const sql = "INSERT INTO datos (nombre, password, email, telefono, fecha) VALUES ($1, $2, $3, $4, NOW())";
@@ -98,7 +98,3 @@ app.post('/login', (req, res) => {
 server.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
-
-
-
-

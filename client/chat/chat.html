@@ -11,8 +11,8 @@
         const username = prompt('Enter your username:') || 'Anonymous';
         localStorage.setItem('username', username);
       
-        const socket = io('https://hardy-2839d6e03ba8.herokuapp.com', { // Reemplaza <tu-app> con el nombre de tu aplicación Heroku
-          path: '/socket.io/',
+        const socket = io('https://hardy-2839d6e03ba8.herokuapp.com', { 
+          path: '/socket.io/', 
           auth: {
             username,
             serverOffset: 0
@@ -53,13 +53,10 @@
         };
       </script>
       
-     
     <style>
-        /* Resetear estilos de todos los elementos. */
         *, *::before, *::after { box-sizing: border-box; }
         :root { color-scheme: light dark; }
 
-        /* Estilo general del cuerpo. */
         body {
             background-color: #000000; 
             margin: 0; 
@@ -71,7 +68,6 @@
             grid-template-rows: 1fr;
         }
 
-        /* Lista de mensajes. */
         #messages {
             list-style-type: none; 
             margin: 0; 
@@ -83,29 +79,22 @@
             color: #1c1919;
         }
 
-        /* Estilo de cada mensaje en la lista. */
         #messages > li {
             padding: .5rem 1rem; 
             color: #ffffff;
         }
 
-        /* Mensajes en posiciones impares tienen un fondo diferente. */
         #messages > li:nth-child(odd) {
             background: #2c2b2b; 
             color: #7ed957;
         }
 
-        /* Contenedor principal del chat. */
         #chat {
             border: 1px solid #ffffff; 
             border-radius: 4px; 
-            overflow: hidden; 
-            width: 350px; 
-            height: 100%; 
-            position: relative;
+            overflow: hidden;
         }
 
-        /* Formulario de entrada de mensajes. */
         #form {
             bottom: 0; 
             display: flex; 
@@ -116,7 +105,6 @@
             right: 0;
         }
 
-        /* Campo de texto para el mensaje. */
         #input {
             border-radius: 9999px; 
             border: 1px solid #eee; 
@@ -125,10 +113,8 @@
             padding: 0 8px;
         }
 
-        /* Quitar el contorno azul al enfocar el campo. */
         #input:focus { outline: 0; }
 
-        /* Botón de enviar mensaje. */
         #form > button {
             background: #7ed957; 
             color: #fff; 
@@ -137,17 +123,16 @@
             border-radius: 4px;
         }
 
-        /* Cambiar el color del botón al pasar el mouse por encima. */
         #form > button:hover {
             background: #09f;
         }
     </style>
 </head>
 <body>
-    <!-- Contenedor principal del chat -->
     <section id="chat">
-        <ul id="messages"></ul> <!-- Lista de mensajes -->
+        <ul id="messages"></ul> 
         <form id="form">
+
             <input type="text" name="message" id="input" placeholder="Type a message" autocomplete="off" />
             <button type="submit">Enviar</button>
         </form>
