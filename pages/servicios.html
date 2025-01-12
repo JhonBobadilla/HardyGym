@@ -111,7 +111,7 @@
                 console.error('Error:', error);
                 window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión en caso de error
             });
-        }
+    }
   
         // Lógica para cerrar sesión
         document.getElementById('logoutButton').addEventListener('click', function(event) {
@@ -119,7 +119,7 @@
             localStorage.removeItem('token'); // Elimina el token del almacenamiento local
             window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión
         });
-    </script>
+    </script> 
 
 </body>
 </html>
