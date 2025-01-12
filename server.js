@@ -366,11 +366,4 @@ app.listen(port, () => {
     console.log(`Servidor ejecutándose en el puerto ${port}`);
 });
 
-/*chat en caso de ser necesario borrar*////////////////////////////////////////////////////////////////
-// Ruta para servir el HTML del chat
-app.get('/chat', (req, res) => {
-    res.sendFile(path.join(__dirname, 'pages', 'chat.html')); // Servir el archivo chat.html
-});
-// Iniciar el servidor del chat
-require('./chatServer.js');  // Importar el servidor de chat
-/*hasta aca este bloque del chat*////////////////////////////////////////////////////////////////        
+       
