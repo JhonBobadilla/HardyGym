@@ -6,70 +6,161 @@
     <title>Chat</title>
     
     <script type="module">
+        // Importación del cliente de Socket.IO desde el CDN.
+        // Es importante que la versión del cliente coincida con la del servidor.
         import { io } from 'https://cdn.socket.io/4.3.2/socket.io.esm.min.js';
       
+        // Pedir al usuario un nombre de usuario.
         const username = prompt('Enter your username:') || 'Anonymous';
-        localStorage.setItem('username', username);
-      
-        const socket = io('https://hardy-2839d6e03ba8.herokuapp.com', { // Agrega la URL de tu servidor
-          auth: {
-            username,
-            serverOffset: 0
-          }
+        localStorage.setItem('username', username); // Guardar el nombre en el almacenamiento local.
+
+        // Configuración de la conexión al servidor de Socket.IO.
+        const socket = io('https://hardy-2839d6e03ba8.herokuapp.com', { 
+          auth: { username }, // Autenticación con el nombre de usuario.
         });
-      
+
+        // Referencias a elementos del DOM.
         const form = document.getElementById('form');
         const input = document.getElementById('input');
         const messages = document.getElementById('messages');
-      
-        socket.on('chat message', (msg, serverOffset, username) => {
-          const item = `<li>
-              <small onclick="sendPrivateMessage('${username}')">${username} dice:</small>
-              <p>${msg}</p>
-          </li>`;
-          messages.insertAdjacentHTML('beforeend', item);
-          socket.auth.serverOffset = serverOffset;
-          messages.scrollTop = messages.scrollHeight;
+
+        // Evento: Mensajes del chat enviados por el servidor.
+        socket.on('chat message', (msg, serverOffset, senderUsername) => {
+          const item = `
+              <li>
+                  <small onclick="sendPrivateMessage('${senderUsername}')">${senderUsername} dice:</small>
+                  <p>${msg}</p>
+              </li>`;
+          messages.insertAdjacentHTML('beforeend', item); // Agregar el mensaje al final de la lista.
+          messages.scrollTop = messages.scrollHeight; // Desplazar automáticamente hacia abajo.
         });
-      
-        socket.on('private message', (msg, username) => {
-          alert(`Mensaje privado de ${username}: ${msg}`);
+
+        // Evento: Mensaje privado recibido.
+        socket.on('private message', (msg, senderUsername) => {
+          alert(`Mensaje privado de ${senderUsername}: ${msg}`);
         });
-      
+
+        // Manejo del evento "submit" en el formulario para enviar mensajes.
         form.addEventListener('submit', (e) => {
-          e.preventDefault();
-          if (input.value) {
-            socket.emit('chat message', input.value);
-            input.value = '';
+          e.preventDefault(); // Prevenir el comportamiento por defecto del formulario.
+          if (input.value) { // Verificar que el campo de entrada no esté vacío.
+            socket.emit('chat message', input.value); // Emitir el mensaje al servidor.
+            input.value = ''; // Limpiar el campo de entrada.
           }
         });
-      
+
+        // Función para enviar mensajes privados a otro usuario.
         window.sendPrivateMessage = (toUsername) => {
           const msg = prompt('Enter your private message:');
           if (msg) {
             socket.emit('private message', msg, toUsername);
           }
         };
+
+        // Evento: Conexión establecida con el servidor.
+        socket.on('connect', () => {
+          console.log('Conectado al servidor de Socket.IO');
+        });
+
+        // Evento: Error al intentar conectar con el servidor.
+        socket.on('connect_error', (err) => {
+          console.error('Error al conectar con el servidor:', err.message);
+        });
       </script>
      
     <style>
+        /* Resetear estilos de todos los elementos. */
         *, *::before, *::after { box-sizing: border-box; }
         :root { color-scheme: light dark; }
-        body { background-color: #000000; margin: 0; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; display: grid; place-content: center; height: 100vh; padding: 36px 36px 100px 36px; grid-template-rows: 1fr; }
-        #messages { list-style-type: none; margin: 0; padding: 0; overflow-y: scroll; height: 100%; scroll-behavior: smooth; padding-bottom: 48px; color: #1c1919; }
-        #messages>li { padding: .5rem 1rem; color: #ffffff; }
-        #messages>li:nth-child(odd) { background: #2c2b2b; color: #7ed957; }
-        #chat { border: 1px solid #ffffff; border-radius: 4px; overflow: hidden; width: 350px; height: 100%; position: relative; }
-        #form { bottom: 0; display: flex; height: 48px; left: 0; padding: 4px; position: absolute; right: 0; }
-        #input { border-radius: 9999px; border: 1px solid #eee; flex: 1; margin: 4px; padding: 0 8px; }
+
+        /* Estilo general del cuerpo. */
+        body {
+            background-color: #000000; 
+            margin: 0; 
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; 
+            display: grid; 
+            place-content: center; 
+            height: 100vh; 
+            padding: 36px 36px 100px 36px; 
+            grid-template-rows: 1fr;
+        }
+
+        /* Lista de mensajes. */
+        #messages {
+            list-style-type: none; 
+            margin: 0; 
+            padding: 0; 
+            overflow-y: scroll; 
+            height: 100%; 
+            scroll-behavior: smooth; 
+            padding-bottom: 48px; 
+            color: #1c1919;
+        }
+
+        /* Estilo de cada mensaje en la lista. */
+        #messages > li {
+            padding: .5rem 1rem; 
+            color: #ffffff;
+        }
+
+        /* Mensajes en posiciones impares tienen un fondo diferente. */
+        #messages > li:nth-child(odd) {
+            background: #2c2b2b; 
+            color: #7ed957;
+        }
+
+        /* Contenedor principal del chat. */
+        #chat {
+            border: 1px solid #ffffff; 
+            border-radius: 4px; 
+            overflow: hidden; 
+            width: 350px; 
+            height: 100%; 
+            position: relative;
+        }
+
+        /* Formulario de entrada de mensajes. */
+        #form {
+            bottom: 0; 
+            display: flex; 
+            height: 48px; 
+            left: 0; 
+            padding: 4px; 
+            position: absolute; 
+            right: 0;
+        }
+
+        /* Campo de texto para el mensaje. */
+        #input {
+            border-radius: 9999px; 
+            border: 1px solid #eee; 
+            flex: 1; 
+            margin: 4px; 
+            padding: 0 8px;
+        }
+
+        /* Quitar el contorno azul al enfocar el campo. */
         #input:focus { outline: 0; }
-        #form>button { background: #7ed957; color: #fff; border: 0; margin: 4px; border-radius: 4px; }
-        #form>button:hover { background: #09f; }
+
+        /* Botón de enviar mensaje. */
+        #form > button {
+            background: #7ed957; 
+            color: #fff; 
+            border: 0; 
+            margin: 4px; 
+            border-radius: 4px;
+        }
+
+        /* Cambiar el color del botón al pasar el mouse por encima. */
+        #form > button:hover {
+            background: #09f;
+        }
     </style>
 </head>
 <body>
+    <!-- Contenedor principal del chat -->
     <section id="chat">
-        <ul id="messages"></ul>
+        <ul id="messages"></ul> <!-- Lista de mensajes -->
         <form id="form">
             <input type="text" name="message" id="input" placeholder="Type a message" autocomplete="off" />
             <button type="submit">Enviar</button>
