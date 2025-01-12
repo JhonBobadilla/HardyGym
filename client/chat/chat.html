@@ -6,67 +6,53 @@
     <title>Chat</title>
     
     <script type="module">
-        // Importación del cliente de Socket.IO desde el CDN.
-        // Es importante que la versión del cliente coincida con la del servidor.
         import { io } from 'https://cdn.socket.io/4.3.2/socket.io.esm.min.js';
       
-        // Pedir al usuario un nombre de usuario.
         const username = prompt('Enter your username:') || 'Anonymous';
-        localStorage.setItem('username', username); // Guardar el nombre en el almacenamiento local.
-
-        // Configuración de la conexión al servidor de Socket.IO.
-        const socket = io('https://hardy-2839d6e03ba8.herokuapp.com', { 
-          auth: { username }, // Autenticación con el nombre de usuario.
+        localStorage.setItem('username', username);
+      
+        const socket = io('https://hardy-2839d6e03ba8.herokuapp.com', { // Reemplaza <tu-app> con el nombre de tu aplicación Heroku
+          path: '/socket.io/',
+          auth: {
+            username,
+            serverOffset: 0
+          }
         });
-
-        // Referencias a elementos del DOM.
+      
         const form = document.getElementById('form');
         const input = document.getElementById('input');
         const messages = document.getElementById('messages');
-
-        // Evento: Mensajes del chat enviados por el servidor.
-        socket.on('chat message', (msg, serverOffset, senderUsername) => {
-          const item = `
-              <li>
-                  <small onclick="sendPrivateMessage('${senderUsername}')">${senderUsername} dice:</small>
-                  <p>${msg}</p>
-              </li>`;
-          messages.insertAdjacentHTML('beforeend', item); // Agregar el mensaje al final de la lista.
-          messages.scrollTop = messages.scrollHeight; // Desplazar automáticamente hacia abajo.
+      
+        socket.on('chat message', (msg, serverOffset, username) => {
+          const item = `<li>
+              <small onclick="sendPrivateMessage('${username}')">${username} dice:</small>
+              <p>${msg}</p>
+          </li>`;
+          messages.insertAdjacentHTML('beforeend', item);
+          socket.auth.serverOffset = serverOffset;
+          messages.scrollTop = messages.scrollHeight;
         });
-
-        // Evento: Mensaje privado recibido.
-        socket.on('private message', (msg, senderUsername) => {
-          alert(`Mensaje privado de ${senderUsername}: ${msg}`);
+      
+        socket.on('private message', (msg, username) => {
+          alert(`Mensaje privado de ${username}: ${msg}`);
         });
-
-        // Manejo del evento "submit" en el formulario para enviar mensajes.
+      
         form.addEventListener('submit', (e) => {
-          e.preventDefault(); // Prevenir el comportamiento por defecto del formulario.
-          if (input.value) { // Verificar que el campo de entrada no esté vacío.
-            socket.emit('chat message', input.value); // Emitir el mensaje al servidor.
-            input.value = ''; // Limpiar el campo de entrada.
+          e.preventDefault();
+          if (input.value) {
+            socket.emit('chat message', input.value);
+            input.value = '';
           }
         });
-
-        // Función para enviar mensajes privados a otro usuario.
+      
         window.sendPrivateMessage = (toUsername) => {
           const msg = prompt('Enter your private message:');
           if (msg) {
             socket.emit('private message', msg, toUsername);
           }
         };
-
-        // Evento: Conexión establecida con el servidor.
-        socket.on('connect', () => {
-          console.log('Conectado al servidor de Socket.IO');
-        });
-
-        // Evento: Error al intentar conectar con el servidor.
-        socket.on('connect_error', (err) => {
-          console.error('Error al conectar con el servidor:', err.message);
-        });
       </script>
+      
      
     <style>
         /* Resetear estilos de todos los elementos. */
