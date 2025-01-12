@@ -6,25 +6,23 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-// Puerto dinámico de Heroku, o 3001 si estamos en desarrollo local
-const port = process.env.PORT || 3001; 
+// Puerto dinámico proporcionado por Heroku o 3001 para desarrollo local
+const port = process.env.PORT || 3001;
 
-// Configurar CORS para permitir la comunicación con el frontend de Heroku
+// Configurar CORS para permitir la comunicación desde tu frontend
 app.use(cors({
-    origin: "https://hardy-2839d6e03ba8.herokuapp.com", // URL de tu frontend
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type"] // Puedes agregar más si es necesario
+    origin: "*", // Permitir todas las conexiones, ajusta esto para mayor seguridad en producción
+    methods: ["GET", "POST"]
 }));
 
 // Crear servidor HTTP
 const server = http.createServer(app);
 
-// Integrar Socket.IO al servidor HTTP con la configuración de CORS
+// Integrar Socket.IO al servidor HTTP
 const io = new Server(server, {
     cors: {
-        origin: "https://hardy-2839d6e03ba8.herokuapp.com", // URL de tu frontend
-        methods: ["GET", "POST"],
-        allowedHeaders: ["Content-Type"]
+        origin: "*", // Permitir todas las conexiones para pruebas, ajusta esto si necesitas más seguridad
+        methods: ["GET", "POST"]
     }
 });
 
@@ -48,4 +46,5 @@ io.on('connection', (socket) => {
 server.listen(port, () => {
     console.log(`Servidor de chat ejecutándose en el puerto ${port}`);
 });
+
 
