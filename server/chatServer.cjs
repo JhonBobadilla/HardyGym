@@ -41,7 +41,7 @@ io.on('connection', (socket) => {
   socket.on('chat message', (msg) => {
     const username = socket.handshake.auth.username || 'anonymous';
 
-    pool.query('INSERT INTO chat_messages (content, user) VALUES ($1, $2) RETURNING id', [msg, username], (err, result) => {
+    pool.query('INSERT INTO chat_messages (content, username) VALUES ($1, $2) RETURNING id', [msg, username], (err, result) => {
       if (err) throw err;
       io.emit('chat message', msg, result.rows[0].id.toString(), username);
     });
@@ -55,13 +55,14 @@ io.on('connection', (socket) => {
     }
   });
 
-  pool.query('SELECT id, content, user FROM chat_messages ORDER BY id DESC LIMIT 50', (err, results) => {
+  pool.query('SELECT id, content, username FROM chat_messages ORDER BY id DESC LIMIT 50', (err, results) => {
     if (err) throw err;
     results.rows.reverse().forEach(row => { // Reverse to maintain correct order
-      socket.emit('chat message', row.content, row.id.toString(), row.user);
+      socket.emit('chat message', row.content, row.id.toString(), row.username);
     });
   });
 });
+
 
 // Rutas para el chat
 app.get('/chat', (req, res) => {

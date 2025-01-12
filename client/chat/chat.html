@@ -22,18 +22,19 @@
         const messages = document.getElementById('messages');
         
         socket.on('chat message', (msg, serverOffset, username) => {
-            const item = `<li>
-                <small onclick="sendPrivateMessage('${username}')">${username} dice:</small>
-                <p>${msg}</p>
-            </li>`;
-            messages.insertAdjacentHTML('beforeend', item);
-            socket.auth.serverOffset = serverOffset;
-            messages.scrollTop = messages.scrollHeight;
-        });
+  const item = `<li>
+      <small onclick="sendPrivateMessage('${username}')">${username} dice:</small>
+      <p>${msg}</p>
+  </li>`;
+  messages.insertAdjacentHTML('beforeend', item);
+  socket.auth.serverOffset = serverOffset;
+  messages.scrollTop = messages.scrollHeight;
+});
 
-        socket.on('private message', (msg, username) => {
-            alert(`Mensaje privado de ${username}: ${msg}`);
-        });
+socket.on('private message', (msg, username) => {
+  alert(`Mensaje privado de ${username}: ${msg}`);
+});
+
         
         form.addEventListener('submit', (e) => {
             e.preventDefault();
