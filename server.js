@@ -12,6 +12,7 @@ const app = express();
 const port = process.env.PORT || 8080;
 const secretKey = process.env.SECRET_KEY || 'tu_secreto';
 
+
 // Configuración de la conexión a la base de datos PostgreSQL
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
@@ -32,13 +33,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname)));
 
-// Conexión a la base de datos (¡Eliminado para evitar duplicación!)
-// const pool = new Pool({
-//     connectionString: process.env.DATABASE_URL,
-//     ssl: {
-//       rejectUnauthorized: false
-//     }
-// });
+
 
 pool.on('connect', () => {
     console.log('Conectado a la base de datos PostgreSQL');
@@ -360,15 +355,22 @@ app.get('/get-progress', authenticateToken, async (req, res) => {
 
 /*----------------------------barra de progreso hasta aquí --------------------*/
 
-
-
 // Ejemplo de ruta protegida
 app.get('/profile', authenticateToken, (req, res) => {
     res.json({ message: 'Perfil del usuario' });
 });
 
+
+// Iniciar el servidor principal de la app
 app.listen(port, () => {
     console.log(`Servidor ejecutándose en el puerto ${port}`);
 });
 
-        
+/*chat en caso de ser necesario borrar*////////////////////////////////////////////////////////////////
+// Ruta para servir el HTML del chat
+app.get('/chat', (req, res) => {
+    res.sendFile(path.join(__dirname, 'pages', 'chat.html')); // Servir el archivo chat.html
+});
+// Iniciar el servidor del chat
+require('./chatServer.js');  // Importar el servidor de chat
+/*hasta aca este bloque del chat*////////////////////////////////////////////////////////////////        
