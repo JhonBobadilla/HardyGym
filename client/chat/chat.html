@@ -4,53 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat</title>
+    
     <script type="module">
         import { io } from 'https://cdn.socket.io/4.3.2/socket.io.esm.min.js';
-        
+      
         const username = prompt('Enter your username:') || 'Anonymous';
         localStorage.setItem('username', username);
-        
-        const socket = io({
-            auth: {
-                username,
-                serverOffset: 0
-            }
+      
+        const socket = io('https://hardy-2839d6e03ba8.herokuapp.com', { // Agrega la URL de tu servidor
+          auth: {
+            username,
+            serverOffset: 0
+          }
         });
-        
+      
         const form = document.getElementById('form');
         const input = document.getElementById('input');
         const messages = document.getElementById('messages');
-        
+      
         socket.on('chat message', (msg, serverOffset, username) => {
-  const item = `<li>
-      <small onclick="sendPrivateMessage('${username}')">${username} dice:</small>
-      <p>${msg}</p>
-  </li>`;
-  messages.insertAdjacentHTML('beforeend', item);
-  socket.auth.serverOffset = serverOffset;
-  messages.scrollTop = messages.scrollHeight;
-});
-
-socket.on('private message', (msg, username) => {
-  alert(`Mensaje privado de ${username}: ${msg}`);
-});
-
-        
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            if (input.value) {
-                socket.emit('chat message', input.value);
-                input.value = '';
-            }
+          const item = `<li>
+              <small onclick="sendPrivateMessage('${username}')">${username} dice:</small>
+              <p>${msg}</p>
+          </li>`;
+          messages.insertAdjacentHTML('beforeend', item);
+          socket.auth.serverOffset = serverOffset;
+          messages.scrollTop = messages.scrollHeight;
         });
-
+      
+        socket.on('private message', (msg, username) => {
+          alert(`Mensaje privado de ${username}: ${msg}`);
+        });
+      
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (input.value) {
+            socket.emit('chat message', input.value);
+            input.value = '';
+          }
+        });
+      
         window.sendPrivateMessage = (toUsername) => {
-            const msg = prompt('Enter your private message:');
-            if (msg) {
-                socket.emit('private message', msg, toUsername);
-            }
+          const msg = prompt('Enter your private message:');
+          if (msg) {
+            socket.emit('private message', msg, toUsername);
+          }
         };
-    </script>
+      </script>
+     
     <style>
         *, *::before, *::after { box-sizing: border-box; }
         :root { color-scheme: light dark; }

@@ -63,7 +63,6 @@ io.on('connection', (socket) => {
   });
 });
 
-
 // Rutas para el chat
 app.get('/chat', (req, res) => {
   res.sendFile(process.cwd() + '/client/chat/chat.html');
@@ -81,6 +80,7 @@ app.post('/register', (req, res) => {
     res.send(`<h3 class="success">Tu registro se ha completado, regresa al home → <a href="/public/index.html">Home</a>`);
   });
 });
+
 app.post('/login', (req, res) => {
   const { txtemail, txtpassword } = req.body;
   const sql = "SELECT * FROM datos WHERE email = $1 AND password = $2";
@@ -98,4 +98,5 @@ app.post('/login', (req, res) => {
 server.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
+
 
