@@ -80,7 +80,6 @@ app.post('/register', (req, res) => {
     res.send(`<h3 class="success">Tu registro se ha completado, regresa al home → <a href="/public/index.html">Home</a>`);
   });
 });
-
 app.post('/login', (req, res) => {
   const { txtemail, txtpassword } = req.body;
   const sql = "SELECT * FROM datos WHERE email = $1 AND password = $2";
