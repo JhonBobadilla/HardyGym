@@ -108,16 +108,18 @@ app.post('/update-subscription', async (req, res) => {
     const { reference } = req.body;
     const subscriptionStartDate = new Date();
 
-    const sql = 'UPDATE datos SET subscription_start_date = $1 WHERE id = $2';
+    // Actualizar la fecha de inicio de la suscripción usando la referencia de pago
+    const sql = 'UPDATE datos SET subscription_start_date = $1 WHERE id = (SELECT id FROM datos WHERE referencia_pago = $2)';
     try {
         const result = await pool.query(sql, [subscriptionStartDate, reference]);
-        console.log(`Suscripción renovada para el usuario ID: ${reference}`);
+        console.log(`Suscripción renovada para el usuario con referencia de pago: ${reference}`);
         res.send({ success: true });
     } catch (err) {
         console.error('Error al actualizar la suscripción:', err);
         res.status(500).send({ success: false });
     }
 });
+
 
 // Verificar el pago y actualizar la suscripción
 app.post('/verify-payment', async (req, res) => {
