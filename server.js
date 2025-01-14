@@ -103,6 +103,7 @@ app.post('/webhook-payu', async (req, res) => {
     }
 });
 
+
 // Ruta para actualizar la suscripción desde la página de confirmación
 app.post('/update-subscription', async (req, res) => {
     const subscriptionStartDate = new Date();
@@ -124,6 +125,7 @@ app.post('/update-subscription', async (req, res) => {
         res.status(500).send({ success: false });
     }
 });
+
 
 
 

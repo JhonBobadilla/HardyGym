@@ -60,24 +60,25 @@
 
     <script>
         // Enviar una solicitud al servidor para actualizar la suscripción
-        fetch('/update-subscription', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('Suscripción renovada. ¡Disfruta de tu membresía!');
-            } else {
-                alert('Error al actualizar la suscripción. Por favor, contacta al soporte.');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Error al actualizar la suscripción. Por favor, contacta al soporte.');
-        });
+fetch('/update-subscription', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+})
+.then(response => response.json())
+.then(data => {
+    if (data.success) {
+        alert('Suscripción renovada. ¡Disfruta de tu membresía!');
+    } else {
+        alert('Error al actualizar la suscripción. Por favor, contacta al soporte.');
+    }
+})
+.catch(error => {
+    console.error('Error:', error);
+    alert('Error al actualizar la suscripción. Por favor, contacta al soporte.');
+});
+
     </script>
     
     
