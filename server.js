@@ -69,19 +69,16 @@ app.post('/register', async (req, res) => {
     const { nombre, email, password, telefono, ciudad } = req.body;
     console.log('Datos recibidos para registro:', req.body);
 
-    // Inserción de datos sin afectar la columna subscription_start_date
     const sql = `INSERT INTO datos (nombre, email, password, telefono, ciudad) 
                 VALUES ($1, $2, $3, $4, $5) RETURNING id`;
     try {
         const result = await pool.query(sql, [nombre, email, password, telefono, ciudad]);
-        // Redirigir al usuario a la página de pago sin establecer la fecha de suscripción
         res.json({ success: true, redirectUrl: 'https://hardy-2839d6e03ba8.herokuapp.com/pages/pago_suscripcion.html' });
     } catch (err) {
         console.error('Error al registrar usuario:', err);
         res.status(500).json({ error: 'Error al registrar usuario' });
     }
 });
-
 
 
 
