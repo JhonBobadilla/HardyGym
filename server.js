@@ -69,7 +69,9 @@ app.post('/register', async (req, res) => {
     const { nombre, email, password, telefono, ciudad } = req.body;
     console.log('Datos recibidos para registro:', req.body);
 
-    const sql = 'INSERT INTO datos (nombre, email, password, telefono, ciudad) VALUES ($1, $2, $3, $4, $5)';
+    // Inserción de datos sin afectar la columna subscription_start_date
+    const sql = `INSERT INTO datos (nombre, email, password, telefono, ciudad) 
+                VALUES ($1, $2, $3, $4, $5) RETURNING id`;
     try {
         const result = await pool.query(sql, [nombre, email, password, telefono, ciudad]);
         // Redirigir al usuario a la página de pago sin establecer la fecha de suscripción
@@ -79,6 +81,7 @@ app.post('/register', async (req, res) => {
         res.status(500).json({ error: 'Error al registrar usuario' });
     }
 });
+
 
 
 
