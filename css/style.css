@@ -262,6 +262,22 @@ body {
         
     }
 
+    .sucre2 {
+    
+      font-family: "Stick No Bills", sans-serif;
+      font-size: 25px;
+      width: 500px;
+      padding: 8px;
+      margin-top: 180px;
+      border-radius: 10px;
+      text-align: center;
+      color: #7ed957;
+      border: 7px solid #7ed957;  
+      background-color: #000000;
+      margin: 120px;
+          
+      }
+
 
 /*footer*/
 
