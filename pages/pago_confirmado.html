@@ -56,18 +56,15 @@
         </div>
     </footer>
 
-    <script>
-        // Obtener la referencia de pago de la URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const reference = urlParams.get('reference');
+    
 
-        // Enviar la referencia al servidor para actualizar la suscripción
+    <script>
+        // Enviar una solicitud al servidor para actualizar la suscripción
         fetch('/update-subscription', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ reference: reference })
+            }
         })
         .then(response => response.json())
         .then(data => {
@@ -82,6 +79,10 @@
             alert('Error al actualizar la suscripción. Por favor, contacta al soporte.');
         });
     </script>
+    
+    
+
+
     <script src="../index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

@@ -105,20 +105,26 @@ app.post('/webhook-payu', async (req, res) => {
 
 // Ruta para actualizar la suscripción desde la página de confirmación
 app.post('/update-subscription', async (req, res) => {
-    const { reference } = req.body;
     const subscriptionStartDate = new Date();
 
-    // Actualizar la fecha de inicio de la suscripción usando la referencia de pago
-    const sql = 'UPDATE datos SET subscription_start_date = $1 WHERE id = (SELECT id FROM datos WHERE referencia_pago = $2)';
+    // Obtener el ID del usuario actualmente registrado desde la sesión
+    const userId = req.session.userId;
+
+    if (!userId) {
+        return res.status(401).send({ success: false, message: 'Usuario no autenticado' });
+    }
+
+    const sql = 'UPDATE datos SET subscription_start_date = $1 WHERE id = $2';
     try {
-        const result = await pool.query(sql, [subscriptionStartDate, reference]);
-        console.log(`Suscripción renovada para el usuario con referencia de pago: ${reference}`);
+        const result = await pool.query(sql, [subscriptionStartDate, userId]);
+        console.log(`Suscripción renovada para el usuario ID: ${userId}`);
         res.send({ success: true });
     } catch (err) {
         console.error('Error al actualizar la suscripción:', err);
         res.status(500).send({ success: false });
     }
 });
+
 
 
 // Verificar el pago y actualizar la suscripción
