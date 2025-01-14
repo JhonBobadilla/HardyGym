@@ -12,7 +12,6 @@ const app = express();
 const port = process.env.PORT || 8080;
 const secretKey = process.env.SECRET_KEY || 'tu_secreto';
 
-
 // Configuración de la conexión a la base de datos PostgreSQL
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
@@ -32,8 +31,6 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname)));
-
-
 
 pool.on('connect', () => {
     console.log('Conectado a la base de datos PostgreSQL');
@@ -74,6 +71,7 @@ app.post('/register', async (req, res) => {
     const sql = 'INSERT INTO datos (nombre, email, password, telefono, ciudad) VALUES ($1, $2, $3, $4, $5)';
     try {
         const result = await pool.query(sql, [nombre, email, password, telefono, ciudad]);
+        // Redirigir al usuario a la página de pago
         res.json({ success: true, redirectUrl: 'https://hardy-2839d6e03ba8.herokuapp.com/pages/pago_suscripcion.html' });
     } catch (err) {
         console.error('Error al registrar usuario:', err);
@@ -102,7 +100,6 @@ app.post('/webhook-payu', async (req, res) => {
     }
 });
 
-
 // Ruta para actualizar la suscripción desde la página de confirmación
 app.post('/update-subscription', async (req, res) => {
     const { reference } = req.body;
@@ -119,8 +116,7 @@ app.post('/update-subscription', async (req, res) => {
     }
 });
 
-
-// Ruta para verificar el pago
+// Verificar el pago y actualizar la suscripción
 app.post('/verify-payment', async (req, res) => {
     const { reference } = req.body;
 
@@ -144,31 +140,7 @@ app.post('/verify-payment', async (req, res) => {
     }
 });
 
- // Verificar el pago y actualizar la suscripción
-app.post('/verify-payment', async (req, res) => {
-    const { reference } = req.body;
 
-    try {
-        const paymentStatus = await fakeVerifyPayment(reference);
-
-        if (paymentStatus === 'APPROVED') {
-            const subscriptionStartDate = new Date();
-
-            const sql = 'UPDATE datos SET subscription_start_date = $1 WHERE id = $2';
-            await pool.query(sql, [subscriptionStartDate, reference]);
-
-            console.log(`Suscripción renovada para el usuario ID: ${reference}`);
-            res.send({ success: true });
-        } else {
-            res.send({ success: false });
-        }
-    } catch (error) {
-        console.error('Error al verificar el pago:', error);
-        res.status(500).send({ success: false });
-    }
-});
-
- 
 // Rutas de autenticación
 app.post('/login', async (req, res) => {
     const { txtemail, txtpassword } = req.body;
@@ -245,7 +217,6 @@ app.get('/getUserId', authenticateToken, async (req, res) => {
 });
 
 // Ruta para solicitar el restablecimiento de la contraseña
-
 const nodemailer = require('nodemailer');
 
 app.post('/request-password-reset', async (req, res) => {
@@ -290,7 +261,6 @@ app.post('/reset-password', async (req, res) => {
         }
     });
 });
-
 
 // Función para enviar el correo de restablecimiento de contraseña
 function sendPasswordResetEmail(email, token) {
@@ -360,10 +330,38 @@ app.get('/profile', authenticateToken, (req, res) => {
     res.json({ message: 'Perfil del usuario' });
 });
 
-
 // Iniciar el servidor principal de la app
 app.listen(port, () => {
     console.log(`Servidor ejecutándose en el puerto ${port}`);
 });
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
        
