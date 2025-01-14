@@ -74,7 +74,7 @@ app.post('/register', async (req, res) => {
     const sql = 'INSERT INTO datos (nombre, email, password, telefono, ciudad) VALUES ($1, $2, $3, $4, $5)';
     try {
         const result = await pool.query(sql, [nombre, email, password, telefono, ciudad]);
-        res.json({ success: true, redirectUrl: 'http://localhost:3000/pages/pago_suscripcion.html' });
+        res.json({ success: true, redirectUrl: 'https://hardy-2839d6e03ba8.herokuapp.com/pages/pago_suscripcion.html' });
     } catch (err) {
         console.error('Error al registrar usuario:', err);
         res.status(500).json({ error: 'Error al registrar usuario' });
