@@ -335,6 +335,7 @@ app.get('/get-progress', authenticateToken, async (req, res) => {
 
 /*----------------------------barra de progreso hasta aquí --------------------*/
 
+
 // Ejemplo de ruta protegida
 app.get('/profile', authenticateToken, (req, res) => {
     res.json({ message: 'Perfil del usuario' });
