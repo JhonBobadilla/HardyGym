@@ -10,6 +10,9 @@ const botonVaciar = document.querySelector("#carrito-acciones-vaciar");
 const contenedorTotal = document.querySelector("#total");
 const botonComprar = document.querySelector("#carrito-acciones-comprar");
 
+// Referencia al formulario de ePayco
+const formularioEpayco = document.querySelector("#frm_ePaycoCheckoutOpen");
+
 function cargarProductosCarrito () {
     if (productosEnCarrito && productosEnCarrito.length > 0) {
 
@@ -24,7 +27,6 @@ function cargarProductosCarrito () {
         const div = document.createElement("div");
         div.classList.add("carrito-producto");
         div.innerHTML = ` 
-        
         <img class="carrito-producto-imagen" src="${producto.imagen}" alt="${producto.titulo}"> 
         <div class="carrito-producto-titulo">
          <small class="small-carrito">Título</small>
@@ -37,9 +39,7 @@ function cargarProductosCarrito () {
         <div class="carrito-producto-precio">
          <small class="small-carrito">Precio</small>
          <p class="pshopp">$${producto.precio}</p>
-         
         </div>
-        
         <div class="carrito-producto-subtotal">
           <small class="small-carrito">Subtotal</small>
           <p class="pshopp">$${producto.precio * producto.cantidad}</p>
@@ -48,41 +48,34 @@ function cargarProductosCarrito () {
       </div>
       `;
     contenedorCarritoProductos.append(div);
-    
     })
-    
     } else {
-    
         contenedorCarritoVacio.classList.remove("disabled");
         contenedorCarritoProductos.classList.add("disabled");
         contenedorCarritoAcciones.classList.add("disabled");
         contenedorCarritoComprado.classList.add("disabled");
-    
     }
-actualizarBotonesEliminar();
-actualizarTotal();
+    actualizarBotonesEliminar();
+    actualizarTotal();
 }
 
 cargarProductosCarrito ();
 
 function actualizarBotonesEliminar() {
-
     botonesEliminar = document.querySelectorAll(".carrito-producto-eliminar"); 
-    
     botonesEliminar.forEach(boton => {
     boton.addEventListener("click", eliminarDelCarrito);
     });
 }
 
 function eliminarDelCarrito(e) {
-
     Toastify({
         text: "Producto eliminado",
         duration: 3000,
         close: true,
-        gravity: "top", // `top` or `bottom`
-        position: "right", // `left`, `center` or `right`
-        stopOnFocus: true, // Prevents dismissing of toast on hover
+        gravity: "top",
+        position: "right",
+        stopOnFocus: true,
         style: {
           background: "linear-gradient(to right, #7ed957, #7ed957)",
           borderRadius: "2rem",
@@ -91,26 +84,21 @@ function eliminarDelCarrito(e) {
           color: "black"
         },
         offset: {
-            x: '1.5rem', // horizontal axis - can be a number or a string indicating unity. eg: '2em'
-            y: '1.5rem' // vertical axis - can be a number or a string indicating unity. eg: '2em'
+            x: '1.5rem',
+            y: '1.5rem'
           },
-        onClick: function(){} // Callback after click
+        onClick: function(){} 
       }).showToast();
-
 
     const idBoton = e.currentTarget.id;
     const index = productosEnCarrito.findIndex(producto => producto.id === idBoton);
-    
     productosEnCarrito.splice(index, 1);
     cargarProductosCarrito(); 
-
     localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
-    
 }
 
 botonVaciar.addEventListener("click", vaciarCarrito);
 function vaciarCarrito() {
-
     Swal.fire({
         title: '¿Estás seguro?',
         icon: 'question',
@@ -129,21 +117,22 @@ function vaciarCarrito() {
 }
 
 function actualizarTotal() {
-const totalCalculado = productosEnCarrito.reduce((acc, producto) => acc +(producto.precio * producto.cantidad), 0); 
-total.innerText = `$${totalCalculado}`;
-
+    const totalCalculado = productosEnCarrito.reduce((acc, producto) => acc + (producto.precio * producto.cantidad), 0); 
+    total.innerText = `$${totalCalculado}`;
 }
 
 botonComprar.addEventListener("click", comprarCarrito);
 function comprarCarrito() {
-
-productosEnCarrito.length = 0;
-localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
-
-
-contenedorCarritoVacio.classList.add("disabled");
-contenedorCarritoProductos.classList.add("disabled");
-contenedorCarritoAcciones.classList.add("disabled");
-contenedorCarritoComprado.classList.remove("disabled");
-
+    productosEnCarrito.length = 0;
+    localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
+    contenedorCarritoVacio.classList.add("disabled");
+    contenedorCarritoProductos.classList.add("disabled");
+    contenedorCarritoAcciones.classList.add("disabled");
+    contenedorCarritoComprado.classList.remove("disabled");
+    
+    // Mostrar el botón de ePayco
+    formularioEpayco.style.display = 'block';
 }
+
+// Inicialmente ocultar el formulario del botón de ePayco
+formularioEpayco.style.display = 'none';
