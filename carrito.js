@@ -100,50 +100,34 @@ function comprarCarrito() {
     const totalCompra = productosEnCarrito.reduce((acc, producto) => acc + (producto.precio * producto.cantidad), 0);
     localStorage.setItem("total-compra", totalCompra);  // Guardamos el total en el localStorage
 
-    // Guardamos la compra en el HTML de compras (en un archivo compras.html)
-    agregarCompraAlHTML(productosEnCarrito, totalCompra); // Agregar la compra a compras.html
-    
-    // Vaciamos el carrito
     productosEnCarrito.length = 0;
     localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
-
     contenedorCarritoVacio.classList.add("disabled");
     contenedorCarritoProductos.classList.add("disabled");
     contenedorCarritoAcciones.classList.add("disabled");
     contenedorCarritoComprado.classList.remove("disabled");
 
-    // Mostrar el formulario de pago
+    // Mostrar el formulario de ePayco
     formularioEpayco.style.display = 'block';
 
     // Llamamos a la función que inserta el mensaje de compra
     mostrarMensajeCompra();
 }
 
-// Función que agrega la compra al archivo compras.html
-function agregarCompraAlHTML(productos, totalCompra) {
-    const fecha = new Date().toLocaleString();
+function mostrarMensajeCompra() {
+    // Recuperamos el total desde el localStorage
+    const totalCompra = localStorage.getItem("total-compra");
+    const mensajeCompra = `Recuerda digitar el valor de tu compra al acceder al botón de pago, tu valor fue $${totalCompra} IMPUESTOS INCLUIDOS" no selecciones la casilla incluir impuestos." para el envio de tus productos nos pondremos en contactos contigo al correo registrado`;
+    const contenedorCompra = document.createElement('p');
+    contenedorCompra.textContent = mensajeCompra;
+    contenedorCompra.classList.add('pshop', 'carrito-comprado');
     
-    // Creamos un bloque HTML con la información de la compra
-    let htmlCompra = `
-        <div class="compra">
-            <p><strong>Fecha:</strong> ${fecha}</p>
-            <p><strong>Total de la compra:</strong> $${totalCompra}</p>
-            <h4>Productos comprados:</h4>
-            <ul>
-    `;
-    
-    productos.forEach(producto => {
-        htmlCompra += `
-            <li>
-                ${producto.cantidad} x ${producto.titulo} - $${producto.precio} c/u
-            </li>
-        `;
-    });
-
-    htmlCompra += `</ul></div><hr>`;
-
-    // Simulamos que estamos agregando el bloque a compras.html
-    // Usamos el contenedor que ya has creado en compras.html
-    const comprasContainer = document.querySelector("#compras-container");
-    comprasContainer.innerHTML += htmlCompra; // Añadimos la nueva compra al final
+        const contenedorGracias = document.querySelector("#carrito-comprado");
+    contenedorGracias.insertAdjacentElement('afterend', contenedorCompra);
+    contenedorCompra.insertAdjacentElement('afterend', contenedorInstrucciones);
 }
+
+
+
+
+
