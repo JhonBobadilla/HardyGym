@@ -57,7 +57,7 @@ function cargarProductosCarrito() {
 cargarProductosCarrito();
 
 function actualizarBotonesEliminar() {
-    botonesEliminar = document.querySelectorAll(".carrito-producto-eliminar");
+    botonesEliminar = document.querySelectorAll(".carrito-producto-eliminar"); 
     botonesEliminar.forEach(boton => {
         boton.addEventListener("click", eliminarDelCarrito);
     });
@@ -67,7 +67,7 @@ function eliminarDelCarrito(e) {
     const idBoton = e.currentTarget.id;
     const index = productosEnCarrito.findIndex(producto => producto.id === idBoton);
     productosEnCarrito.splice(index, 1);
-    cargarProductosCarrito();
+    cargarProductosCarrito(); 
     localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
 }
 
@@ -96,48 +96,54 @@ function actualizarTotal() {
 
 botonComprar.addEventListener("click", comprarCarrito);
 function comprarCarrito() {
+    // Guardamos el total antes de vaciar el carrito
     const totalCompra = productosEnCarrito.reduce((acc, producto) => acc + (producto.precio * producto.cantidad), 0);
+    localStorage.setItem("total-compra", totalCompra);  // Guardamos el total en el localStorage
 
-    // Guardar los detalles de la compra en el historial (en un div de compras)
-    const fecha = new Date();
-    const historialDiv = document.createElement("div");
-    historialDiv.classList.add("compra");
-    historialDiv.innerHTML = `
-        <h2>Compra - ${fecha.toLocaleString()}</h2>
-        <p><strong>Total: </strong>$${totalCompra}</p>
-        <h3>Productos:</h3>
-        <ul>
-            ${productosEnCarrito.map(producto => `<li>${producto.titulo} - Cantidad: ${producto.cantidad} - Precio: $${producto.precio} Subtotal: $${producto.precio * producto.cantidad}</li>`).join('')}
-        </ul>
-    `;
+    // Guardamos la compra en el HTML de compras (en un archivo compras.html)
+    agregarCompraAlHTML(productosEnCarrito, totalCompra); // Agregar la compra a compras.html
+    
+    // Vaciamos el carrito
+    productosEnCarrito.length = 0;
+    localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
 
-    // Guardamos la compra en el archivo de historial de compras
-    localStorage.setItem("productos-en-carrito", JSON.stringify([])); // Vaciamos el carrito
-    actualizarHistorialDeCompras(historialDiv);
+    contenedorCarritoVacio.classList.add("disabled");
+    contenedorCarritoProductos.classList.add("disabled");
+    contenedorCarritoAcciones.classList.add("disabled");
+    contenedorCarritoComprado.classList.remove("disabled");
 
-    // Mostrar el formulario de pago (ePayco)
+    // Mostrar el formulario de pago
     formularioEpayco.style.display = 'block';
+
+    // Llamamos a la función que inserta el mensaje de compra
     mostrarMensajeCompra();
 }
 
-function actualizarHistorialDeCompras(historialDiv) {
-    const historialContenedor = document.getElementById("historial-compras");
-    historialContenedor.appendChild(historialDiv);
+// Función que agrega la compra al archivo compras.html
+function agregarCompraAlHTML(productos, totalCompra) {
+    const fecha = new Date().toLocaleString();
+    
+    // Creamos un bloque HTML con la información de la compra
+    let htmlCompra = `
+        <div class="compra">
+            <p><strong>Fecha:</strong> ${fecha}</p>
+            <p><strong>Total de la compra:</strong> $${totalCompra}</p>
+            <h4>Productos comprados:</h4>
+            <ul>
+    `;
+    
+    productos.forEach(producto => {
+        htmlCompra += `
+            <li>
+                ${producto.cantidad} x ${producto.titulo} - $${producto.precio} c/u
+            </li>
+        `;
+    });
+
+    htmlCompra += `</ul></div><hr>`;
+
+    // Simulamos que estamos agregando el bloque a compras.html
+    // Usamos el contenedor que ya has creado en compras.html
+    const comprasContainer = document.querySelector("#compras-container");
+    comprasContainer.innerHTML += htmlCompra; // Añadimos la nueva compra al final
 }
-
-function mostrarMensajeCompra() {
-    const totalCompra = productosEnCarrito.reduce((acc, producto) => acc + (producto.precio * producto.cantidad), 0);
-    const mensajeCompra = `Recuerda digitar el valor de tu compra al acceder al botón de pago, tu valor fue $${totalCompra} IMPUESTOS INCLUIDOS "no selecciones la casilla incluir impuestos."`;
-    const contenedorCompra = document.createElement('p');
-    contenedorCompra.textContent = mensajeCompra;
-    contenedorCompra.classList.add('pshop', 'carrito-comprado');
-
-    const contenedorGracias = document.querySelector("#carrito-comprado");
-    contenedorGracias.insertAdjacentElement('afterend', contenedorCompra);
-}
-
-
-
-
-
-
