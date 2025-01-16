@@ -1,5 +1,5 @@
 let productosEnCarrito = localStorage.getItem("productos-en-carrito");
-productosEnCarrito = JSON.parse(productosEnCarrito);
+productosEnCarrito = JSON.parse(productosEnCarrito) || [];
 
 const contenedorCarritoVacio = document.querySelector("#carrito-vacio");
 const contenedorCarritoProductos = document.querySelector("#carrito-productos");
@@ -96,9 +96,18 @@ function actualizarTotal() {
 
 botonComprar.addEventListener("click", comprarCarrito);
 function comprarCarrito() {
-    // Guardamos el total antes de vaciar el carrito
     const totalCompra = productosEnCarrito.reduce((acc, producto) => acc + (producto.precio * producto.cantidad), 0);
     localStorage.setItem("total-compra", totalCompra);  // Guardamos el total en el localStorage
+
+    // Guardamos la compra en el historial de compras en localStorage
+    let comprasRealizadas = JSON.parse(localStorage.getItem('comprasRealizadas')) || [];
+    const nuevaCompra = {
+        productos: productosEnCarrito,
+        total: totalCompra,
+        fecha: new Date().toLocaleString()
+    };
+    comprasRealizadas.push(nuevaCompra);
+    localStorage.setItem('comprasRealizadas', JSON.stringify(comprasRealizadas));
 
     productosEnCarrito.length = 0;
     localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
@@ -107,25 +116,62 @@ function comprarCarrito() {
     contenedorCarritoAcciones.classList.add("disabled");
     contenedorCarritoComprado.classList.remove("disabled");
 
-    // Mostrar el formulario de ePayco
     formularioEpayco.style.display = 'block';
 
-    // Llamamos a la función que inserta el mensaje de compra
     mostrarMensajeCompra();
 }
 
 function mostrarMensajeCompra() {
-    // Recuperamos el total desde el localStorage
     const totalCompra = localStorage.getItem("total-compra");
-    const mensajeCompra = `Recuerda digitar el valor de tu compra al acceder al botón de pago, tu valor fue $${totalCompra} IMPUESTOS INCLUIDOS" no selecciones la casilla incluir impuestos." para el envio de tus productos nos pondremos en contactos contigo al correo registrado`;
+    const mensajeCompra = `Recuerda digitar el valor de tu compra al acceder al botón de pago, tu valor fue $${totalCompra} IMPUESTOS INCLUIDOS" no selecciones la casilla incluir impuestos." para el envio de tus productos nos pondremos en contactos contigo al correo registrado...`;
     const contenedorCompra = document.createElement('p');
     contenedorCompra.textContent = mensajeCompra;
     contenedorCompra.classList.add('pshop', 'carrito-comprado');
     
-        const contenedorGracias = document.querySelector("#carrito-comprado");
+    const contenedorGracias = document.querySelector("#carrito-comprado");
     contenedorGracias.insertAdjacentElement('afterend', contenedorCompra);
-    contenedorCompra.insertAdjacentElement('afterend', contenedorInstrucciones);
 }
+
+function generarHTMLcompras() {
+    const compras = JSON.parse(localStorage.getItem('comprasRealizadas')) || [];
+    let comprasHTML = `
+        <html>
+        <head><title>Registro de Compras</title></head>
+        <body>
+        <h1>Registro de Compras</h1>
+        <table border="1">
+            <tr>
+                <th>Fecha</th>
+                <th>Productos</th>
+                <th>Total</th>
+            </tr>`;
+
+    compras.forEach(compra => {
+        comprasHTML += `
+            <tr>
+                <td>${compra.fecha}</td>
+                <td>${compra.productos.map(p => `${p.titulo} (x${p.cantidad})`).join(', ')}</td>
+                <td>$${compra.total}</td>
+            </tr>`;
+    });
+
+    comprasHTML += `
+        </table>
+        </body>
+        </html>`;
+
+    // Creamos un blob con el HTML generado
+    const blob = new Blob([comprasHTML], { type: 'text/html' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'compras.html';  // El archivo descargado se llamará compras.html
+    link.click();
+}
+
+// Este botón solo debería estar disponible para ti, el administrador
+const botonGenerarCompras = document.getElementById('botonGenerarCompras');
+botonGenerarCompras.addEventListener('click', generarHTMLcompras);
+
 
 
 
