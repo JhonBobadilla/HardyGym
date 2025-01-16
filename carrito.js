@@ -57,7 +57,7 @@ function cargarProductosCarrito() {
 cargarProductosCarrito();
 
 function actualizarBotonesEliminar() {
-    botonesEliminar = document.querySelectorAll(".carrito-producto-eliminar"); 
+    botonesEliminar = document.querySelectorAll(".carrito-producto-eliminar");
     botonesEliminar.forEach(boton => {
         boton.addEventListener("click", eliminarDelCarrito);
     });
@@ -67,7 +67,7 @@ function eliminarDelCarrito(e) {
     const idBoton = e.currentTarget.id;
     const index = productosEnCarrito.findIndex(producto => producto.id === idBoton);
     productosEnCarrito.splice(index, 1);
-    cargarProductosCarrito(); 
+    cargarProductosCarrito();
     localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
 }
 
@@ -96,36 +96,46 @@ function actualizarTotal() {
 
 botonComprar.addEventListener("click", comprarCarrito);
 function comprarCarrito() {
-    // Guardamos el total antes de vaciar el carrito
     const totalCompra = productosEnCarrito.reduce((acc, producto) => acc + (producto.precio * producto.cantidad), 0);
-    localStorage.setItem("total-compra", totalCompra);  // Guardamos el total en el localStorage
 
-    productosEnCarrito.length = 0;
-    localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
-    contenedorCarritoVacio.classList.add("disabled");
-    contenedorCarritoProductos.classList.add("disabled");
-    contenedorCarritoAcciones.classList.add("disabled");
-    contenedorCarritoComprado.classList.remove("disabled");
+    // Guardar los detalles de la compra en el historial (en un div de compras)
+    const fecha = new Date();
+    const historialDiv = document.createElement("div");
+    historialDiv.classList.add("compra");
+    historialDiv.innerHTML = `
+        <h2>Compra - ${fecha.toLocaleString()}</h2>
+        <p><strong>Total: </strong>$${totalCompra}</p>
+        <h3>Productos:</h3>
+        <ul>
+            ${productosEnCarrito.map(producto => `<li>${producto.titulo} - Cantidad: ${producto.cantidad} - Precio: $${producto.precio} Subtotal: $${producto.precio * producto.cantidad}</li>`).join('')}
+        </ul>
+    `;
 
-    // Mostrar el formulario de ePayco
+    // Guardamos la compra en el archivo de historial de compras
+    localStorage.setItem("productos-en-carrito", JSON.stringify([])); // Vaciamos el carrito
+    actualizarHistorialDeCompras(historialDiv);
+
+    // Mostrar el formulario de pago (ePayco)
     formularioEpayco.style.display = 'block';
-
-    // Llamamos a la función que inserta el mensaje de compra
     mostrarMensajeCompra();
 }
 
+function actualizarHistorialDeCompras(historialDiv) {
+    const historialContenedor = document.getElementById("historial-compras");
+    historialContenedor.appendChild(historialDiv);
+}
+
 function mostrarMensajeCompra() {
-    // Recuperamos el total desde el localStorage
-    const totalCompra = localStorage.getItem("total-compra");
+    const totalCompra = productosEnCarrito.reduce((acc, producto) => acc + (producto.precio * producto.cantidad), 0);
     const mensajeCompra = `Recuerda digitar el valor de tu compra al acceder al botón de pago, tu valor fue $${totalCompra} IMPUESTOS INCLUIDOS "no selecciones la casilla incluir impuestos."`;
     const contenedorCompra = document.createElement('p');
     contenedorCompra.textContent = mensajeCompra;
     contenedorCompra.classList.add('pshop', 'carrito-comprado');
-    
-        const contenedorGracias = document.querySelector("#carrito-comprado");
+
+    const contenedorGracias = document.querySelector("#carrito-comprado");
     contenedorGracias.insertAdjacentElement('afterend', contenedorCompra);
-    contenedorCompra.insertAdjacentElement('afterend', contenedorInstrucciones);
 }
+
 
 
 
