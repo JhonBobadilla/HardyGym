@@ -11,7 +11,6 @@ const contenedorTotal = document.querySelector("#total");
 const botonComprar = document.querySelector("#carrito-acciones-comprar");
 const formularioEpayco = document.querySelector("#frm_ePaycoCheckoutOpen");
 
-// Cargar los productos que están en el carrito
 function cargarProductosCarrito() {
     if (productosEnCarrito && productosEnCarrito.length > 0) {
         contenedorCarritoVacio.classList.add("disabled");
@@ -55,7 +54,8 @@ function cargarProductosCarrito() {
     actualizarTotal();
 }
 
-// Función para actualizar la eliminación de productos
+cargarProductosCarrito();
+
 function actualizarBotonesEliminar() {
     botonesEliminar = document.querySelectorAll(".carrito-producto-eliminar"); 
     botonesEliminar.forEach(boton => {
@@ -63,7 +63,6 @@ function actualizarBotonesEliminar() {
     });
 }
 
-// Función para eliminar productos del carrito
 function eliminarDelCarrito(e) {
     const idBoton = e.currentTarget.id;
     const index = productosEnCarrito.findIndex(producto => producto.id === idBoton);
@@ -72,7 +71,6 @@ function eliminarDelCarrito(e) {
     localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
 }
 
-// Función para vaciar el carrito
 botonVaciar.addEventListener("click", vaciarCarrito);
 function vaciarCarrito() {
     Swal.fire({
@@ -91,13 +89,11 @@ function vaciarCarrito() {
     });
 }
 
-// Función para actualizar el total del carrito
 function actualizarTotal() {
     const totalCalculado = productosEnCarrito.reduce((acc, producto) => acc + (producto.precio * producto.cantidad), 0);
     contenedorTotal.innerText = `$${totalCalculado}`;
 }
 
-// Función para realizar la compra
 botonComprar.addEventListener("click", comprarCarrito);
 function comprarCarrito() {
     // Guardamos el total antes de vaciar el carrito
@@ -118,66 +114,18 @@ function comprarCarrito() {
     mostrarMensajeCompra();
 }
 
-// Mostrar mensaje con el total de la compra
 function mostrarMensajeCompra() {
     // Recuperamos el total desde el localStorage
     const totalCompra = localStorage.getItem("total-compra");
-    const mensajeCompra = `Recuerda digitar el valor de tu compra al acceder al botón de pago, tu valor fue $${totalCompra} IMPUESTOS INCLUIDOS. Para el envio de tus productos nos pondremos en contacto contigo al correo registrado.`;
+    const mensajeCompra = `Recuerda digitar el valor de tu compra al acceder al botón de pago, tu valor fue $${totalCompra} IMPUESTOS INCLUIDOS "no selecciones la casilla incluir impuestos." para el envio de tus productos nos pondremos en contactos contigo al correo registrado...`;
     const contenedorCompra = document.createElement('p');
     contenedorCompra.textContent = mensajeCompra;
     contenedorCompra.classList.add('pshop', 'carrito-comprado');
     
-    const contenedorGracias = document.querySelector("#carrito-comprado");
+        const contenedorGracias = document.querySelector("#carrito-comprado");
     contenedorGracias.insertAdjacentElement('afterend', contenedorCompra);
     contenedorCompra.insertAdjacentElement('afterend', contenedorInstrucciones);
 }
-
-// Función adicional para generar el archivo compras.html (solo para el administrador)
-document.getElementById('botonGenerarCompras').addEventListener('click', function() {
-    let comprasHTML = `
-        <html lang="es">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Registro de Compras</title>
-        </head>
-        <body>
-            <h1>Historial de Compras</h1>
-            <table border="1">
-                <tr>
-                    <th>Título</th>
-                    <th>Cantidad</th>
-                    <th>Precio</th>
-                    <th>Total</th>
-                </tr>
-    `;
-    
-    productosEnCarrito.forEach(producto => {
-        comprasHTML += `
-            <tr>
-                <td>${producto.titulo}</td>
-                <td>${producto.cantidad}</td>
-                <td>$${producto.precio}</td>
-                <td>$${producto.precio * producto.cantidad}</td>
-            </tr>
-        `;
-    });
-
-    comprasHTML += `
-            </table>
-            <p><strong>Total: $${localStorage.getItem("total-compra")}</strong></p>
-        </body>
-        </html>
-    `;
-
-    const blob = new Blob([comprasHTML], { type: 'text/html' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'compras.html';
-    link.click();
-});
-
-
 
 
 
