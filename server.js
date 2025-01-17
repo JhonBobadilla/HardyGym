@@ -234,11 +234,6 @@ app.post('/reset-password', async (req, res) => {
 
 /////////////////////////////////////ruta de las compras////////////////////////////////////////////////////
 
-const getEmailFromDatabase = async (userId) => {
-    const sql = `SELECT email FROM datos WHERE id = $1`;
-    const result = await pool.query(sql, [userId]);
-    return result.rows[0].email;
-};
 
 app.post('/registrar-compra', async (req, res) => {
     console.log('Datos recibidos:', req.body);  // Log para verificar los datos recibidos
@@ -270,17 +265,16 @@ app.post('/registrar-compra', async (req, res) => {
 });
 
 
-
-
-/////////////////////////////////////fin ruta de las compras/////////////////////////////////////////////////
-
-
-// Función para obtener el correo electrónico desde la base de datos
 const getEmailFromDatabase = async (userId) => {
     const sql = `SELECT email FROM datos WHERE id = $1`;
     const result = await pool.query(sql, [userId]);
     return result.rows[0].email;
 };
+
+/////////////////////////////////////fin ruta de las compras/////////////////////////////////////////////////
+
+
+// Función para obtener el correo electrónico desde la base de datos
 
 
 // Función para enviar el correo de restablecimiento de contraseña
