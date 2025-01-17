@@ -119,7 +119,8 @@
                 if (data.token) {
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('userId', data.userId); // Almacena el userId
-                    console.log('Usuario autenticado, userId almacenado:', data.userId);
+                    localStorage.setItem('usuarioEmail', email); // Almacena el correo electrónico
+                    console.log('Usuario autenticado, correo electrónico almacenado:', email);
                     window.location.href = '../pages/servicios.html'; // Redirige a la página de servicios después de iniciar sesión
                 } else if (data.redirectUrl) {
                     window.location.href = data.redirectUrl; // Redirige a la página de pago si la suscripción ha expirado
@@ -143,5 +144,6 @@
     </script>
 </body>
 </html>
+
 
 

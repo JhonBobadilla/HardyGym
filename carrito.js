@@ -94,14 +94,13 @@ function actualizarTotal() {
 }
 
 botonComprar.addEventListener("click", async () => {
-    // Guardamos el total antes de vaciar el carrito
     const totalCompra = productosEnCarrito.reduce((acc, producto) => acc + (producto.precio * producto.cantidad), 0);
     localStorage.setItem("total-compra", totalCompra);  // Guardamos el total en el localStorage
 
-    // Aquí debes obtener el correo del usuario. Si tienes una forma de obtenerlo (p.ej., desde un campo en el perfil del usuario o en sesión), usa ese valor.
-    const email = 'correo_del_usuario'; // Aquí reemplaza con la forma en que obtienes el email del usuario
+    // Obtener el correo del localStorage
+    const email = localStorage.getItem('usuarioEmail');
+    console.log('Correo electrónico obtenido del localStorage:', email);  // Log para verificar
 
-    // Ahora enviamos los datos al servidor para registrar la compra
     const articulos = productosEnCarrito.map(producto => ({
         nombre: producto.titulo,
         valor: producto.precio * producto.cantidad
@@ -127,7 +126,6 @@ botonComprar.addEventListener("click", async () => {
         console.error('Error al enviar los datos al servidor:', err);
     }
 
-    // Limpiar el carrito y mostrar la vista de compra realizada
     productosEnCarrito.length = 0;
     localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
     contenedorCarritoVacio.classList.add("disabled");
@@ -135,15 +133,12 @@ botonComprar.addEventListener("click", async () => {
     contenedorCarritoAcciones.classList.add("disabled");
     contenedorCarritoComprado.classList.remove("disabled");
 
-    // Mostrar el formulario de ePayco
     formularioEpayco.style.display = 'block';
 
-    // Llamamos a la función que inserta el mensaje de compra
     mostrarMensajeCompra();
 });
 
 function mostrarMensajeCompra() {
-    // Recuperamos el total desde el localStorage
     const totalCompra = localStorage.getItem("total-compra");
     const mensajeCompra = `Recuerda digitar el valor de tu compra al acceder al botón de pago, tu valor fue $${totalCompra} IMPUESTOS INCLUIDOS "no selecciones la casilla incluir impuestos." para el envio de tus productos nos pondremos en contactos contigo al correo registrado...`;
     const contenedorCompra = document.createElement('p');
@@ -153,4 +148,5 @@ function mostrarMensajeCompra() {
     const contenedorGracias = document.querySelector("#carrito-comprado");
     contenedorGracias.insertAdjacentElement('afterend', contenedorCompra);
 }
+
 
