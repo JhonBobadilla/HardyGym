@@ -278,30 +278,31 @@ app.post('/reset-password', async (req, res) => {
 
 
 app.post('/registrar-compra', async (req, res) => {
-    const { email, articulos } = req.body;
+    const { articulos, total } = req.body;
+    const usuario_email = req.session.usuario_email;  // Obtenemos el correo del usuario desde la sesión
 
-    // Validar los datos
-    if (!email || !articulos || articulos.length === 0) {
-        return res.status(400).json({ error: 'Datos incompletos para registrar la compra' });
+    console.log('Correo del usuario:', usuario_email); // Verifica que el correo esté aquí
+
+    if (!usuario_email) {
+        return res.status(400).json({ error: 'Correo del usuario no encontrado en la sesión' });
     }
 
-    // Calcular el valor total
-    const valorTotal = articulos.reduce((total, articulo) => total + articulo.valor, 0);
-
-    // Registrar cada artículo en la tabla
-    const sql = `INSERT INTO compras (usuario_email, articulo, valor, valor_total) VALUES ($1, $2, $3, $4)`;
-
     try {
-        for (const articulo of articulos) {
-            await pool.query(sql, [email, articulo.nombre, articulo.valor, valorTotal]);
-        }
+        // Realizamos el INSERT en la base de datos
+        const query = `
+            INSERT INTO compras (usuario_email, total, detalles)
+            VALUES (?, ?, ?)
+        `;
+        const detalles = JSON.stringify(articulos);  // Convertimos los artículos en un string
+        await pool.query(query, [usuario_email, total, detalles]);
 
-        res.json({ success: true, message: 'Compra registrada con éxito' });
+        res.status(200).json({ success: true, message: 'Compra registrada con éxito' });
     } catch (err) {
         console.error('Error al registrar la compra:', err);
         res.status(500).json({ error: 'Error al registrar la compra' });
     }
 });
+
 
 
 /////////////////////////////////////fin ruta de las compras/////////////////////////////////////////////////
