@@ -93,6 +93,8 @@ function actualizarTotal() {
     contenedorTotal.innerText = `$${totalCalculado}`;
 }
 
+
+
 botonComprar.addEventListener("click", async () => {
     const totalCompra = productosEnCarrito.reduce((acc, producto) => acc + (producto.precio * producto.cantidad), 0);
     localStorage.setItem("total-compra", totalCompra);  // Guardamos el total en el localStorage
@@ -103,7 +105,8 @@ botonComprar.addEventListener("click", async () => {
 
     const articulos = productosEnCarrito.map(producto => ({
         nombre: producto.titulo,
-        valor: producto.precio * producto.cantidad
+        valor: producto.precio * producto.cantidad,
+        cantidad: producto.cantidad  // Incluir la cantidad del producto
     }));
 
     try {
@@ -137,6 +140,7 @@ botonComprar.addEventListener("click", async () => {
 
     mostrarMensajeCompra();
 });
+
 
 function mostrarMensajeCompra() {
     const totalCompra = localStorage.getItem("total-compra");
