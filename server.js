@@ -369,12 +369,58 @@ app.get('/profile', authenticateToken, (req, res) => {
 });
 
 
+/////////////////contactenos//////////////////
+
+
+// Ruta para manejar el formulario de contacto
+app.post('/contacto', async (req, res) => {
+    const { name, email, message } = req.body;
+    console.log('Datos recibidos para contacto:', { name, email, message });
+
+    // Validar que los datos no estén vacíos
+    if (!name || !email || !message) {
+        return res.status(400).json({ error: 'Todos los campos son requeridos.' });
+    }
+
+    // Guardar los datos en la base de datos (ajustar a tu esquema)
+    const sql = 'INSERT INTO contacto (nombre, email, mensaje) VALUES ($1, $2, $3)';
+    try {
+        await pool.query(sql, [name, email, message]);
+        res.json({ success: true, message: 'Mensaje enviado correctamente.' });
+    } catch (err) {
+        console.error('Error al guardar mensaje de contacto:', err);
+        res.status(500).json({ error: 'Error al enviar mensaje' });
+    }
+});
+
+
+
+//////////////contactenos////////////////////
+
+
 
 // Iniciar el servidor principal de la app
 app.listen(port, () => {
     console.log(`Servidor ejecutándose en el puerto ${port}`);
 });
  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
