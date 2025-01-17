@@ -93,25 +93,13 @@ function actualizarTotal() {
     contenedorTotal.innerText = `$${totalCalculado}`;
 }
 
-// Aquí agregamos la función para obtener el correo del usuario
-async function obtenerCorreoUsuario() {
-    try {
-        const response = await fetch('/get-email', { method: 'GET' });
-        const result = await response.json();
-        console.log('Correo obtenido del servidor:', result.email);  // Añade este log para verificar
-        return result.email;
-    } catch (err) {
-        console.error('Error al obtener el correo del usuario:', err);
-    }
-}
-
 botonComprar.addEventListener("click", async () => {
-    const email = await obtenerCorreoUsuario();
-    console.log('Correo del usuario antes de enviar:', email);  // Añade este log para verificar
-
     // Guardamos el total antes de vaciar el carrito
     const totalCompra = productosEnCarrito.reduce((acc, producto) => acc + (producto.precio * producto.cantidad), 0);
     localStorage.setItem("total-compra", totalCompra);  // Guardamos el total en el localStorage
+
+    // Aquí debes obtener el correo del usuario. Si tienes una forma de obtenerlo (p.ej., desde un campo en el perfil del usuario o en sesión), usa ese valor.
+    const email = 'correo_del_usuario'; // Aquí reemplaza con la forma en que obtienes el email del usuario
 
     // Ahora enviamos los datos al servidor para registrar la compra
     const articulos = productosEnCarrito.map(producto => ({
@@ -165,5 +153,4 @@ function mostrarMensajeCompra() {
     const contenedorGracias = document.querySelector("#carrito-comprado");
     contenedorGracias.insertAdjacentElement('afterend', contenedorCompra);
 }
-
 
