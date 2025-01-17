@@ -232,6 +232,49 @@ app.post('/reset-password', async (req, res) => {
 
 
 
+//////////////////////////////////////////////////////////primera parte compras///////////////////
+
+
+// Función para obtener el correo electrónico desde la base de datos
+const getEmailFromDatabase = async (userId) => {
+    const sql = `SELECT email FROM datos WHERE id = $1`;
+    const result = await pool.query(sql, [userId]);
+    return result.rows[0].email;
+};
+
+////////////////////////////////////////////////////fin primera parte compras/////////////////////
+
+// Ruta para registrar la compra
+app.post('/registrar-compra', async (req, res) => {
+    console.log('Datos recibidos:', req.body);  // Log para verificar los datos recibidos
+
+    const userId = req.session.userId;  // Obtener el ID del usuario desde la sesión
+    const { articulos } = req.body;
+
+    // Validar los datos
+    if (!userId || !articulos || articulos.length === 0) {
+        return res.status(400).json({ error: 'Datos incompletos para registrar la compra' });
+    }
+
+    try {
+        const email = await getEmailFromDatabase(userId);  // Obtener el correo desde la base de datos
+        console.log('Correo electrónico:', email);  // Log para verificar el correo
+
+        const valorTotal = articulos.reduce((total, articulo) => total + articulo.valor, 0);
+        const sql = `INSERT INTO compras (usuario_email, articulo, valor, valor_total) VALUES ($1, $2, $3, $4)`;
+
+        for (const articulo of articulos) {
+            await pool.query(sql, [email, articulo.nombre, articulo.valor, valorTotal]);
+        }
+
+        res.json({ success: true, message: 'Compra registrada con éxito' });
+    } catch (err) {
+        console.error('Error al registrar la compra:', err);
+        res.status(500).json({ error: 'Error al registrar la compra' });
+    }
+});
+
+
 /////////////////////////////////////ruta de las compras////////////////////////////////////////////////////
 
 
@@ -334,6 +377,10 @@ app.get('/get-progress', authenticateToken, async (req, res) => {
 });
 
 /*----------------------------barra de progreso hasta aquí --------------------*/
+
+
+
+
 
 
 // Ejemplo de ruta protegida
