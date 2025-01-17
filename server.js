@@ -127,10 +127,12 @@ app.post('/login', async (req, res) => {
                 const token = jwt.sign({ id: user.id, email: user.email }, secretKey, { expiresIn: '1h' });
                 console.log('Usuario autenticado, generando token');
                 
-                // Guardar el correo del usuario en la sesión
+                // Guardar el userId y el correo del usuario en la sesión
+                req.session.userId = user.id;  // Almacenar el userId en la sesión
                 req.session.email = user.email;  // Almacenar el correo en la sesión
+                console.log('ID del usuario almacenado en la sesión:', user.id);
 
-                return res.json({ token });
+                return res.json({ token, userId: user.id });
             } else {
                 console.log('Suscripción expirada, redirigiendo a la página de pago');
                 return res.json({ redirectUrl: 'https://hardy-2839d6e03ba8.herokuapp.com/pages/pago_suscripcion.html' });
@@ -144,6 +146,7 @@ app.post('/login', async (req, res) => {
         return res.status(500).json({ error: 'Error en el servidor' });
     }
 });
+
 
 
 // Middleware de autenticación para rutas protegidas
@@ -273,6 +276,7 @@ app.post('/registrar-compra', async (req, res) => {
         res.status(500).json({ error: 'Error al registrar la compra' });
     }
 });
+
 
 
 
