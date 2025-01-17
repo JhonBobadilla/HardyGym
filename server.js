@@ -103,55 +103,8 @@ app.post('/webhook-payu', async (req, res) => {
     }
 });
 
-/*
-// Ruta para actualizar la suscripción desde la página de confirmación
-app.post('/update-subscription', async (req, res) => {
-    const subscriptionStartDate = new Date();
-
-    // Obtener el ID del usuario actualmente registrado desde la sesión
-    const userId = req.session.userId;
-
-    if (!userId) {
-        return res.status(401).send({ success: false, message: 'Usuario no autenticado' });
-    }
-
-    const sql = 'UPDATE datos SET subscription_start_date = $1 WHERE id = $2';
-    try {
-        const result = await pool.query(sql, [subscriptionStartDate, userId]);
-        console.log(`Suscripción renovada para el usuario ID: ${userId}`);
-        res.send({ success: true });
-    } catch (err) {
-        console.error('Error al actualizar la suscripción:', err);
-        res.status(500).send({ success: false });
-    }
-});
-
-// Verificar el pago y actualizar la suscripción
-app.post('/verify-payment', async (req, res) => {
-    const { reference } = req.body;
-
-    try {
-        const paymentStatus = await fakeVerifyPayment(reference);
-
-        if (paymentStatus === 'APPROVED') {
-            const subscriptionStartDate = new Date();
-
-            const sql = 'UPDATE datos SET subscription_start_date = $1 WHERE id = $2';
-            await pool.query(sql, [subscriptionStartDate, reference]);
-
-            console.log(`Suscripción renovada para el usuario ID: ${reference}`);
-            res.send({ success: true });
-        } else {
-            res.send({ success: false });
-        }
-    } catch (error) {
-        console.error('Error al verificar el pago:', error);
-        res.status(500).send({ success: false });
-    }
-});
-*/
-
 // Rutas de autenticación
+
 app.post('/login', async (req, res) => {
     const { txtemail, txtpassword } = req.body;
     console.log('Datos recibidos para login:', txtemail, txtpassword);
@@ -173,6 +126,10 @@ app.post('/login', async (req, res) => {
             if (currentDate <= subscriptionEndDate) {
                 const token = jwt.sign({ id: user.id, email: user.email }, secretKey, { expiresIn: '1h' });
                 console.log('Usuario autenticado, generando token');
+                
+                // Guardar el correo del usuario en la sesión
+                req.session.email = user.email;  // Almacenar el correo en la sesión
+
                 return res.json({ token });
             } else {
                 console.log('Suscripción expirada, redirigiendo a la página de pago');
@@ -187,6 +144,7 @@ app.post('/login', async (req, res) => {
         return res.status(500).json({ error: 'Error en el servidor' });
     }
 });
+
 
 // Middleware de autenticación para rutas protegidas
 function authenticateToken(req, res, next) {
@@ -377,6 +335,14 @@ app.get('/get-progress', authenticateToken, async (req, res) => {
 app.get('/profile', authenticateToken, (req, res) => {
     res.json({ message: 'Perfil del usuario' });
 });
+
+
+app.get('/profile', authenticateToken, (req, res) => {
+    const userEmail = req.session.email;  // Obtener el correo del usuario desde la sesión
+    res.json({ message: `Perfil del usuario: ${userEmail}` });
+});
+
+
 
 // Iniciar el servidor principal de la app
 app.listen(port, () => {
