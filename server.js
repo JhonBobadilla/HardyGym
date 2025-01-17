@@ -334,16 +334,10 @@ app.get('/get-progress', authenticateToken, async (req, res) => {
 // Ejemplo de ruta protegida
 
 // Ruta para obtener solo el correo del usuario
-// Ruta para obtener solo el correo del usuario
 app.get('/get-email', authenticateToken, (req, res) => {
     const userEmail = req.session.email;  // Obtener el correo del usuario desde la sesión
-    if (userEmail) {
-        res.json({ email: userEmail });
-    } else {
-        res.status(401).json({ error: 'Usuario no autenticado' });
-    }
+    res.json({ email: userEmail });
 });
-
 
 // Ruta para obtener el perfil completo del usuario
 app.get('/profile', authenticateToken, (req, res) => {

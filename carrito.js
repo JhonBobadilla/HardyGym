@@ -94,56 +94,12 @@ function actualizarTotal() {
     contenedorTotal.innerText = `$${totalCalculado}`;
 }
 
-botonComprar.addEventListener("click", async () => {
+botonComprar.addEventListener("click", comprarCarrito);
+function comprarCarrito() {
     // Guardamos el total antes de vaciar el carrito
     const totalCompra = productosEnCarrito.reduce((acc, producto) => acc + (producto.precio * producto.cantidad), 0);
     localStorage.setItem("total-compra", totalCompra);  // Guardamos el total en el localStorage
 
-    // Obtener el correo del usuario
-    const token = localStorage.getItem('auth_token');  // Obtener el token de autenticación
-    try {
-        const response = await fetch('/get-email', {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
-        if (!response.ok) throw new Error('Error al obtener el correo');
-
-        const data = await response.json();
-        const email = data.email;  // Obtener el correo del usuario desde la respuesta
-
-        // Ahora enviamos los datos al servidor para registrar la compra
-        const articulos = productosEnCarrito.map(producto => ({
-            nombre: producto.titulo,
-            valor: producto.precio * producto.cantidad
-        }));
-
-        const compraData = {
-            email: email,
-            articulos: articulos
-        };
-
-        // Enviar al servidor
-        const compraResponse = await fetch('/registrar-compra', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(compraData)
-        });
-
-        const result = await compraResponse.json();
-        if (result.success) {
-            console.log('Compra registrada:', result.message);
-        } else {
-            console.error('Error al registrar la compra:', result.error);
-        }
-    } catch (err) {
-        console.error('Error al obtener el correo o registrar la compra:', err);
-    }
-
-    // Limpiar el carrito y mostrar la vista de compra realizada
     productosEnCarrito.length = 0;
     localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
     contenedorCarritoVacio.classList.add("disabled");
@@ -156,7 +112,7 @@ botonComprar.addEventListener("click", async () => {
 
     // Llamamos a la función que inserta el mensaje de compra
     mostrarMensajeCompra();
-});
+}
 
 function mostrarMensajeCompra() {
     // Recuperamos el total desde el localStorage
@@ -166,12 +122,10 @@ function mostrarMensajeCompra() {
     contenedorCompra.textContent = mensajeCompra;
     contenedorCompra.classList.add('pshop', 'carrito-comprado');
     
-    const contenedorGracias = document.querySelector("#carrito-comprado");
+        const contenedorGracias = document.querySelector("#carrito-comprado");
     contenedorGracias.insertAdjacentElement('afterend', contenedorCompra);
     contenedorCompra.insertAdjacentElement('afterend', contenedorInstrucciones);
 }
-
-
 
 
 
