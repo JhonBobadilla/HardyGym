@@ -353,25 +353,6 @@ app.get('/get-progress', authenticateToken, async (req, res) => {
 
 
 
-
-// Ejemplo de ruta protegida
-
-// Ruta para obtener solo el correo del usuario
-app.get('/get-email', authenticateToken, (req, res) => {
-    const userEmail = req.session.email;  // Obtener el correo del usuario desde la sesión
-    res.json({ email: userEmail });
-});
-
-// Ruta para obtener el perfil completo del usuario
-app.get('/profile', authenticateToken, (req, res) => {
-    const userEmail = req.session.email;  // Obtener el correo del usuario desde la sesión
-    res.json({ message: `Perfil del usuario: ${userEmail}` });
-});
-
-
-/////////////////contactenos//////////////////
-
-
 // Ruta para manejar el formulario de contacto
 app.post('/contacto', async (req, res) => {
     const { name, email, message } = req.body;
@@ -395,7 +376,23 @@ app.post('/contacto', async (req, res) => {
 
 
 
-//////////////contactenos////////////////////
+
+
+
+// Ejemplo de ruta protegida
+
+// Ruta para obtener solo el correo del usuario
+app.get('/get-email', authenticateToken, (req, res) => {
+    const userEmail = req.session.email;  // Obtener el correo del usuario desde la sesión
+    res.json({ email: userEmail });
+});
+
+// Ruta para obtener el perfil completo del usuario
+app.get('/profile', authenticateToken, (req, res) => {
+    const userEmail = req.session.email;  // Obtener el correo del usuario desde la sesión
+    res.json({ message: `Perfil del usuario: ${userEmail}` });
+});
+
 
 
 
