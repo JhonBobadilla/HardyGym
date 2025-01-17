@@ -99,33 +99,48 @@ botonComprar.addEventListener("click", async () => {
     const totalCompra = productosEnCarrito.reduce((acc, producto) => acc + (producto.precio * producto.cantidad), 0);
     localStorage.setItem("total-compra", totalCompra);  // Guardamos el total en el localStorage
 
-    // Aquí debes obtener el correo del usuario. Si tienes una forma de obtenerlo (p.ej., desde un campo en el perfil del usuario o en sesión), usa ese valor.
-    const email = 'correo_del_usuario'; // Aquí reemplaza con la forma en que obtienes el email del usuario
-
-    // Ahora enviamos los datos al servidor para registrar la compra
-    const articulos = productosEnCarrito.map(producto => ({
-        nombre: producto.titulo,
-        valor: producto.precio * producto.cantidad
-    }));
-
+    // Obtener el correo del usuario
+    const token = localStorage.getItem('auth_token');  // Obtener el token de autenticación
     try {
-        const response = await fetch('/registrar-compra', {
+        const response = await fetch('/get-email', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        if (!response.ok) throw new Error('Error al obtener el correo');
+
+        const data = await response.json();
+        const email = data.email;  // Obtener el correo del usuario desde la respuesta
+
+        // Ahora enviamos los datos al servidor para registrar la compra
+        const articulos = productosEnCarrito.map(producto => ({
+            nombre: producto.titulo,
+            valor: producto.precio * producto.cantidad
+        }));
+
+        const compraData = {
+            email: email,
+            articulos: articulos
+        };
+
+        // Enviar al servidor
+        const compraResponse = await fetch('/registrar-compra', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ email, articulos })
+            body: JSON.stringify(compraData)
         });
 
-        const result = await response.json();
-
+        const result = await compraResponse.json();
         if (result.success) {
             console.log('Compra registrada:', result.message);
         } else {
             console.error('Error al registrar la compra:', result.error);
         }
     } catch (err) {
-        console.error('Error al enviar los datos al servidor:', err);
+        console.error('Error al obtener el correo o registrar la compra:', err);
     }
 
     // Limpiar el carrito y mostrar la vista de compra realizada
@@ -155,6 +170,7 @@ function mostrarMensajeCompra() {
     contenedorGracias.insertAdjacentElement('afterend', contenedorCompra);
     contenedorCompra.insertAdjacentElement('afterend', contenedorInstrucciones);
 }
+
 
 
 
