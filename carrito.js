@@ -94,6 +94,7 @@ function actualizarTotal() {
 }
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 botonComprar.addEventListener("click", async () => {
     const totalCompra = productosEnCarrito.reduce((acc, producto) => acc + (producto.precio * producto.cantidad), 0);
@@ -108,6 +109,8 @@ botonComprar.addEventListener("click", async () => {
         valor: producto.precio * producto.cantidad,
         cantidad: producto.cantidad  // Incluir la cantidad del producto
     }));
+
+    console.log('Artículos enviados al servidor:', articulos);  // Log para verificar
 
     try {
         const response = await fetch('/registrar-compra', {
@@ -142,6 +145,7 @@ botonComprar.addEventListener("click", async () => {
 });
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function mostrarMensajeCompra() {
     const totalCompra = localStorage.getItem("total-compra");
     const mensajeCompra = `Recuerda digitar el valor de tu compra al acceder al botón de pago, tu valor fue $${totalCompra} IMPUESTOS INCLUIDOS "no selecciones la casilla incluir impuestos." para el envio de tus productos nos pondremos en contactos contigo al correo registrado...`;
