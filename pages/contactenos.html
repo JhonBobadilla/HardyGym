@@ -47,27 +47,37 @@
     </header>
 
     <main>
-        <!--CODIGO PARA UN FORMULARIO DE CONTACTENOS-->
-        <div class="contactenos">
-          <form action="/contacto" method="POST" enctype="multipart/form-data">
-                <div>
-                    <label for="name"><strong>Nombre:</strong></label><br />
-                    <input class="cont" name="name" type="text" value="" size="80" /><br />
-                </div>
-                <div>
-                    <label for="email"><strong>E-mail:</strong></label><br/>
-                    <input class="cont" name="email" type="text" value="" size="80" /><br />
-                </div>
-                <div>
-                    <label for="message"><strong>Mensaje:</strong></label><br />
-                    <textarea class="cont" name="message" rows="17" cols="80"></textarea><br />
-                </div>
-                <div class="form_contactenos crecee">
-                    <input class="input_send" type="submit" value="Enviar email" />
-                </div>
-            </form>
-        </div>
+        
+<!--CODIGO PARA UN FORMULARIO DE CONTACTENOS-->
+
+       <div class="contactenos">
+        <form action="https://formsubmit.co/jhon.alexander.bobadilla@gmail.com" method="POST">
+
+
+          <div>
+            <label for="name"><strong>Nombre:</strong></label><br />
+            <input class="cont" name="name" type="text" value="" size="80" required/><br />
+          </div>
+
+
+          <div>
+            <label for="email"><strong>E-mail:</strong></label>
+            <br/>
+            <input class="cont" name="email" type="email" value="" size="80" required/><br />
+            </div>
+
+
+          <div>
+            <label for="message"><strong>Mensaje:</strong></label><br />
+            <textarea class ="cont"name="message" rows="17" cols="80"></textarea><br />
+         </div>
+
+
+            <div class="form_contactenos crecee"><input class="input_send" type="submit" value="Enviar email" /> </div>
+        </form>
+       </div>
         <!--ACÁ ACABA CODIGO PARA UN FORMULARIO DE CONTACTENOS-->
+
     </main>
 
     <footer>
