@@ -1,13 +1,13 @@
 [
     {
         "id": "deportivo-01",
-        "titulo": "Deportivo 01",
-        "imagen": "../img/bola_de_pilates_75_com2.jpg",
+        "titulo": "Mancuernas expandibles, termoforrada, unicolor.",
+        "imagen": "../img/elementos/mancuernaybarra.jpeg",
         "categoria": {
             "nombre": "Elementos Deportivos",
             "id": "deportivos"
         },
-        "precio": 1000
+        "precio": 50000
     },
     {
         "id": "deportivo-02",
