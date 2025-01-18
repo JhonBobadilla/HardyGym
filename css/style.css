@@ -757,12 +757,13 @@ height: 50px;
 
 }
 
- .cont{
+ .cont {
 
 
 color: #000000;
 border: 2px solid #7ed957;
 background: #7ed957;
+
 
  } 
 
@@ -991,6 +992,25 @@ padding: 5px; font-size: 30px; cursor: pointer;
     text-align: justify;
  
     }
+
+
+    .texto_disciplinas_en_resgister{
+
+
+      font-family: "Stick No Bills", sans-serif;
+      font-size: 45px;
+      color: #7ed957;
+      margin-top: 130px;
+      margin-bottom: 130px;
+      margin-left: 150px;
+      margin-right: 150px;
+      text-align: justify;
+
+    }
+
+
+
+    
 
     .texto_disciplinas2{
       
@@ -1763,6 +1783,30 @@ display: none;
   padding: 2rem 5rem 2rem 5rem;
    
   }
+
+
+  /*OTROS*/
+
+
+  .texto_disciplinas_en_suscripcion_mensual {
+    font-family: "Stick No Bills", sans-serif;
+    font-size: 50px;
+    color: #7ed957;
+    margin-top: 150px;
+    margin-bottom: 30px;
+    margin-left: 150px;
+    margin-right: 150px;
+    text-align: justify;
+
+  }
+
+
+
+  .p_register {
+
+    margin-bottom: 40px;
+  }
+
 
 /*RESPONSIVE*/
 /*RESPONSIVE PAGINA INICIO*/

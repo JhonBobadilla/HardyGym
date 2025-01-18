@@ -12,28 +12,39 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bowlby+One+SC&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bowlby+One+SC&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sixtyfour+Convergence&family=Stick+No+Bills:wght@200..800&display=swap" rel="stylesheet">
+
 </head>
 <body class="gimnasio">
-    <div class="cont_logo_hardy_list_register">
-        <div class="principal_logo">
-            <img class="logo1" src="../img/logo.png" alt="logo">
-        </div>
-        <div class="principal_titulo">
-            <h1 class="titulo">REGISTRATE</h1>
-        </div>
-        <nav class="navbar navbar-expand-lg">
-            <div class="container-fluid crecee">
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="menu listas">
-                        <li class="nav-item">
-                            <a class="style_a" href="../public/index.html">Home</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <div class="formularioo">
-            <form class="formm" id="registerForm" action="/register" method="post" autocomplete="off">
+   <header>
+     <div class="cont_logo_hardy_list">
+       <div class="principal_logo">
+        <img class="logo1" src="../img/logo.png" alt="logo"></div>
+       <div  class="principal_titulo">
+       <h1 class="titulo">Registrate</h1></div>
+
+              
+      </div>
+     </div>
+     <div class="cont_texto_disciplinas">
+       <p class="texto_disciplinas_en_resgister">
+        Si llenaste los campos y tu registro presenta un error de envío, puedes borrar y diligenciar nuevamente el último campo 'ciudad', o si prefieres, escríbenos mediante el icono de chat flotante.        
+        
+       </p>
+     
+     </div>
+
+
+    
+     
+
+
+    </header>
+
+<div class="formularioo">
+
+<form class="formm" id="registerForm" action="/register" method="post" autocomplete="off">
                 <div class="input-group">
                     <div class="input-container">
                         <input type="text" name="nombre" placeholder="Nombre completo" required>
@@ -60,7 +71,17 @@
             </form>
         </div>
     </div>
-
+</header>
+    <footer>
+        <div class="copi_red_gimnasio">
+   
+         <div class="copi">
+           
+           <p class="p_register">© 2024 HARDYGYM JABL TODOS LOS DERECHOS RESERVADOS.</p>
+         </div>
+        
+       </footer>
+    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.querySelector('#registerForm');
@@ -93,8 +114,41 @@
             });
         });
     </script>
-</body>
-</html>
+    <script>
+        (function(d, w, c) {
+            w.BrevoConversationsID = '6785cd0d22d904cc3b0d09d7';
+            w[c] = w[c] || function() {
+                (w[c].q = w[c].q || []).push(arguments);
+            };
+            var s = d.createElement('script');
+            s.async = true;
+            s.src = 'https://conversations-widget.brevo.com/brevo-conversations.js';
+            if (d.head) d.head.appendChild(s);
+        })(document, window, 'BrevoConversations');
+      </script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+      
+      
+       
+   
+       <script src="../index.js"></script>
+       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+       <script>
+         (function(d, w, c) {
+             w.BrevoConversationsID = '6785cd0d22d904cc3b0d09d7';
+             w[c] = w[c] || function() {
+                 (w[c].q = w[c].q || []).push(arguments);
+             };
+             var s = d.createElement('script');
+             s.async = true;
+             s.src = 'https://conversations-widget.brevo.com/brevo-conversations.js';
+             if (d.head) d.head.appendChild(s);
+         })(document, window, 'BrevoConversations');
+       </script>
+      
+   </body>
+   </html>
+
 
 
 
