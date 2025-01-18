@@ -511,6 +511,9 @@ border: 0px;;*/
     }
 
 /*CSS GIMNASIO*/
+
+
+
  
   .gimnasio {
 
@@ -1815,6 +1818,17 @@ display: none;
   .li_exp{
 
     margin-top: 40px;
+
+  }
+
+
+
+  .pservicios_pa {
+
+    font-family: "Bowlby One SC", sans-serif;
+font-size: 25px;
+color: #000000;
+-webkit-text-stroke: 2px #7ed957;
 
   }
 
