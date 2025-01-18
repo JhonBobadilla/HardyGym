@@ -49,6 +49,21 @@
         },
         "precio": 1000
     },
+
+    {
+        "id": "deportivo-06",
+        "titulo": "Deportivo 06",
+        "imagen": "../img/bola_de_pilates_75_com2.jpg",
+        "categoria": {
+            "nombre": "Elementos Deportivos",
+            "id": "deportivos"
+        },
+        "precio": 1000
+    },
+
+
+
+
     {
         "id": "prenda-01",
         "titulo": "Ropa 01",
