@@ -9,20 +9,22 @@
         },
         "precio": 50000
     },
+    
     {
         "id": "deportivo-02",
-        "titulo": "Deportivo 02",
-        "imagen": "../img/bola_de_pilates_75_com2.jpg",
+        "titulo": "Mancuerna hexagonal de 1 Lb. - 0.5 kg. en neopreno. ",
+        "imagen": "../img/elementos/1lb.jpg",
         "categoria": {
             "nombre": "Elementos Deportivos",
             "id": "deportivos"
         },
         "precio": 1000
     },
+
     {
         "id": "deportivo-03",
-        "titulo": "Deportivo 03",
-        "imagen": "../img/bola_de_pilates_75_com2.jpg",
+        "titulo": "Mancuerna hexagonal de 2 Lb. - 1 kg. en neopreno. ",
+        "imagen": "../img/elementos/2lb.jpg",
         "categoria": {
             "nombre": "Elementos Deportivos",
             "id": "deportivos"
@@ -31,8 +33,8 @@
     },
     {
         "id": "deportivo-04",
-        "titulo": "Deportivo 04",
-        "imagen": "../img/bola_de_pilates_75_com2.jpg",
+        "titulo": "Mancuerna hexagonal de 3 Lb. - 1.5 kg. en neopreno. ",
+        "imagen": "../img/elementos/3lb.jpg",
         "categoria": {
             "nombre": "Elementos Deportivos",
             "id": "deportivos"
@@ -41,8 +43,18 @@
     },
     {
         "id": "deportivo-05",
-        "titulo": "Deportivo 05",
-        "imagen": "../img/bola_de_pilates_75_com.jpg",
+        "titulo": "Mancuerna hexagonal de 5 Lb. - 2.5 kg. en neopreno. ",
+        "imagen": "../img/elementos/5lb.jpg",
+        "categoria": {
+            "nombre": "Elementos Deportivos",
+            "id": "deportivos"
+        },
+        "precio": 1000
+    },
+    {
+        "id": "deportivo-06",
+        "titulo": "Mancuerna hexagonal de 6 Lb. - 3 kg. en neopreno. ",
+        "imagen": "../img/elementos/6lb.jpg",
         "categoria": {
             "nombre": "Elementos Deportivos",
             "id": "deportivos"
@@ -51,9 +63,20 @@
     },
 
     {
-        "id": "deportivo-06",
-        "titulo": "Deportivo 06",
-        "imagen": "../img/bola_de_pilates_75_com2.jpg",
+        "id": "deportivo-07",
+        "titulo": "Mancuerna hexagonal de 8 Lb. - 4 kg. en neopreno. ",
+        "imagen": "../img/elementos/8lb.jpg",
+        "categoria": {
+            "nombre": "Elementos Deportivos",
+            "id": "deportivos"
+        },
+        "precio": 1000
+    },
+    
+    {
+        "id": "deportivo-08",
+        "titulo": "Mancuerna hexagonal de 10 Lb. - 5 kg. en neopreno. ",
+        "imagen": "../img/elementos/10lb.jpg",
         "categoria": {
             "nombre": "Elementos Deportivos",
             "id": "deportivos"
@@ -61,8 +84,269 @@
         "precio": 1000
     },
 
+    {
+        "id": "deportivo-09",
+        "titulo": "Mancuerna hexagonal de 12 Lb. - 6 kg. en neopreno. ",
+        "imagen": "../img/elementos/12lb.jpg",
+        "categoria": {
+            "nombre": "Elementos Deportivos",
+            "id": "deportivos"
+        },
+        "precio": 1000
+    },
 
+    {
+        "id": "deportivo-10",
+        "titulo": "Mancuerna hexagonal de 15 Lb. - 7.5 kg. en neopreno. ",
+        "imagen": "../img/elementos/15lb.jpg",
+        "categoria": {
+            "nombre": "Elementos Deportivos",
+            "id": "deportivos"
+        },
+        "precio": 1000
+    },
 
+    {
+        "id": "deportivo-11",
+        "titulo": "Soporte - porta mancuerna de neopreno - en vinilo.",
+        "imagen": "../img/elementos/portamancuerna.jpg",
+        "categoria": {
+            "nombre": "Elementos Deportivos",
+            "id": "deportivos"
+        },
+        "precio": 1000
+    },
+
+    {
+        "id": "deportivo-12",
+        "titulo": "Kit de mancuernas con soporte - en neopreno 6 kg.",
+        "imagen": "../img/elementos/kitmancuernas.jpg",
+        "categoria": {
+            "nombre": "Elementos Deportivos",
+            "id": "deportivos"
+        },
+        "precio": 187600
+    },
+
+    {
+        "id": "deportivo-13",
+        "titulo": "Juego de bandas cerradas 5 unidades - diferente tensión.",
+        "imagen": "../img/elementos/bandas.jpeg",
+        "categoria": {
+            "nombre": "Elementos Deportivos",
+            "id": "deportivos"
+        },
+        "precio": 187600
+    },
+
+    {
+        "id": "deportivo-14",
+        "titulo": "Juego de bandas abiertas 3 unidades diferente tensión.",
+        "imagen": "../img/elementos/bandasc.jpeg",
+        "categoria": {
+            "nombre": "Elementos Deportivos",
+            "id": "deportivos"
+        },
+        "precio": 187600
+    },
+
+    {
+        "id": "deportivo-15",
+        "titulo": "Juego de bandas abiertas 3 unidades diferente tensión.",
+        "imagen": "../img/elementos/bandasa.jpg",
+        "categoria": {
+            "nombre": "Elementos Deportivos",
+            "id": "deportivos"
+        },
+        "precio": 187600
+    },
+
+    {
+        "id": "deportivo-16",
+        "titulo": "Colchoneta estandar 3 cm grosor, color negro",
+        "imagen": "../img/elementos/colchoneta.jpeg",
+        "categoria": {
+            "nombre": "Elementos Deportivos",
+            "id": "deportivos"
+        },
+        "precio": 187600
+    },
+
+    {
+        "id": "deportivo-17",
+        "titulo": "Colchoneta yoga mat - pilates mat.",
+        "imagen": "../img/elementos/yogamat.jpeg",
+        "categoria": {
+            "nombre": "Elementos Deportivos",
+            "id": "deportivos"
+        },
+        "precio": 187600
+    },
+
+    {
+        "id": "deportivo-18",
+        "titulo": "Tobilleras de peso - 2.25 kg. en lona.",
+        "imagen": "../img/elementos/tobilleras.jpeg",
+        "categoria": {
+            "nombre": "Elementos Deportivos",
+            "id": "deportivos"
+        },
+        "precio": 187600
+    },
+
+    {
+        "id": "deportivo-19",
+        "titulo": "Guantes estandar de boxeo rojo - blanco talla S, M y L.",
+        "imagen": "../img/elementos/guantes.jpeg",
+        "categoria": {
+            "nombre": "Elementos Deportivos",
+            "id": "deportivos"
+        },
+        "precio": 187600
+    },
+    
+    {
+        "id": "deportivo-20",
+        "titulo": "Pera estandar de boxeo inflable rojo - negro.",
+        "imagen": "../img/elementos/pera.jpeg",
+        "categoria": {
+            "nombre": "Elementos Deportivos",
+            "id": "deportivos"
+        },
+        "precio": 187600
+    },
+
+    {
+        "id": "deportivo-21",
+        "titulo": "Tula estandar de boxeo - guantes MMA.",
+        "imagen": "../img/elementos/tula.jpeg",
+        "categoria": {
+            "nombre": "Elementos Deportivos",
+            "id": "deportivos"
+        },
+        "precio": 187600
+    },
+
+    {
+        "id": "deportivo-22",
+        "titulo": "Guantes de entrenamiento MMA S, M, L y XL.",
+        "imagen": "../img/elementos/guantesmma.jpg",
+        "categoria": {
+            "nombre": "Elementos Deportivos",
+            "id": "deportivos"
+        },
+        "precio": 187600
+    },
+
+    {
+        "id": "deportivo-23",
+        "titulo": "Guantes de entrenamiento MMA rosados S, M, L.",
+        "imagen": "../img/elementos/mmamujer.jpeg",
+        "categoria": {
+            "nombre": "Elementos Deportivos",
+            "id": "deportivos"
+        },
+        "precio": 187600
+    },
+
+    {
+        "id": "deportivo-24",
+        "titulo": "Aro de pilates diametro - tensión estandar.",
+        "imagen": "../img/elementos/aro1.jpeg",
+        "categoria": {
+            "nombre": "Elementos Deportivos",
+            "id": "deportivos"
+        },
+        "precio": 187600
+    },
+
+    {
+        "id": "deportivo-25",
+        "titulo": "Cubo - ladrillo de yoga - pilates.",
+        "imagen": "../img/elementos/ladrillo.jpeg",
+        "categoria": {
+            "nombre": "Elementos Deportivos",
+            "id": "deportivos"
+        },
+        "precio": 187600
+    },
+
+    {
+        "id": "deportivo-26",
+        "titulo": "Pelota de pilates Fitball 55 cm.",
+        "imagen": "../img/elementos/55.jpg",
+        "categoria": {
+            "nombre": "Elementos Deportivos",
+            "id": "deportivos"
+        },
+        "precio": 187600
+    },
+
+    {
+        "id": "deportivo-27",
+        "titulo": "Pelota de pilates Fitball 65 cm.",
+        "imagen": "../img/elementos/65.jpg",
+        "categoria": {
+            "nombre": "Elementos Deportivos",
+            "id": "deportivos"
+        },
+        "precio": 187600
+    },
+
+    {
+        "id": "deportivo-28",
+        "titulo": "Pelota de pilates Fitball 75 cm.",
+        "imagen": "../img/elementos/75.jpg",
+        "categoria": {
+            "nombre": "Elementos Deportivos",
+            "id": "deportivos"
+        },
+        "precio": 187600
+    },
+
+    {
+        "id": "deportivo-29",
+        "titulo": "Cojín Inestable o de Balanceo.",
+        "imagen": "../img/elementos/lenteja.jpeg",
+        "categoria": {
+            "nombre": "Elementos Deportivos",
+            "id": "deportivos"
+        },
+        "precio": 187600
+    },
+
+    {
+        "id": "deportivo-30",
+        "titulo": "pesa inteligente conexión app.",
+        "imagen": "../img/elementos/peso.jpeg",
+        "categoria": {
+            "nombre": "Elementos Deportivos",
+            "id": "deportivos"
+        },
+        "precio": 187600
+    },
+
+    {
+        "id": "deportivo-31",
+        "titulo": "Step multiejercicio tres niveles.",
+        "imagen": "../img/elementos/step.jpeg",
+        "categoria": {
+            "nombre": "Elementos Deportivos",
+            "id": "deportivos"
+        },
+        "precio": 187600
+    },
+
+    {
+        "id": "deportivo-32",
+        "titulo": "Aro plastico diametro estandar.",
+        "imagen": "../img/elementos/aro.jpeg",
+        "categoria": {
+            "nombre": "Elementos Deportivos",
+            "id": "deportivos"
+        },
+        "precio": 187600
+    },
 
     {
         "id": "prenda-01",
