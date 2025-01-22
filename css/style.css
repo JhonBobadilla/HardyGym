@@ -409,6 +409,7 @@ border: 0px;;*/
     justify-content: center; 
     border: 5px solid #7ed957; 
     border-radius: 10%;
+    
   
   }
     .foto_cha{
@@ -1755,6 +1756,8 @@ color: #000000;
 /*RESPONSIVE*/
 /*RESPONSIVE PAGINA INICIO*/
 
+
+
   @media (height > 1179px) {
   
   .copi_red{
@@ -2086,6 +2089,8 @@ color: #000000;
   width: 300px;
   justify-content: center;
   margin: auto;
+  margin-bottom: 50px;
+
    
  }
  }
