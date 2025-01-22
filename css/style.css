@@ -1728,6 +1728,21 @@ color: #000000;
   }
 
 
+  .pservicios_enproduccion{
+
+
+    font-family: "Bowlby One SC", sans-serif;
+    font-size: 25px;
+    color: #ffffff;
+    text-align: center;
+    -webkit-text-stroke: 2px #fd0000;
+    /*margin: 0px;
+    padding: 0px;
+    border: 0px;;*/
+    
+    }
+
+
 /*RESPONSIVE*/
 /*RESPONSIVE PAGINA INICIO*/
 
@@ -2239,6 +2254,33 @@ color: #000000;
     
     }
     }
+
+
+    @media (width < 820px) {
+      .texto_disciplinas {
+      
+    
+      font-family: "Stick No Bills", sans-serif;
+      font-size: 25px;
+      margin-left: 25px;
+      margin-right: 25px;
+      text-align: justify;
+      }
+      }
+
+      @media (width < 820px) {
+        .texto_disciplinas2 {
+        
+      
+        font-family: "Stick No Bills", sans-serif;
+        font-size: 25px;
+        margin-left: 25px;
+        margin-right: 25px;
+        text-align: justify;
+        }
+        }
+
+
 
 /*RESPONSIVE SALUD Y BIENESTAR*/ 
 
