@@ -83,7 +83,7 @@ app.post('/register', async (req, res) => {
 
 
 // Ruta para recibir notificaciones de PayU
-app.post('/webhook-payu', async (req, res) => {
+/*app.post('/webhook-payu', async (req, res) => {
     const { transaction } = req.body;
     if (transaction.state === 'APPROVED') {
         const userId = transaction.reference;
@@ -101,7 +101,7 @@ app.post('/webhook-payu', async (req, res) => {
     } else {
         res.sendStatus(400);
     }
-});
+});*/
 
 // Rutas de autenticación
 
