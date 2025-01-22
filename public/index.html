@@ -49,8 +49,8 @@
         <div class="acceso">
             <form class="acceso_form" id="loginForm">
                 <fieldset class="cont_input">
-                    <label for="uname">Usuario: </label>
-                    <input class="usuario" id="email" name="txtemail" type="text" size="28"/>
+                    <label for="uname">Usuario</label>
+                    <input class="usuario" id="email" name="txtemail" type="text" size="28" value="E-mail"/>
                     <label for="uname">Password: </label>
                     <input class="password" id="password" name="txtpassword" type="password" size="28"/>
                     <input class="goer entrar" type="submit" value="entrar">
@@ -149,6 +149,12 @@
             window.location.href = 'https://hardy-2839d6e03ba8.herokuapp.com/pages/reset_password.html';  
         });
     </script>
+
+<script type="text/javascript">
+    document.getElementById('email').addEventListener('click', function() {
+      this.value = '';
+    });
+  </script>
     
 </body>
 </html>
