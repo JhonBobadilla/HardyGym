@@ -890,6 +890,18 @@ background: #7ed957;
 
     font-family: "Stick No Bills", sans-serif;
     font-size: 25px;
+    color: #000000;
+    margin-top: -35px;
+    margin-bottom: 30px;
+    justify-content: center;
+    
+
+  }
+
+  .texto_disciplinas_profs {
+
+    font-family: "Stick No Bills", sans-serif;
+    font-size: 25px;
     color: #7ed957;
     margin-top: -35px;
     margin-bottom: 30px;
@@ -1736,10 +1748,7 @@ color: #000000;
     color: #ffffff;
     text-align: center;
     -webkit-text-stroke: 2px #fd0000;
-    /*margin: 0px;
-    padding: 0px;
-    border: 0px;;*/
-    
+        
     }
 
 
