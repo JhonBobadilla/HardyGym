@@ -1237,6 +1237,18 @@ padding: 5px; font-size: 30px; cursor: pointer;
     cursor: pointer;
     padding: 15px 80px;
   }
+
+  .btn2 {
+  
+    background: #7ed957;
+    border-radius: 45%;
+    border: 0;
+    color: #000000;
+    font-family: "Bowlby One SC", sans-serif;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 15px 80px;
+  }
   
   .success {
   
@@ -1756,7 +1768,14 @@ color: #000000;
 /*RESPONSIVE*/
 /*RESPONSIVE PAGINA INICIO*/
 
-
+@media (width < 915px) {
+  
+  .btn2{
+  
+   width: 220px;
+   
+  }
+  }
 
   @media (height > 1179px) {
   
@@ -2281,6 +2300,18 @@ color: #000000;
       text-align: justify;
       }
       }
+
+      @media (width < 820px) {
+        .texto_disciplinas_en_resgister {
+        
+      
+        font-family: "Stick No Bills", sans-serif;
+        font-size: 25px;
+        margin-left: 25px;
+        margin-right: 25px;
+        text-align: justify;
+        }
+        }
 
       @media (width < 820px) {
         .texto_disciplinas2 {
