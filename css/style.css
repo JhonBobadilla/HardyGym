@@ -2302,6 +2302,19 @@ color: #000000;
       }
 
       @media (width < 820px) {
+        .terminos_y_condi {
+        
+      
+        font-family: "Stick No Bills", sans-serif;
+        font-size: 25px;
+        margin-left: 25px;
+        margin-right: 25px;
+        text-align: justify;
+        }
+        }
+
+
+      @media (width < 820px) {
         .texto_disciplinas_en_resgister {
         
       
