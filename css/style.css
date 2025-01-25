@@ -920,6 +920,7 @@ align-items: center; justify-content: center;
 height: 100vh; 
 margin: 0; 
 background: none !important; background-color: #000000 !important; } 
+
 .progress-container { width: 210px; 
 height: 20px; background-color: rgb(255, 255, 255); 
 border-radius: 15px; overflow: hidden; margin-top: 80px; } .progress-bar { 
@@ -2141,6 +2142,8 @@ color: #000000;
  }
  }
 
+ 
+
  @media (width < 1416px) {
   .copi_red_servicios {
   
@@ -2304,6 +2307,28 @@ color: #000000;
 
 /*RESPONSIVE PAGINAS DISCIPLINAS*/ 
 
+@media (max-width: 1700px) and (min-width: 1489px) {
+  .progress-container {
+    margin-top: 5px;
+  }
+}
+
+
+@media (width < 1700px) {
+.cont_disciplinas {
+
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr 1fr;
+  grid-template-rows: 2fr;
+  grid-template-areas: 
+   "vacio cont_vid0 cont_vid2 vacio2"
+   "vacio cont_vid3 cont_vid4 vacio2";
+   
+}   
+ }
+
+
+ 
    @media (width < 1233px) {
     .cont_disciplinas {
     
@@ -2311,11 +2336,12 @@ color: #000000;
      flex-direction: column;
      align-items: center;
      
+    }
     
-    }
-    }
+  }
 
 
+   
     @media (width < 820px) {
       .texto_disciplinas {
       
