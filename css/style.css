@@ -1080,7 +1080,30 @@ padding: 5px; font-size: 30px; cursor: pointer;
      
         }
 
+        .terminos_y_condiciones{
+      
+           /*font-family: "Bowlby One SC", sans-serif;*/
+        font-family: "Stick No Bills", sans-serif;
+        font-size: 40px;
+        color: #000000;
+        margin-top: 150px;
+        margin-bottom: 80px;
+        margin-left: 50px;
+        margin-right: 50px;
+        text-align: justify;
+     
+        }
 
+          .scroll-container {
+            width: 60%;
+            max-height: 400px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            background: #7ed957;
+            
+        } 
 
       .terterminos{
 
@@ -1126,7 +1149,7 @@ padding: 5px; font-size: 30px; cursor: pointer;
           padding: 10px 20px;
           font-size: 16px;
           cursor: pointer;
-          margin-right: 60px;
+          
       }
       .accept-btn {
           background-color: #4CAF50;
@@ -1793,8 +1816,72 @@ color: #000000;
           
       }  
 
+   
+
+
+
+
 /*RESPONSIVE*/
 /*RESPONSIVE PAGINA INICIO*/
+
+@media screen and (max-width: 768px) {
+  .scroll-container {
+      width: 90%;
+      max-height: 600px;
+      
+  }
+
+  .buttonn-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+
+  
+
+  .menu {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .navbar-toggler {
+      margin-bottom: 10px;
+  }
+
+
+.terminos_y_condiciones{
+      
+ 
+font-size: 22px; /* Reduce el tamaño de la letra en móviles */
+margin-top: 20px;
+margin-bottom: 20px;
+margin-left: 10px;
+margin-right: 10px;
+
+
+}
+
+/* Ajustes para pantallas menores a 480px (celulares pequeños) */
+@media screen and (max-width: 480px) {
+  .scroll-container {
+      max-height: 430px;
+      font-size: 12px;
+      padding: 15px;
+  }
+
+  .botn {
+      width: 50%;
+      height: 30%;
+      font-size: 14px;
+  }
+
+  .titulo.terminos {
+      font-size: 20px;
+      text-align: center;
+  }
+}
+
+
 
 @media (width < 915px) {
   
@@ -2363,6 +2450,7 @@ color: #000000;
         margin-left: 25px;
         margin-right: 25px;
         text-align: justify;
+        
         }
         }
 
@@ -2370,7 +2458,6 @@ color: #000000;
       @media (width < 820px) {
         .texto_disciplinas_en_resgister {
         
-      
         font-family: "Stick No Bills", sans-serif;
         font-size: 25px;
         margin-left: 25px;
