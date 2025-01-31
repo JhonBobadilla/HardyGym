@@ -185,6 +185,7 @@ body {
    .password-container {
     position: relative;
     display: inline-block;
+    
 }
 
 .toggle-password {
@@ -193,6 +194,8 @@ body {
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
+    
+    
 }
 
 .toggle-password i {
@@ -1925,9 +1928,12 @@ color: #000000;
 /*RESPONSIVE*/
 /*RESPONSIVE PAGINA INICIO*/
 
+
+
+
 @media screen and (max-width: 768px) {
   .scroll-container {
-      width: 90%;
+      width: 100%;
       max-height: 600px;
       
   }

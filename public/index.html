@@ -55,7 +55,7 @@
                     <label for="uname">Password: </label>
                     <div class="password-container">
                         <input class="password" id="password" name="txtpassword" type="password" size="28"/>
-                        <span class="toggle-password" onmousedown="showPassword()" onmouseup="hidePassword()">
+                        <span class="toggle-password" ontouchstart="showPassword()" ontouchend="hidePassword()" onmousedown="showPassword()" onmouseup="hidePassword()">
                             <i class="fas fa-eye"></i> <!-- Ícono de ojo de FontAwesome -->
                         </span>
                     </div>
@@ -184,6 +184,8 @@
         });
     });
 </script>
+
+
     
 </body>
 </html>
