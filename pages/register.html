@@ -75,7 +75,7 @@
                     </span>
                 </div>
                 <div class="input-container">
-                    <input type="email" name="email" placeholder="e-mail" required>
+                    <input type="email" id="emailInput" name="email" placeholder="e-mail" required>
                     <i class="fa-solid fa-envelope"></i>
                 </div>
                 <div class="input-container">
@@ -161,6 +161,15 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="../index.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const emailInput = document.getElementById('emailInput');
+    
+            emailInput.addEventListener('input', function() {
+                this.value = this.value.toLowerCase(); // Convierte el texto a minúsculas
+            });
+        });
+    </script>
 </body>
 </html>
 
