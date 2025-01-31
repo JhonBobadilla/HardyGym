@@ -12,7 +12,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bowlby+One+SC&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Bowlby+One+SC&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Sixtyfour+Convergence&family=Stick+No+Bills:wght@200..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
@@ -29,11 +28,19 @@
             top: 50%;
             transform: translateY(-50%);
             cursor: pointer;
-            color: #000; /* Color del ícono */
+            color: #7ed957; /* Color del ícono */
+            z-index: 2; /* Asegura que el ícono esté por encima del input */
         }
 
         .toggle-password-registro i {
             font-size: 16px;
+        }
+
+        .password-container-registro input[type="password"],
+        .password-container-registro input[type="text"] {
+            padding-right: 40px; /* Espacio para el ícono de ojo */
+            width: 100%;
+            box-sizing: border-box; /* Asegura que el padding no afecte el ancho */
         }
     </style>
 </head>
