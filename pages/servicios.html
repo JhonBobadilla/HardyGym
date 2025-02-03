@@ -125,9 +125,10 @@
 <script>
     // Verificar si hay un token en el almacenamiento local
     const token = localStorage.getItem('token');
+    const currentPage = window.location.pathname.split('/').pop(); // Obtener el nombre de la página actual
 
-    // Si no hay token, redirigir a la página de inicio de sesión
-    if (!token) {
+    // Si no hay token, redirigir solo si no estamos en 'pago_suscripcion.html' o 'servicios.html'
+    if (!token && currentPage !== 'pago_suscripcion.html' && currentPage !== 'servicios.html') {
         window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión
     } else {
         // Si hay token, hacer la llamada al backend para obtener los datos del usuario
@@ -151,12 +152,13 @@
     }
 
     // Lógica para cerrar sesión
-    document.getElementById('logoutButton').addEventListener('click', function(event) {
+    document.getElementById('logoutButton')?.addEventListener('click', function(event) {
         event.preventDefault(); // Prevenir el comportamiento por defecto del enlace
         localStorage.removeItem('token'); // Elimina el token del almacenamiento local
         window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión
     });
 </script>
+
 
 
 
