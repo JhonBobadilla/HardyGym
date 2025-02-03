@@ -148,9 +148,9 @@
                 console.error('Error:', error);
                 window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión en caso de error
             });
-        } else {
-            console.log('Acceso permitido desde pago_suscripcion.html');
-            document.getElementById('nombreUsuario').innerText = 'Invitado'; // Opción de usuario no autenticado, puede mostrar algo diferente
+        } else if (isFromPagoSuscripcion) {
+            // Si viene de pago_suscripcion.html y no tiene token, podemos asignar un nombre temporal o vacío
+            document.getElementById('nombreUsuario').innerText = 'Invitado'; // Opción de usuario no autenticado
         }
     }
 
@@ -161,7 +161,7 @@
         window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión
     });
 </script>
-   
+
 
 
 <!--///////////////////HASTA AQUI///////////////////-->
