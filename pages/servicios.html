@@ -123,35 +123,31 @@
 
      
 <script>
+    // Verificar si hay un token en el almacenamiento local
     const token = localStorage.getItem('token');
-    const isFromPagoSuscripcion = document.referrer.includes('pago_suscripcion.html'); // Verifica si viene de la página de suscripción
 
-    if (!token && !isFromPagoSuscripcion) {
-        window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión si no hay token y no viene de 'pago_suscripcion.html'
+    // Si no hay token, redirigir a la página de inicio de sesión
+    if (!token) {
+        window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión
     } else {
-        // Si tiene token o viene de 'pago_suscripcion.html', continua con la validación
-        if (token) {
-            fetch('/getUserId', {
-                headers: { 'Authorization': `Bearer ${token}` }
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('No autorizado');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Usuario autenticado:', data.userId);
-                document.getElementById('nombreUsuario').innerText = data.nombre; // Mostrar el nombre del usuario
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión en caso de error
-            });
-        } else if (isFromPagoSuscripcion) {
-            // Si viene de pago_suscripcion.html y no tiene token, podemos asignar un nombre temporal o vacío
-            document.getElementById('nombreUsuario').innerText = 'Invitado'; // Opción de usuario no autenticado
-        }
+        // Si hay token, hacer la llamada al backend para obtener los datos del usuario
+        fetch('/getUserId', {
+            headers: { 'Authorization': `Bearer ${token}` }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('No autorizado');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Usuario autenticado:', data.userId);
+            document.getElementById('nombreUsuario').innerText = data.nombre; // Mostrar el nombre del usuario
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión en caso de error
+        });
     }
 
     // Lógica para cerrar sesión
