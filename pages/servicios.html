@@ -123,44 +123,45 @@
 
      
    
-
 <script>
-    // Función para mostrar el nombre del usuario si está autenticado
-    async function getUserName() {
-        try {
-            const token = sessionStorage.getItem('token'); // O usa localStorage si prefieres persistencia
-            if (!token) {
-                document.getElementById('user-name').textContent = 'Bienvenido, Invitado'; // Si no hay token
-                return;
-            }
+    const token = localStorage.getItem('token');
+    const isFromPagoSuscripcion = document.referrer.includes('pago_suscripcion.html'); // Verifica si viene de la página de suscripción
 
-            const response = await fetch('/getUserId', {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`
+    if (!token && !isFromPagoSuscripcion) {
+        window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión si no hay token y no viene de 'pago_suscripcion.html'
+    } else {
+        // Si tiene token o viene de 'pago_suscripcion.html', continua con la validación
+        if (token) {
+            fetch('/getUserId', {
+                headers: { 'Authorization': `Bearer ${token}` }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('No autorizado');
                 }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Usuario autenticado:', data.userId);
+                document.getElementById('nombreUsuario').innerText = data.nombre; // Mostrar el nombre del usuario
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión en caso de error
             });
-
-            const data = await response.json();
-
-            if (data.nombre) {
-                document.getElementById('user-name').textContent = `Bienvenido, ${data.nombre}`;
-            } else {
-                document.getElementById('user-name').textContent = 'Bienvenido, Invitado';
-            }
-        } catch (error) {
-            console.error('Error al obtener el nombre del usuario:', error);
-            document.getElementById('user-name').textContent = 'Bienvenido, Invitado';
+        } else {
+            console.log('Acceso permitido desde pago_suscripcion.html');
+            document.getElementById('nombreUsuario').innerText = 'Invitado'; // Opción de usuario no autenticado, puede mostrar algo diferente
         }
     }
 
-    // Llamar a la función para verificar la sesión del usuario y mostrar el nombre
-    window.onload = getUserName;
+    // Lógica para cerrar sesión
+    document.getElementById('logoutButton').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevenir el comportamiento por defecto del enlace
+        localStorage.removeItem('token'); // Elimina el token del almacenamiento local
+        window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión
+    });
 </script>
-
-<!-- Donde desees mostrar el nombre del usuario -->
-<div id="user-name"></div>
-
 
 
 
