@@ -124,45 +124,41 @@
      
 
 <script>
-    const token = localStorage.getItem('token');
-    const currentPage = window.location.pathname.split('/').pop(); // Obtener el nombre de la página actual
+    // Función para obtener el nombre del usuario desde el servidor
+    async function getUserName() {
+        try {
+            const token = localStorage.getItem('token');  // Obtener el token almacenado en localStorage
+            if (!token) {
+                window.location.href = '/';  // Redirigir al login si no hay token
+            }
 
-    // Comprobamos si la página actual es 'pago_suscripcion.html' o 'servicios.html'
-    const isPaymentPage = currentPage === 'pago_suscripcion.html' || currentPage === 'servicios.html';
-
-    // Si no hay token y no estamos en las páginas de pago o servicios, redirigir a 'index.html'
-    if (!token && !isPaymentPage) {
-        window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión
-    } else {
-        // Si hay token o estamos en las páginas de pago/servicios, intentamos obtener el nombre del usuario
-        if (token) {
-            fetch('/getUserId', {
-                headers: { 'Authorization': `Bearer ${token}` }
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('No autorizado');
+            const response = await fetch('/getUserId', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`  // Enviar el token en la cabecera Authorization
                 }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Usuario autenticado:', data.userId);
-                document.getElementById('nombreUsuario').innerText = data.nombre; // Mostrar el nombre del usuario
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión si hay error
             });
+
+            const data = await response.json();
+
+            if (data.nombre) {
+                document.getElementById('user-name').textContent = `Bienvenido, ${data.nombre}`;
+            } else {
+                document.getElementById('user-name').textContent = 'Bienvenido, Invitado';
+            }
+        } catch (error) {
+            console.error('Error al obtener el nombre del usuario:', error);
+            document.getElementById('user-name').textContent = 'Bienvenido, Invitado';
         }
     }
 
-    // Lógica para cerrar sesión
-    document.getElementById('logoutButton')?.addEventListener('click', function(event) {
-        event.preventDefault(); // Prevenir el comportamiento por defecto del enlace
-        localStorage.removeItem('token'); // Elimina el token del almacenamiento local
-        window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión
-    });
+    // Llamar a la función para cargar el nombre del usuario
+    getUserName();
 </script>
+
+<!-- Donde desees mostrar el nombre del usuario -->
+<div id="user-name"></div>
+
 
 
 
