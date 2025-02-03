@@ -147,9 +147,11 @@
 <!--BOTON NO DONAR-->
        
 <div class="cont_restablecer">
-    <h2 class="h2_aportes">No aportar</h2>
-          <input id="no_donar" class="sucre4" type="submit" value="😕">
-      </div>
+  <h2 class="h2_aportes">No aportar</h2>
+  <button id="no_donar" class="sucre4">😕</button>
+</div>
+
+
    <!--HASTA AQUI-->
  
 </div>
@@ -220,15 +222,13 @@
 
 <!-- HASTA AQUI -->
     
-<script>
-    // no donar
-    
-    document.getElementById('no_donar').onclick = function() {
-        // Redirigir a la URL de servicios con el parámetro noDonar
+
+    <!--no donar-->
+
+    <script>
+    document.getElementById('no_donar').addEventListener('click', function() {
         window.location.href = 'https://hardy-2839d6e03ba8.herokuapp.com/pages/servicios.html';
-        // Prevenir la acción por defecto del formulario
-        return false; 
-    };
+    });
 </script>
   <!-- HASTA AQUI -->
 

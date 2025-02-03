@@ -6,6 +6,8 @@ const dotenv = require('dotenv');
 const session = require('express-session');
 const jwt = require('jsonwebtoken');
 
+
+
 dotenv.config();
 
 const app = express();
@@ -103,44 +105,58 @@ app.post('/register', async (req, res) => {
     }
 });*/
 
-// Rutas de autenticación
 
+
+
+
+
+
+// Rutas de autenticación
 app.post('/login', async (req, res) => {
     const { txtemail, txtpassword } = req.body;
-    console.log('Datos recibidos para login:', txtemail, txtpassword);
+    console.log('Datos recibidos para login:', txtemail);
 
-    const sql = "SELECT * FROM datos WHERE email = $1 AND password = $2";
+    const sql = "SELECT * FROM datos WHERE email = $1";
     try {
-        const results = await pool.query(sql, [txtemail, txtpassword]);
-        console.log('Resultados de la consulta SQL:', results.rows);
-
-        if (results.rows.length > 0) {
-            const user = results.rows[0];
-            const currentDate = new Date();
-            const subscriptionEndDate = new Date(user.subscription_start_date);
-            subscriptionEndDate.setDate(subscriptionEndDate.getDate() + 30);
-
-            console.log('Fecha de suscripción:', subscriptionEndDate);
-            console.log('Fecha actual:', currentDate);
-
-            if (currentDate <= subscriptionEndDate) {
-                const token = jwt.sign({ id: user.id, email: user.email }, secretKey, { expiresIn: '1h' });
-                console.log('Usuario autenticado, generando token');
-                
-                // Guardar el userId y el correo del usuario en la sesión
-                req.session.userId = user.id;  // Almacenar el userId en la sesión
-                req.session.email = user.email;  // Almacenar el correo en la sesión
-                console.log('ID del usuario almacenado en la sesión:', user.id);
-
-                return res.json({ token, userId: user.id });
-            } else {
-                console.log('Suscripción expirada, redirigiendo a la página de pago');
-                return res.json({ redirectUrl: 'https://hardy-2839d6e03ba8.herokuapp.com/pages/pago_suscripcion.html' });
-            }
-        } else {
-            console.log('Credenciales inválidas: No se encontró ningún usuario con esas credenciales');
+        const results = await pool.query(sql, [txtemail]);
+        if (results.rows.length === 0) {
+            console.log('Usuario no encontrado');
             return res.status(401).json({ error: 'Credenciales inválidas' });
         }
+
+        const user = results.rows[0];
+
+        // Aquí se eliminó la comparación de contraseñas encriptadas
+        if (txtpassword !== user.password) {
+            console.log('Contraseña incorrecta');
+            return res.status(401).json({ error: 'Credenciales inválidas' });
+        }
+
+        // Validar fecha de suscripción
+        if (!user.subscription_start_date) {
+            console.log('El usuario no tiene fecha de suscripción registrada.');
+            return res.json({ redirectUrl: 'https://hardy-2839d6e03ba8.herokuapp.com/pages/pago_suscripcion.html' });
+        }
+
+        const currentDate = new Date();
+        const subscriptionEndDate = new Date(user.subscription_start_date);
+        subscriptionEndDate.setDate(subscriptionEndDate.getDate() + 30);
+
+        if (currentDate > subscriptionEndDate) {
+            console.log('Suscripción expirada');
+            return res.json({ redirectUrl: 'https://hardy-2839d6e03ba8.herokuapp.com/pages/pago_suscripcion.html' });
+        }
+
+        // Generar token JWT
+        const token = jwt.sign({ id: user.id, email: user.email }, secretKey, { expiresIn: '1h' });
+
+        // Guardar en sesión
+        req.session.userId = user.id;
+        req.session.email = user.email;
+
+        console.log('Usuario autenticado:', user.email);
+        return res.json({ token, userId: user.id });
+
     } catch (err) {
         console.error('Error en la consulta SQL:', err);
         return res.status(500).json({ error: 'Error en el servidor' });
@@ -149,43 +165,11 @@ app.post('/login', async (req, res) => {
 
 
 
-// Middleware de autenticación para rutas protegidas
-function authenticateToken(req, res, next) {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
 
-    if (!token) {
-        return res.status(401).json({ message: 'Token no proporcionado' });
-    }
 
-    jwt.verify(token, secretKey, (err, user) => {
-        if (err) {
-            return res.status(403).json({ message: 'Token no válido' });
-        }
-        req.user = user;
-        next();
-    });
-}
 
-// Ruta para obtener el userId
-app.get('/getUserId', authenticateToken, async (req, res) => {
-    const userId = req.user.id;
 
-    const sql = 'SELECT nombre FROM datos WHERE id = $1';
-    try {
-        const results = await pool.query(sql, [userId]);
-        console.log('Resultados de la consulta SQL:', results.rows);
 
-        if (results.rows.length === 0) {
-            return res.status(404).json({ message: 'Usuario no encontrado' });
-        }
-
-        res.json({ userId: userId, nombre: results.rows[0].nombre });
-    } catch (err) {
-        console.error('Error al obtener el nombre del usuario:', err);
-        return res.status(500).json({ message: 'Error al obtener el nombre del usuario' });
-    }
-});
 
 // Ruta para solicitar el restablecimiento de la contraseña
 const nodemailer = require('nodemailer');
