@@ -168,37 +168,24 @@ function authenticateToken(req, res, next) {
 }
 
 // Ruta para obtener el userId
+app.get('/getUserId', authenticateToken, async (req, res) => {
+    const userId = req.user.id;
 
-
-
-
-// Ruta para obtener el nombre del usuario desde la sesión
-app.get('/getUserId', (req, res) => {
-    const userId = req.session.userId;  // Usamos el ID del usuario de la sesión
-
-    if (!userId) {
-        return res.status(401).json({ message: 'No autorizado. Inicia sesión primero.' });
-    }
-
-    // Hacemos la consulta a la base de datos para obtener el nombre del usuario
     const sql = 'SELECT nombre FROM datos WHERE id = $1';
-    pool.query(sql, [userId])
-        .then((result) => {
-            if (result.rows.length === 0) {
-                return res.status(404).json({ message: 'Usuario no encontrado' });
-            }
-            res.json({ userId: userId, nombre: result.rows[0].nombre });
-        })
-        .catch((err) => {
-            console.error('Error al obtener el nombre del usuario:', err);
-            return res.status(500).json({ message: 'Error al obtener el nombre del usuario' });
-        });
+    try {
+        const results = await pool.query(sql, [userId]);
+        console.log('Resultados de la consulta SQL:', results.rows);
+
+        if (results.rows.length === 0) {
+            return res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+
+        res.json({ userId: userId, nombre: results.rows[0].nombre });
+    } catch (err) {
+        console.error('Error al obtener el nombre del usuario:', err);
+        return res.status(500).json({ message: 'Error al obtener el nombre del usuario' });
+    }
 });
-
-
-
-
-
 
 // Ruta para solicitar el restablecimiento de la contraseña
 const nodemailer = require('nodemailer');
