@@ -41,7 +41,9 @@
       <div class="cont_texto_disciplinas">
         <p class="texto_disciplinas_en_suscripcion_mensual">
             ¡Ayúdanos a crecer! 🌟 Con tu aporte, llegamos a más personas y mejoramos nuestro gimnasio virtual.💪
-            
+            <br>
+            <br>
+            <strong>¡¡¡ Al efectuar tu donación esta página se desaparecerá de tu sesión !!!</strong>
           
 
 
@@ -142,7 +144,7 @@
          <input type="hidden" id="idboton" name="idboton" value="72322752-cba3-44b2-b6e2-f6c0e7910570"/>
                            
    </form> <!-- ================================================================== -->
-<!--BOTON PRUEBA 7 DIAS GRATIS-->
+<!--BOTON NO DONAR-->
        
 <div class="cont_restablecer">
     <h2 class="h2_aportes">No aportar</h2>
@@ -175,11 +177,7 @@
          
         
 
-         <!--BOTON PRUEBA 7 DIAS GRATIS-->
-         <div class="cont_restablecer cont_affiliate">
-          <input id="pruebagratis" class="nuevoEstilo sucre3" type="submit" value="INICIA TU PRUEBA GRATIS POR 7 DÍAS">
-      </div>
-   <!--HASTA AQUI-->
+        
 
 </header>
     <footer>
@@ -219,26 +217,19 @@
       })(document, window, 'BrevoConversations');
     </script>
 
-<script>
-  // PRUEBA GRATIS 7 DIAS
-  document.getElementById('pruebagratis').onclick = function() {
-      // Redirigir a la URL del home
-      window.location.href = 'https://hardy-2839d6e03ba8.herokuapp.com/public/index.html';
-      // Prevenir la acción por defecto del formulario
-      return false; 
-  };
-</script>
+
 <!-- HASTA AQUI -->
     
 <script>
     // no donar
+    
     document.getElementById('no_donar').onclick = function() {
-        // Redirigir a la URL del home
+        // Redirigir a la URL de servicios con el parámetro noDonar
         window.location.href = 'https://hardy-2839d6e03ba8.herokuapp.com/pages/servicios.html';
         // Prevenir la acción por defecto del formulario
         return false; 
     };
-  </script>
+</script>
   <!-- HASTA AQUI -->
 
 
