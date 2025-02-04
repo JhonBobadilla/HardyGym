@@ -235,14 +235,14 @@ app.post('/reset-password', async (req, res) => {
 
 
 
-/////////////////////////////////////ruta de las compras////////////////////////////////////////////////////
+/////////////////////////////////////ruta de las compras//////////////////////////////////////////////////
 
 
 
 app.post('/registrar-compra', async (req, res) => {
     console.log('Datos recibidos:', req.body);  // Log para verificar los datos recibidos
 
-    const userId = req.session.userId;  // Obtener el ID del usuario desde la sesión
+    const userId = req.session.userId;  // Obtener el ID del usuario desde la sesión (puede ser null para invitados)
     console.log('userId de la sesión:', userId);  // Añadir log para verificar el userId
 
     const { email, articulos } = req.body;
@@ -250,24 +250,25 @@ app.post('/registrar-compra', async (req, res) => {
     console.log('Artículos:', articulos);  // Añadir log para verificar los artículos
 
     // Validar los datos
-    if (!userId || !email || !articulos || articulos.length === 0) {
+    if (!email || !articulos || articulos.length === 0) {
         console.log('Datos incompletos:', { userId, email, articulos });  // Añadir log para verificar los datos incompletos
         return res.status(400).json({ error: 'Datos incompletos para registrar la compra' });
     }
 
     try {
         const valorTotal = articulos.reduce((total, articulo) => total + articulo.valor, 0);
-        const sql = `INSERT INTO compras (usuario_email, articulo, cantidad, valor, valor_total) VALUES ($1, $2, $3, $4, $5)`;
+        const sql = `INSERT INTO compras (usuario_id, usuario_email, articulo, cantidad, valor, valor_total) VALUES ($1, $2, $3, $4, $5, $6)`;
 
         for (const articulo of articulos) {
             console.log('Artículo a insertar:', {
+                userId,
                 email,
                 nombre: articulo.nombre,
                 cantidad: articulo.cantidad,
                 valor: articulo.valor,
                 valorTotal
             });  // Log para verificar el artículo antes de la inserción
-            await pool.query(sql, [email, articulo.nombre, articulo.cantidad, articulo.valor, valorTotal]);
+            await pool.query(sql, [userId, email, articulo.nombre, articulo.cantidad, articulo.valor, valorTotal]);
         }
 
         res.json({ success: true, message: 'Compra registrada con éxito' });
