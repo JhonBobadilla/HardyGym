@@ -1,6 +1,6 @@
 // auth.js
 
-// Función para registrar un usuario como invitado
+// Función para registrar un usuario como invitado// Función para registrar un usuario como invitado
 function registrarUsuarioInvitado() {
     const emailInvitado = 'invitado@ejemplo.com'; // Asigna un correo electrónico predeterminado para invitados
     localStorage.setItem('usuarioEmail', emailInvitado);
@@ -13,6 +13,7 @@ window.addEventListener('DOMContentLoaded', () => {
         registrarUsuarioInvitado();
     }
 });
+
 
 // HASTA ACÁ 
 
