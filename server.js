@@ -251,7 +251,7 @@ app.post('/registrar-compra', async (req, res) => {
 
     // Validar los datos
     if (!email || !articulos || articulos.length === 0) {
-        console.log('Datos incompletos:', { userId, email, articulos });  // Añadir log para verificar los datos incompletos
+        console.log('Datos incompletos:', { email, articulos });  // Añadir log para verificar los datos incompletos
         return res.status(400).json({ error: 'Datos incompletos para registrar la compra' });
     }
 
