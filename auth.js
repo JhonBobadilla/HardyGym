@@ -1,5 +1,25 @@
 // auth.js
 
+// LOGICA DE COMPRAS USUARIOS NO DONANTES
+
+// Función para registrar un usuario como invitado
+function registrarUsuarioInvitado() {
+    const emailInvitado = 'invitado@ejemplo.com'; // Asigna un correo electrónico predeterminado para invitados
+    localStorage.setItem('usuarioEmail', emailInvitado);
+    console.log('Correo electrónico de invitado guardado en localStorage:', emailInvitado);
+}
+
+// Verificar si el usuario es un invitado o autenticado al cargar la aplicación
+window.addEventListener('DOMContentLoaded', () => {
+    if (!localStorage.getItem('usuarioEmail')) {
+        registrarUsuarioInvitado();
+    }
+});
+
+// AHASTA ACÁ 
+
+
+
 function logMessage(message) {
     let logs = JSON.parse(localStorage.getItem('logs')) || [];
     logs.push(message);

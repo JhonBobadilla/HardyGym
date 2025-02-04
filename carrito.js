@@ -103,7 +103,11 @@ botonComprar.addEventListener("click", async () => {
     localStorage.setItem("total-compra", totalCompra);  // Guardamos el total en el localStorage
 
     // Obtener el correo del localStorage
-    const email = localStorage.getItem('usuarioEmail');
+    let email = localStorage.getItem('usuarioEmail');
+    if (!email) {
+        email = 'invitado@ejemplo.com'; // Asignar un valor predeterminado si el correo electrónico no está en localStorage
+        localStorage.setItem('usuarioEmail', email); // Guardar el correo predeterminado en localStorage
+    }
     console.log('Correo electrónico obtenido del localStorage:', email);  // Log para verificar
 
     const articulos = productosEnCarrito.map(producto => ({
@@ -160,3 +164,4 @@ function mostrarMensajeCompra() {
     const contenedorGracias = document.querySelector("#carrito-comprado");
     contenedorGracias.insertAdjacentElement('afterend', contenedorCompra);
 }
+
