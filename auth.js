@@ -16,7 +16,48 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// AHASTA ACÁ 
+
+
+
+// Función para registrar un usuario como invitado
+function registrarUsuarioInvitado() {
+    const emailInvitado = 'invitado@ejemplo.com'; // Asigna un correo electrónico predeterminado para invitados
+    localStorage.setItem('usuarioEmail', emailInvitado);
+    console.log('Correo electrónico de invitado guardado en localStorage:', emailInvitado);
+}
+
+// Verificar si el usuario es un invitado o autenticado al cargar la aplicación
+window.addEventListener('DOMContentLoaded', () => {
+    const token = localStorage.getItem('token'); // Supongamos que tenemos un token para identificar al usuario
+    if (token) {
+        fetch('/getUserEmail', { // Ajusta esta ruta según tu servidor
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.email) {
+                localStorage.setItem('usuarioEmail', data.email);
+                console.log('Correo electrónico del usuario autenticado guardado en localStorage:', data.email);
+            } else {
+                registrarUsuarioInvitado();
+            }
+        })
+        .catch(error => {
+            console.error('Error al recuperar el correo electrónico del usuario:', error);
+            registrarUsuarioInvitado();
+        });
+    } else {
+        registrarUsuarioInvitado();
+    }
+});
+
+// Aquí puedes añadir cualquier otra lógica de autenticación que ya tengas
+
+
+// HASTA ACÁ 
 
 
 

@@ -40,8 +40,7 @@ function cargarProductosCarrito() {
                     <small class="small-carrito">Subtotal</small>
                     <p class="pshopp">$${producto.precio * producto.cantidad}</p>
                 </div>
-                <button class="carrito-producto-eliminar" id="${producto.id}"><i class="bi bi-trash-fill"></i></button>   
-            </div>`;
+                <button class="carrito-producto-eliminar" id="${producto.id}"><i class="bi bi-trash-fill"></i></button>`;   
             contenedorCarritoProductos.append(div);
         });
     } else {
@@ -154,9 +153,9 @@ botonComprar.addEventListener("click", async () => {
 
 function mostrarMensajeCompra() {
     const totalCompra = localStorage.getItem("total-compra");
-    const mensajeCompra = `Digita el valor de tu compra al acceder al botón de pago, tu valor fue $${totalCompra} IMPUESTOS INCLUIDOS." ENVIO GRATIS A BOGOTÁ para el resto del país nos pondremos en contactos al correo registrado...
+    const mensajeCompra = `Digita el valor de tu compra al acceder al botón de pago, tu valor fue $${totalCompra} IMPUESTOS INCLUIDOS. ENVIO GRATIS A BOGOTÁ para el resto del país nos pondremos en contactos al correo registrado...
     
-    También puedes pagar por nequi y daviplata al número 3204755278.`;
+    También puedes pagar por Nequi y Daviplata al número 3204755278.`;
     const contenedorCompra = document.createElement('p');
     contenedorCompra.textContent = mensajeCompra;
     contenedorCompra.classList.add('pshop', 'carrito-comprado');
@@ -164,4 +163,5 @@ function mostrarMensajeCompra() {
     const contenedorGracias = document.querySelector("#carrito-comprado");
     contenedorGracias.insertAdjacentElement('afterend', contenedorCompra);
 }
+
 
