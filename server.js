@@ -365,8 +365,6 @@ app.get('/profile', authenticateToken, (req, res) => {
 });
 
 
-
-
 // Iniciar el servidor principal de la app
 app.listen(port, () => {
     console.log(`Servidor ejecutándose en el puerto ${port}`);
