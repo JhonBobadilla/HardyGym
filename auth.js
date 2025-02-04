@@ -12,14 +12,22 @@ logMessage('Script de autenticación iniciado');
 const token = localStorage.getItem('token');
 const isFromPagoSuscripcion = document.referrer.includes('pago_suscripcion.html'); // Verifica si viene de la página de suscripción
 
+// Guardar el estado de acceso desde pago_suscripcion.html en localStorage
+if (isFromPagoSuscripcion) {
+    localStorage.setItem('fromPagoSuscripcion', 'true');
+}
+
+const fromPagoSuscripcion = localStorage.getItem('fromPagoSuscripcion') === 'true';
+
 logMessage('Token: ' + token);
 logMessage('Viene de pago_suscripcion.html: ' + isFromPagoSuscripcion);
+logMessage('Desde pago_suscripcion almacenado: ' + fromPagoSuscripcion);
 
-if (!token && !isFromPagoSuscripcion) {
+if (!token && !fromPagoSuscripcion) {
     logMessage('Redirigiendo a la página de inicio de sesión');
     window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión si no hay token y no viene de 'pago_suscripcion.html'
 } else {
-    if (token || isFromPagoSuscripcion) {
+    if (token || fromPagoSuscripcion) {
         // Si tiene token o viene de 'pago_suscripcion.html', continua con la validación
         logMessage('Validación permitida');
         if (token) {
@@ -51,9 +59,11 @@ if (!token && !isFromPagoSuscripcion) {
 document.getElementById('logoutButton').addEventListener('click', function(event) {
     event.preventDefault(); // Prevenir el comportamiento por defecto del enlace
     localStorage.removeItem('token'); // Elimina el token del almacenamiento local
+    localStorage.removeItem('fromPagoSuscripcion'); // Elimina el indicador de acceso desde pago_suscripcion.html
     window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión
 });
 
 logMessage('Script de autenticación finalizado');
+
 
 
