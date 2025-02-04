@@ -232,6 +232,32 @@
 </script>
   <!-- HASTA AQUI -->
 
+  <script>
+    async function verificarSesion() {
+        try {
+            // Llamar al backend para obtener la información del usuario autenticado
+            const response = await fetch('/getUserData', {
+                method: 'GET',
+                credentials: 'include' // Asegura que se envíen las cookies de sesión
+            });
+
+            const data = await response.json();
+
+            if (data.userId && data.usuarioEmail) {
+                // Guardar los datos en localStorage
+                localStorage.setItem('userId', data.userId);
+                localStorage.setItem('usuarioEmail', data.usuarioEmail);
+            } else {
+                console.warn('No se encontraron datos de usuario en la sesión.');
+            }
+        } catch (error) {
+            console.error('Error al verificar la sesión:', error);
+        }
+    }
+
+    // Ejecutar al cargar la página
+    window.onload = verificarSesion;
+</script>
 
   
 </body>
