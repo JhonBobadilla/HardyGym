@@ -121,64 +121,40 @@
      
 <!--PARA QUE NO SE COPEE EL LINK Y ENTREN SIN SESIÓN-->
 
-<script>
+     
+   <script>
+       const token = localStorage.getItem('token');
+  
+        if (!token) {
+            window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión si no hay token
+        } else {
+            fetch('/getUserId', {
+                headers: { 'Authorization': `Bearer ${token}` }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('No autorizado');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Usuario autenticado:', data.userId);
+                document.getElementById('nombreUsuario').innerText = data.nombre; // Mostrar el nombre del usuario
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión en caso de error
+            });
+   }
+         /*Lógica para cerrar sesión*/
+        document.getElementById('logoutButton').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevenir el comportamiento por defecto del enlace
+            localStorage.removeItem('token'); // Elimina el token del almacenamiento local
+            window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión
+        }); 
+    </script> 
 
 
-// parte 1.............. Verificación del token almacenado en el local storage
-const token = localStorage.getItem('token');
-
-if (!token) {
-    window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión si no hay token
-}
-
-   
-
-
-
-/*PARTE 2 DIVIDIDA EN BLOQUES PEQUEÑOS*/ 
-
- 
-/*2.1 SOLICITUD AL BACKEND*/
-
-fetch('/getUserId', {
-    headers: { 'Authorization': `Bearer ${token}` } // Incluye el token en los encabezados de la solicitud
-})
-
-/*2.2 MANEJA LA RESPUESTA DEL SERVIDOR*/
-.then(response => {
-    if (!response.ok) {
-        throw new Error('No autorizado');
-    }
-    return response.json();
-})
-
-/*2.3 PROCESA LOS DATOS DEL USUARIO*/
-
-.then(data => {
-    console.log('Usuario autenticado:', data.userId);
-    document.getElementById('nombreUsuario').innerText = data.nombre; // Mostrar el nombre del usuario
-})
-
-/*2.4 MANEJA LOS ERRORES*/
-
-.catch(error => {
-    console.error('Error:', error);
-    window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión en caso de error
-});
-
-
-
-// parte 3 // Lógica para cerrar sesión
-
-
-document.getElementById('logoutButton').addEventListener('click', function(event) {
-    event.preventDefault(); // Prevenir el comportamiento por defecto del enlace
-    localStorage.removeItem('token'); // Elimina el token del almacenamiento local
-    window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión
-});
-
-
-</script>
 <!--///////////////////HASTA AQUI///////////////////-->
 
 </body>
