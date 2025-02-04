@@ -1,13 +1,22 @@
 // auth.js
 
+// auth.js
+
+console.log('Script de autenticación iniciado');
+
 const token = localStorage.getItem('token');
 const isFromPagoSuscripcion = document.referrer.includes('pago_suscripcion.html'); // Verifica si viene de la página de suscripción
 
+console.log('Token:', token);
+console.log('Viene de pago_suscripcion.html:', isFromPagoSuscripcion);
+
 if (!token && !isFromPagoSuscripcion) {
+    console.log('Redirigiendo a la página de inicio de sesión');
     window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión si no hay token y no viene de 'pago_suscripcion.html'
 } else {
     if (token || isFromPagoSuscripcion) {
         // Si tiene token o viene de 'pago_suscripcion.html', continua con la validación
+        console.log('Validación permitida');
         if (token) {
             fetch('/getUserId', {
                 headers: { 'Authorization': `Bearer ${token}` }
@@ -23,7 +32,7 @@ if (!token && !isFromPagoSuscripcion) {
                 document.getElementById('nombreUsuario').innerText = data.nombre; // Mostrar el nombre del usuario
             })
             .catch(error => {
-                console.error('Error:', error);
+                console.error('Error en la autenticación:', error);
                 window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión en caso de error
             });
         } else {
@@ -39,3 +48,6 @@ document.getElementById('logoutButton').addEventListener('click', function(event
     localStorage.removeItem('token'); // Elimina el token del almacenamiento local
     window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión
 });
+
+console.log('Script de autenticación finalizado');
+
