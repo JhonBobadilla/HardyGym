@@ -2867,3 +2867,11 @@ padding: 1rem;
   gap: 30px; /* Espacio entre los botones */
 }
 }
+
+/*boton restablecer*/
+@media (max-width: 894px) {
+  .btn_resta {
+    font-size: 10px;
+  }
+  }
+
