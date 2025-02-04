@@ -168,29 +168,13 @@ fetch('/getUserId', {
 
 
 
-// parte 3 Realiza una solicitud al backend para obtener el ID del usuario
-fetch('/getUserId', {
-    headers: { 'Authorization': `Bearer ${token}` } // Incluye el token en los encabezados de la solicitud
-})
-.then(response => {
-    // Si la respuesta no es exitosa, lanza un error
-    if (!response.ok) {
-        throw new Error('No autorizado');
-    }
-    // Convierte la respuesta a formato JSON
-    return response.json();
-})
-.then(data => {
-    // Muestra el ID del usuario autenticado en la consola
-    console.log('Usuario autenticado:', data.userId);
-    // Mostrar el nombre del usuario en el elemento HTML con id 'nombreUsuario'
-    document.getElementById('nombreUsuario').innerText = data.nombre;
-})
-.catch(error => {
-    // Si ocurre un error, muestra el error en la consola
-    console.error('Error:', error);
-    // Redirige a la página de inicio de sesión en caso de error
-    window.location.href = '../public/index.html';
+// parte 3 // Lógica para cerrar sesión
+
+
+document.getElementById('logoutButton').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevenir el comportamiento por defecto del enlace
+    localStorage.removeItem('token'); // Elimina el token del almacenamiento local
+    window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión
 });
 
 
