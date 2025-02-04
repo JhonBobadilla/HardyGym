@@ -233,30 +233,18 @@
   <!-- HASTA AQUI -->
 
   <script>
-    async function verificarSesion() {
-        try {
-            // Llamar al backend para obtener la información del usuario autenticado
-            const response = await fetch('/getUserData', {
-                method: 'GET',
-                credentials: 'include' // Asegura que se envíen las cookies de sesión
-            });
-
-            const data = await response.json();
-
-            if (data.userId && data.usuarioEmail) {
-                // Guardar los datos en localStorage
-                localStorage.setItem('userId', data.userId);
-                localStorage.setItem('usuarioEmail', data.usuarioEmail);
-            } else {
-                console.warn('No se encontraron datos de usuario en la sesión.');
-            }
-        } catch (error) {
-            console.error('Error al verificar la sesión:', error);
+    document.addEventListener("DOMContentLoaded", function () {
+        // Verifica si el usuario ya hizo clic en "No donar"
+        if (localStorage.getItem("skipPayment")) {
+            window.location.href = "https://hardy-2839d6e03ba8.herokuapp.com/pages/servicios.html";
         }
-    }
 
-    // Ejecutar al cargar la página
-    window.onload = verificarSesion;
+        // Escuchar clic en el botón "No donar"
+        document.getElementById("no_donar").addEventListener("click", function () {
+            localStorage.setItem("skipPayment", "true"); // Guarda la decisión en localStorage
+            window.location.href = "https://hardy-2839d6e03ba8.herokuapp.com/pages/servicios.html"; // Redirige al usuario
+        });
+    });
 </script>
 
   
