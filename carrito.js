@@ -93,8 +93,10 @@ function actualizarTotal() {
     contenedorTotal.innerText = `$${totalCalculado}`;
 }
 
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Función para determinar si el usuario es donante
+function esUsuarioDonante() {
+    return localStorage.getItem('token') !== null; // O cualquier otra lógica para determinar si es donante
+}
 
 botonComprar.addEventListener("click", async () => {
     const totalCompra = productosEnCarrito.reduce((acc, producto) => acc + (producto.precio * producto.cantidad), 0);
@@ -112,8 +114,10 @@ botonComprar.addEventListener("click", async () => {
 
     console.log('Artículos enviados al servidor:', articulos);  // Log para verificar
 
+    const endpoint = esUsuarioDonante() ? '/registrar-compra' : '/registrar-compra-invitado';
+
     try {
-        const response = await fetch('/registrar-compra', {
+        const response = await fetch(endpoint, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -144,8 +148,6 @@ botonComprar.addEventListener("click", async () => {
     mostrarMensajeCompra();
 });
 
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function mostrarMensajeCompra() {
     const totalCompra = localStorage.getItem("total-compra");
     const mensajeCompra = `Digita el valor de tu compra al acceder al botón de pago, tu valor fue $${totalCompra} IMPUESTOS INCLUIDOS." ENVIO GRATIS A BOGOTÁ para el resto del país nos pondremos en contactos al correo registrado...
@@ -158,5 +160,3 @@ function mostrarMensajeCompra() {
     const contenedorGracias = document.querySelector("#carrito-comprado");
     contenedorGracias.insertAdjacentElement('afterend', contenedorCompra);
 }
-
-

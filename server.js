@@ -235,7 +235,7 @@ app.post('/reset-password', async (req, res) => {
 
 
 
-/////////////////////////////////////ruta de las compras////////////////////////////////////////////////////
+/////////////////////////////////////ruta de las compras para donantes////////////////////////////////////////////////////
 
 
 
@@ -281,7 +281,54 @@ app.post('/registrar-compra', async (req, res) => {
 
 
 
-/////////////////////////////////////fin ruta de las compras/////////////////////////////////////////////////
+/////////////////////////////////////fin ruta de las compras para donantes/////////////////////////////////////////////////
+
+
+
+/////////////////////////////////////ruta de las compras para no donantes////////////////////////////////////////////////////
+
+
+
+app.post('/registrar-compra-invitado', async (req, res) => {
+    console.log('Datos recibidos:', req.body);  // Log para verificar los datos recibidos
+
+    const { email, articulos } = req.body;
+    console.log('Correo electrónico:', email);  // Añadir log para verificar el correo
+    console.log('Artículos:', articulos);  // Añadir log para verificar los artículos
+
+    // Validar los datos
+    if (!email || !articulos || articulos.length === 0) {
+        console.log('Datos incompletos:', { email, articulos });  // Añadir log para verificar los datos incompletos
+        return res.status(400).json({ error: 'Datos incompletos para registrar la compra' });
+    }
+
+    try {
+        const valorTotal = articulos.reduce((total, articulo) => total + articulo.valor, 0);
+        const sql = `INSERT INTO compras (usuario_email, articulo, cantidad, valor, valor_total) VALUES ($1, $2, $3, $4, $5)`;
+
+        for (const articulo of articulos) {
+            console.log('Artículo a insertar:', {
+                email,
+                nombre: articulo.nombre,
+                cantidad: articulo.cantidad,
+                valor: articulo.valor,
+                valorTotal
+            });  // Log para verificar el artículo antes de la inserción
+            await pool.query(sql, [email, articulo.nombre, articulo.cantidad, articulo.valor, valorTotal]);
+        }
+
+        res.json({ success: true, message: 'Compra registrada con éxito' });
+    } catch (err) {
+        console.error('Error al registrar la compra:', err);
+        res.status(500).json({ error: 'Error al registrar la compra' });
+    }
+});
+
+
+
+
+/////////////////////////////////////fin ruta de las compras para no donantes/////////////////////////////////////////////////
+
 
 
 
