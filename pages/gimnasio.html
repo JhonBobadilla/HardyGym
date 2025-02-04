@@ -198,31 +198,38 @@
         </footer>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-       <script>
+        <script>
           const token = localStorage.getItem('token');
-    
-          if (!token) {
-              window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión si no hay token
+          const isFromPagoSuscripcion = document.referrer.includes('pago_suscripcion.html'); // Verifica si viene de la página de suscripción
+      
+          if (!token && !isFromPagoSuscripcion) {
+              window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión si no hay token y no viene de 'pago_suscripcion.html'
           } else {
-              fetch('/getUserId', {
-                  headers: { 'Authorization': `Bearer ${token}` }
-              })
-              .then(response => {
-                  if (!response.ok) {
-                      throw new Error('No autorizado');
-                  }
-                  return response.json();
-              })
-              .then(data => {
-                  console.log('Usuario autenticado:', data.userId);
-                  document.getElementById('nombreUsuario').innerText = data.nombre; // Mostrar el nombre del usuario
-              })
-              .catch(error => {
-                  console.error('Error:', error);
-                  window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión en caso de error
-              });
+              // Si tiene token o viene de 'pago_suscripcion.html', continua con la validación
+              if (token) {
+                  fetch('/getUserId', {
+                      headers: { 'Authorization': `Bearer ${token}` }
+                  })
+                  .then(response => {
+                      if (!response.ok) {
+                          throw new Error('No autorizado');
+                      }
+                      return response.json();
+                  })
+                  .then(data => {
+                      console.log('Usuario autenticado:', data.userId);
+                      document.getElementById('nombreUsuario').innerText = data.nombre; // Mostrar el nombre del usuario
+                  })
+                  .catch(error => {
+                      console.error('Error:', error);
+                      window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión en caso de error
+                  });
+              } else {
+                  console.log('Acceso permitido desde pago_suscripcion.html');
+                  document.getElementById('nombreUsuario').innerText = 'Invitado'; // Opción de usuario no autenticado, puede mostrar algo diferente
+              }
           }
-    
+      
           // Lógica para cerrar sesión
           document.getElementById('logoutButton').addEventListener('click', function(event) {
               event.preventDefault(); // Prevenir el comportamiento por defecto del enlace
