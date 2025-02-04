@@ -135,36 +135,36 @@ if (!token) {
 
 
 
-/*
+/*PARTE 2 DIVIDIDA EN BLOQUES PEQUEÑOS*/ 
 
- // parte 2 // Realiza una solicitud al backend para obtener el ID del usuario
+ 
+/*2.1 SOLICITUD AL BACKEND*/
+
 fetch('/getUserId', {
     headers: { 'Authorization': `Bearer ${token}` } // Incluye el token en los encabezados de la solicitud
 })
+
+/*2.2 MANEJA LA RESPUESTA DEL SERVIDOR*/
 .then(response => {
-    // Si la respuesta no es exitosa, lanza un error
     if (!response.ok) {
         throw new Error('No autorizado');
     }
-    // Convierte la respuesta a formato JSON
     return response.json();
 })
+
+/*2.3 PROCESA LOS DATOS DEL USUARIO*/
+
 .then(data => {
-    // Muestra el ID del usuario autenticado en la consola
     console.log('Usuario autenticado:', data.userId);
-    // Mostrar el nombre del usuario en el elemento HTML con id 'nombreUsuario'
-    document.getElementById('nombreUsuario').innerText = data.nombre;
+    document.getElementById('nombreUsuario').innerText = data.nombre; // Mostrar el nombre del usuario
 })
+
+/*2.4 MANEJA LOS ERRORES*/
+
 .catch(error => {
-    // Si ocurre un error, muestra el error en la consola
     console.error('Error:', error);
-    // Redirige a la página de inicio de sesión en caso de error
-    window.location.href = '../public/index.html';
+    window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión en caso de error
 });
-
-
-*/
-
 
 
 
