@@ -242,7 +242,7 @@ app.post('/reset-password', async (req, res) => {
 app.post('/registrar-compra', async (req, res) => {
     console.log('Datos recibidos:', req.body);  // Log para verificar los datos recibidos
 
-    const userId = req.session.userId;  // Obtener el ID del usuario desde la sesión (puede ser null para invitados)
+    const userId = req.session.userId || null;  // Obtener el ID del usuario desde la sesión, puede ser null para invitados
     console.log('userId de la sesión:', userId);  // Añadir log para verificar el userId
 
     const { email, articulos } = req.body;
@@ -277,6 +277,7 @@ app.post('/registrar-compra', async (req, res) => {
         res.status(500).json({ error: 'Error al registrar la compra' });
     }
 });
+
 
 
 
