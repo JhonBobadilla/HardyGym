@@ -40,7 +40,8 @@ function cargarProductosCarrito() {
                     <small class="small-carrito">Subtotal</small>
                     <p class="pshopp">$${producto.precio * producto.cantidad}</p>
                 </div>
-                <button class="carrito-producto-eliminar" id="${producto.id}"><i class="bi bi-trash-fill"></i></button>`;   
+                <button class="carrito-producto-eliminar" id="${producto.id}"><i class="bi bi-trash-fill"></i></button>   
+            </div>`;
             contenedorCarritoProductos.append(div);
         });
     } else {
@@ -92,21 +93,15 @@ function actualizarTotal() {
     contenedorTotal.innerText = `$${totalCalculado}`;
 }
 
-// Función para determinar si el usuario es donante
-function esUsuarioDonante() {
-    return localStorage.getItem('token') !== null; // O cualquier otra lógica para determinar si es donante
-}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 botonComprar.addEventListener("click", async () => {
     const totalCompra = productosEnCarrito.reduce((acc, producto) => acc + (producto.precio * producto.cantidad), 0);
     localStorage.setItem("total-compra", totalCompra);  // Guardamos el total en el localStorage
 
     // Obtener el correo del localStorage
-    let email = localStorage.getItem('usuarioEmail');
-    if (!email) {
-        email = 'invitado@ejemplo.com'; // Asignar un valor predeterminado si el correo electrónico no está en localStorage
-        localStorage.setItem('usuarioEmail', email); // Guardar el correo predeterminado en localStorage
-    }
+    const email = localStorage.getItem('usuarioEmail');
     console.log('Correo electrónico obtenido del localStorage:', email);  // Log para verificar
 
     const articulos = productosEnCarrito.map(producto => ({
@@ -117,10 +112,8 @@ botonComprar.addEventListener("click", async () => {
 
     console.log('Artículos enviados al servidor:', articulos);  // Log para verificar
 
-    const endpoint = esUsuarioDonante() ? '/registrar-compra' : '/registrar-compra-invitado';
-
     try {
-        const response = await fetch(endpoint, {
+        const response = await fetch('/registrar-compra', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -151,11 +144,13 @@ botonComprar.addEventListener("click", async () => {
     mostrarMensajeCompra();
 });
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function mostrarMensajeCompra() {
     const totalCompra = localStorage.getItem("total-compra");
-    const mensajeCompra = `Digita el valor de tu compra al acceder al botón de pago, tu valor fue $${totalCompra} IMPUESTOS INCLUIDOS. ENVIO GRATIS A BOGOTÁ para el resto del país nos pondremos en contactos al correo registrado...
+    const mensajeCompra = `Digita el valor de tu compra al acceder al botón de pago, tu valor fue $${totalCompra} IMPUESTOS INCLUIDOS." ENVIO GRATIS A BOGOTÁ para el resto del país nos pondremos en contactos al correo registrado...
     
-    También puedes pagar por Nequi y Daviplata al número 3204755278.`;
+    También puedes pagar por nequi y daviplata al número 3204755278.`;
     const contenedorCompra = document.createElement('p');
     contenedorCompra.textContent = mensajeCompra;
     contenedorCompra.classList.add('pshop', 'carrito-comprado');
