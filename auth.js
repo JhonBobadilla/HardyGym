@@ -50,7 +50,7 @@ if (!token && !fromPagoSuscripcion) {
             });
         } else {
             logMessage('Acceso permitido desde pago_suscripcion.html');
-            document.getElementById('nombreUsuario').innerText = 'Invitado'; // Opción de usuario no autenticado, puede mostrar algo diferente
+            document.getElementById('nombreUsuario').innerText = 'Usuario'; // Opción de usuario no autenticado, puede mostrar algo diferente
         }
     }
 }
