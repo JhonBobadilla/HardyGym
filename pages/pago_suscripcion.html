@@ -226,48 +226,16 @@
     <!--no donar-->
 
     <script>
-    document.getElementById('no_donar').addEventListener('click', function() {
+    document.getElementById('no_donar').onclick = function() {
+        // Redirigir a la URL de servicios con el parámetro noDonar
         window.location.href = 'https://hardy-2839d6e03ba8.herokuapp.com/pages/servicios.html';
-    });
+        // Prevenir la acción por defecto del formulario
+        return false; 
+    };
 </script>
   <!-- HASTA AQUI -->
 
-  <script>
-    async function verificarSuscripcion() {
-        try {
-            // Llamamos al backend para obtener los datos del usuario autenticado
-            const response = await fetch('/getUserData', { 
-                method: 'GET', 
-                credentials: 'include' // Para enviar cookies/sesión
-            });
 
-            if (!response.ok) throw new Error('Error obteniendo datos del usuario');
-
-            const data = await response.json();
-            
-            if (!data.userId || !data.subscription_start_date) {
-                console.warn('Usuario sin suscripción válida.');
-                return;
-            }
-
-            const fechaSuscripcion = new Date(data.subscription_start_date);
-            const hoy = new Date();
-            const diferenciaDias = (hoy - fechaSuscripcion) / (1000 * 60 * 60 * 24);
-
-            if (diferenciaDias <= 30) {
-                // Si la fecha de suscripción es menor o igual a 30 días, lo redirige a servicios.html
-                window.location.href = "https://hardy-2839d6e03ba8.herokuapp.com/pages/servicios.html";
-            }
-        } catch (error) {
-            console.error('Error al verificar la suscripción:', error);
-        }
-    }
-
-    // Ejecutar al cargar la página
-    window.onload = verificarSuscripcion;
-</script>
-
-  
 </body>
 </html>
 
