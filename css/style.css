@@ -1801,7 +1801,7 @@ display: none;
     font-family: "Stick No Bills", sans-serif;
     font-size: 40px;
     color: #7ed957;
-    margin-top: 80px;
+    margin-top: 100px;
     margin-left: 150px;
     margin-right: 150px;
     text-align: center;
@@ -1890,8 +1890,8 @@ color: #000000;
         font-size: 25px;
         width: 180px;
         border-radius: 10px;
-        border: solid #ffffff;  
-        background-color: #ff0000;
+        border: solid 8px #7ED957;  
+        background-color: #000000;
         
         
 
@@ -1936,6 +1936,16 @@ color: #000000;
           padding: 0px;
           margin: 70px 0px 20px 0px;       
           
+          }
+
+
+
+          .btn_payu_pa{
+
+
+margin: 0px;            
+padding: 0px;;
+
           }
   
 /*RESPONSIVE*/
