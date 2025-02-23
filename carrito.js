@@ -157,7 +157,7 @@ function mostrarMensajeCompra() {
     const mensajeCompra = `Digita el valor de tu compra al acceder al botón de pago, tu valor fue $${totalCompra} IMPUESTOS INCLUIDOS." ENVIO GRATIS A BOGOTÁ para el resto del país nos pondremos en contactos al correo registrado...`;
     const contenedorCompra = document.createElement('p');
     contenedorCompra.textContent = mensajeCompra;
-    contenedorCompra.classList.add('pshop', 'carrito-comprado');
+    contenedorCompra.classList.add('pshop', 'carrito-comprado', 'texto_disciplinas2');
     
     const contenedorGracias = document.querySelector("#carrito-comprado");
     contenedorGracias.insertAdjacentElement('afterend', contenedorCompra);
