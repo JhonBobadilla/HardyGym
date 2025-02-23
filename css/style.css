@@ -2075,7 +2075,7 @@ margin-right: 10px;
   grid-area: copi;
   align-items: center;
   justify-content: center;
-  font-size: 15px;
+  font-size: 10px;
    
   }
   }
@@ -2124,7 +2124,7 @@ margin-right: 10px;
   @media (width < 841px) {
   .copi {
   
-  font-size: 8px;
+  font-size: 5px;
 
   }
   }
@@ -2164,7 +2164,7 @@ margin-right: 10px;
   @media (width < 449px) {
   .copi {
       
-  font-size: 7px;
+  font-size: 4px;
     
   }
   }
@@ -2172,7 +2172,7 @@ margin-right: 10px;
   @media (width < 396px) {
     .copi {
         
-    font-size: 5px;
+    font-size: 3px;
       
     }
     }
