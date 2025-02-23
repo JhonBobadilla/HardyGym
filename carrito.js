@@ -154,9 +154,7 @@ botonComprar.addEventListener("click", async () => {
 
 function mostrarMensajeCompra() {
     const totalCompra = localStorage.getItem("total-compra");
-    const mensajeCompra = `Digita el valor de tu compra al acceder al botón de pago, tu valor fue $${totalCompra} IMPUESTOS INCLUIDOS." ENVIO GRATIS A BOGOTÁ para el resto del país nos pondremos en contactos al correo registrado...
-    
-    También puedes pagar por nequi y daviplata al número 3204755278.`;
+    const mensajeCompra = `Digita el valor de tu compra al acceder al botón de pago, tu valor fue $${totalCompra} IMPUESTOS INCLUIDOS." ENVIO GRATIS A BOGOTÁ para el resto del país nos pondremos en contactos al correo registrado...`;
     const contenedorCompra = document.createElement('p');
     contenedorCompra.textContent = mensajeCompra;
     contenedorCompra.classList.add('pshop', 'carrito-comprado');
