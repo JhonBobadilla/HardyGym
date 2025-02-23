@@ -2432,6 +2432,15 @@ margin-right: 10px;
             
           }
           } 
+
+          @media (width < 600px) {
+            .titu_pau {
+            
+             font-size: 25px;
+             
+              
+            }
+            } 
     
     @media (width < 572px) {
     .copi_servicios{
