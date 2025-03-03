@@ -14,8 +14,6 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// HASTA ACÁ
-
 function logMessage(message) {
     let logs = JSON.parse(localStorage.getItem('logs')) || [];
     logs.push(message);
@@ -39,11 +37,12 @@ logMessage('Token: ' + token);
 logMessage('Viene de pago_suscripcion.html: ' + isFromPagoSuscripcion);
 logMessage('Desde pago_suscripcion almacenado: ' + fromPagoSuscripcion);
 
-// Ya no vamos a redirigir inmediatamente si no hay token
+// Lógica para manejar el nombre de usuario
 if (token || fromPagoSuscripcion) {
     logMessage('Validación permitida');
 
     if (token) {
+        // Verifica si el token es válido y obtiene el nombre del usuario
         fetch('/getUserId', {
             headers: { 'Authorization': `Bearer ${token}` }
         })
@@ -55,7 +54,12 @@ if (token || fromPagoSuscripcion) {
         })
         .then(data => {
             logMessage('Usuario autenticado: ' + data.userId);
-            document.getElementById('nombreUsuario').innerText = data.nombre; // Mostrar el nombre del usuario
+            // Verifica si la respuesta contiene el nombre real y lo muestra
+            if (data && data.nombre) {
+                document.getElementById('nombreUsuario').innerText = data.nombre; // Nombre real del usuario
+            } else {
+                document.getElementById('nombreUsuario').innerText = 'Usuario'; // Si no hay nombre, muestra "Usuario"
+            }
         })
         .catch(error => {
             logMessage('Error en la autenticación: ' + error);
@@ -74,5 +78,3 @@ if (token || fromPagoSuscripcion) {
 }
 
 logMessage('Script de autenticación finalizado');
-
-
