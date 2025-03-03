@@ -33,6 +33,44 @@ async function obtenerNombreUsuario(token) {
     }
 }
 
+// Función para obtener parámetros de la URL
+function obtenerParametroURL(nombre) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(nombre);
+}
+
+// Al cargar la página (para sincronizar el estado del usuario en cada carga)
+window.addEventListener('DOMContentLoaded', async () => {
+    const token = obtenerParametroURL('token') || localStorage.getItem('token');
+
+    if (token) {
+        // Guardar el token en localStorage para mantenerlo persistente
+        localStorage.setItem('token', token);
+
+        try {
+            // Verificar el usuario con el backend
+            const response = await fetch('/getUserId', {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+
+            if (!response.ok) {
+                throw new Error('Error en la validación del token');
+            }
+
+            const data = await response.json();
+            document.getElementById('nombreUsuario').innerText = data.nombre || 'Usuario';
+            console.log('Usuario autenticado:', data.nombre);
+        } catch (error) {
+            console.error('Error al obtener el nombre del usuario:', error);
+            document.getElementById('nombreUsuario').innerText = 'Usuario';
+        }
+    } else {
+        // Si no hay token, mostrar "Invitado"
+        document.getElementById('nombreUsuario').innerText = 'Invitado';
+        console.log('Token no encontrado. Mostrando invitado.');
+    }
+});
+
 // Función para redirigir con el token en la URL al cambiar de contexto
 function redirigirConToken(urlDestino) {
     const token = localStorage.getItem('token');
@@ -44,36 +82,6 @@ function redirigirConToken(urlDestino) {
         window.location.href = `${urlDestino}?invitado=true`;
     }
 }
-
-// Evento al cargar la aplicación
-window.addEventListener('DOMContentLoaded', async () => {
-    const token = localStorage.getItem('token');
-    const isFromPagoSuscripcion = document.referrer.includes('pago_suscripcion.html');
-
-    // Guardar el estado de acceso desde pago_suscripcion.html
-    if (isFromPagoSuscripcion) {
-        localStorage.setItem('fromPagoSuscripcion', 'true');
-    }
-
-    const fromPagoSuscripcion = localStorage.getItem('fromPagoSuscripcion') === 'true';
-
-    console.log('Token:', token);
-    console.log('Viene de pago_suscripcion.html:', isFromPagoSuscripcion);
-
-    if (token) {
-        // Usuario autenticado con token
-        console.log('Validación de usuario autenticado...');
-        await obtenerNombreUsuario(token);
-    } else if (fromPagoSuscripcion) {
-        // Acceso desde página de suscripción, pero sin token
-        console.log('Acceso permitido desde pago_suscripcion.html');
-        document.getElementById('nombreUsuario').innerText = 'Usuario';
-    } else {
-        // Usuario invitado
-        console.log('Acceso como invitado');
-        registrarUsuarioInvitado();
-    }
-});
 
 // Función para redirigir a una de las cinco páginas posibles
 function redirigirAPagina(pagina) {
@@ -102,7 +110,3 @@ function logMessage(message) {
 }
 
 logMessage('Script de autenticación finalizado');
-
-
-
-
