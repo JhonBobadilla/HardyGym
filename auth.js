@@ -33,6 +33,18 @@ async function obtenerNombreUsuario(token) {
     }
 }
 
+// Función para redirigir con el token en la URL al cambiar de contexto
+function redirigirConToken(urlDestino) {
+    const token = localStorage.getItem('token');
+    if (token) {
+        // Pasar el token en la URL
+        window.location.href = `${urlDestino}?token=${token}`;
+    } else {
+        // Pasar como invitado si no hay token
+        window.location.href = `${urlDestino}?invitado=true`;
+    }
+}
+
 // Evento al cargar la aplicación
 window.addEventListener('DOMContentLoaded', async () => {
     const token = localStorage.getItem('token');
@@ -63,6 +75,24 @@ window.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+// Función para redirigir a una de las cinco páginas posibles
+function redirigirAPagina(pagina) {
+    const paginasValidas = {
+        Pilates: "https://hardy-2839d6e03ba8.herokuapp.com/pages/Pilates.html",
+        Funcional: "https://hardy-2839d6e03ba8.herokuapp.com/pages/Funcional.html",
+        Rumba: "https://hardy-2839d6e03ba8.herokuapp.com/pages/Rumba.html",
+        Combat: "https://hardy-2839d6e03ba8.herokuapp.com/pages/combat.html",
+        Pausas_activas: "https://hardy-2839d6e03ba8.herokuapp.com/pages/Pausas_activas.html"
+    };
+
+    const urlDestino = paginasValidas[pagina];
+    if (urlDestino) {
+        redirigirConToken(urlDestino);
+    } else {
+        console.error('Página no válida:', pagina);
+    }
+}
+
 // Función para guardar logs (opcional)
 function logMessage(message) {
     let logs = JSON.parse(localStorage.getItem('logs')) || [];
@@ -72,6 +102,7 @@ function logMessage(message) {
 }
 
 logMessage('Script de autenticación finalizado');
+
 
 
 
