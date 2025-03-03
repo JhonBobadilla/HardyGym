@@ -4,7 +4,7 @@
 function registrarUsuarioInvitado() {
     const emailInvitado = 'invitado@ejemplo.com'; // Asigna un correo predeterminado para invitados
     localStorage.setItem('usuarioEmail', emailInvitado);
-    document.getElementById('nombreUsuario').innerText = 'Invitado';
+    document.getElementById('nombreUsuario').innerText = 'Usuario'; // Mostrar "Usuario" de manera consistente
     console.log('Usuario registrado como invitado');
 }
 
@@ -21,7 +21,7 @@ async function obtenerNombreUsuario(token) {
 
         const data = await response.json();
         if (data && data.nombre) {
-            document.getElementById('nombreUsuario').innerText = data.nombre; // Mostrar nombre real
+            document.getElementById('nombreUsuario').innerText = data.nombre; // Mostrar nombre real del usuario
         } else {
             document.getElementById('nombreUsuario').innerText = 'Usuario'; // Nombre por defecto
         }
@@ -29,7 +29,7 @@ async function obtenerNombreUsuario(token) {
         console.log('Nombre de usuario cargado:', data.nombre || 'Usuario');
     } catch (error) {
         console.error('Error al obtener el nombre del usuario:', error);
-        document.getElementById('nombreUsuario').innerText = 'Usuario'; // Fallback
+        document.getElementById('nombreUsuario').innerText = 'Usuario'; // Fallback para errores
     }
 }
 
@@ -58,16 +58,16 @@ window.addEventListener('DOMContentLoaded', async () => {
             }
 
             const data = await response.json();
-            document.getElementById('nombreUsuario').innerText = data.nombre || 'Usuario';
+            document.getElementById('nombreUsuario').innerText = data.nombre || 'Usuario'; // Mostrar el nombre real o "Usuario"
             console.log('Usuario autenticado:', data.nombre);
         } catch (error) {
             console.error('Error al obtener el nombre del usuario:', error);
-            document.getElementById('nombreUsuario').innerText = 'Usuario';
+            document.getElementById('nombreUsuario').innerText = 'Usuario'; // En caso de error, mostrar "Usuario"
         }
     } else {
-        // Si no hay token, mostrar "Invitado"
-        document.getElementById('nombreUsuario').innerText = 'Invitado';
-        console.log('Token no encontrado. Mostrando invitado.');
+        // Si no hay token, mostrar "Usuario" de manera consistente
+        document.getElementById('nombreUsuario').innerText = 'Usuario';
+        console.log('Token no encontrado. Mostrando "Usuario".');
     }
 });
 
