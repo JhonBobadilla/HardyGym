@@ -110,3 +110,4 @@ function logMessage(message) {
 }
 
 logMessage('Script de autenticación finalizado');
+
