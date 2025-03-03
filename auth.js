@@ -43,6 +43,8 @@ function obtenerParametroURL(nombre) {
 window.addEventListener('DOMContentLoaded', async () => {
     const token = obtenerParametroURL('token') || localStorage.getItem('token');
 
+    console.log('Token detectado al cargar la página:', token); // Log para depurar
+
     if (token) {
         // Guardar el token en localStorage para mantenerlo persistente
         localStorage.setItem('token', token);
@@ -76,9 +78,11 @@ function redirigirConToken(urlDestino) {
     const token = localStorage.getItem('token');
     if (token) {
         // Pasar el token en la URL
+        console.log('Redirigiendo con token:', token); // Log para depurar
         window.location.href = `${urlDestino}?token=${token}`;
     } else {
-        // Pasar como invitado si no hay token
+        // Redirigir como invitado
+        console.log('Redirigiendo como invitado (sin token)');
         window.location.href = `${urlDestino}?invitado=true`;
     }
 }
@@ -110,4 +114,5 @@ function logMessage(message) {
 }
 
 logMessage('Script de autenticación finalizado');
+
 
