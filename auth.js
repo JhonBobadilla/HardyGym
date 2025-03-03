@@ -1,6 +1,6 @@
 // auth.js
 
-// Función para registrar un usuario como invitado// Función para registrar un usuario como invitado
+// Función para registrar un usuario como invitado
 function registrarUsuarioInvitado() {
     const emailInvitado = 'invitado@ejemplo.com'; // Asigna un correo electrónico predeterminado para invitados
     localStorage.setItem('usuarioEmail', emailInvitado);
@@ -14,10 +14,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-
-// HASTA ACÁ 
-
-
+// HASTA ACÁ
 
 function logMessage(message) {
     let logs = JSON.parse(localStorage.getItem('logs')) || [];
@@ -42,49 +39,40 @@ logMessage('Token: ' + token);
 logMessage('Viene de pago_suscripcion.html: ' + isFromPagoSuscripcion);
 logMessage('Desde pago_suscripcion almacenado: ' + fromPagoSuscripcion);
 
-if (!token && !fromPagoSuscripcion) {
-    logMessage('Redirigiendo a la página de inicio de sesión');
-    window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión si no hay token y no viene de 'pago_suscripcion.html'
-} else {
-    if (token || fromPagoSuscripcion) {
-        // Si tiene token o viene de 'pago_suscripcion.html', continua con la validación
-        logMessage('Validación permitida');
-        if (token) {
-            fetch('/getUserId', {
-                headers: { 'Authorization': `Bearer ${token}` }
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('No autorizado');
-                }
-                return response.json();
-            })
-            .then(data => {
-                logMessage('Usuario autenticado: ' + data.userId);
-                document.getElementById('nombreUsuario').innerText = data.nombre; // Mostrar el nombre del usuario
-            })
-            .catch(error => {
-                logMessage('Error en la autenticación: ' + error);
-                window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión en caso de error
-            });
-        } else {
-            logMessage('Acceso permitido desde pago_suscripcion.html');
-            document.getElementById('nombreUsuario').innerText = 'Usuario'; // Opción de usuario no autenticado, puede mostrar algo diferente
-        }
+// Ya no vamos a redirigir inmediatamente si no hay token
+if (token || fromPagoSuscripcion) {
+    logMessage('Validación permitida');
+
+    if (token) {
+        fetch('/getUserId', {
+            headers: { 'Authorization': `Bearer ${token}` }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('No autorizado');
+            }
+            return response.json();
+        })
+        .then(data => {
+            logMessage('Usuario autenticado: ' + data.userId);
+            document.getElementById('nombreUsuario').innerText = data.nombre; // Mostrar el nombre del usuario
+        })
+        .catch(error => {
+            logMessage('Error en la autenticación: ' + error);
+            // En caso de error, mostramos un mensaje o el nombre "Usuario"
+            document.getElementById('nombreUsuario').innerText = 'Usuario'; // Nombre por defecto
+        });
+    } else {
+        logMessage('Acceso permitido desde pago_suscripcion.html');
+        // Si no hay token pero viene de la página de suscripción, mostramos "Usuario"
+        document.getElementById('nombreUsuario').innerText = 'Usuario';
     }
+} else {
+    // Si no hay token y no viene de la página de suscripción, mostramos "Invitado"
+    logMessage('Acceso como invitado');
+    document.getElementById('nombreUsuario').innerText = 'Invitado';
 }
-
-/*
-
-// Lógica para cerrar sesión
-document.getElementById('logoutButton').addEventListener('click', function(event) {
-    event.preventDefault(); // Prevenir el comportamiento por defecto del enlace
-    localStorage.removeItem('token'); // Elimina el token del almacenamiento local
-    localStorage.removeItem('fromPagoSuscripcion'); // Elimina el indicador de acceso desde pago_suscripcion.html
-    window.location.href = '../public/index.html'; // Redirige a la página de inicio de sesión
-});
 
 logMessage('Script de autenticación finalizado');
 
-*/
 
